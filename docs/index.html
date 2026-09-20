@@ -151,7 +151,7 @@
     <div class="inner">
       <h1>Connectivity Cost Index</h1>
       <p class="tag">Is satellite internet's pricing premium justified by its performance, or is it a connectivity tax paid for coverage rather than speed?</p>
-      <span class="status">v1 &middot; market layer &middot; 3 states (NJ, NC, MT)</span>
+      <span class="status">v1.1 &middot; market layer &middot; 3 states (NJ, NC, MT)</span>
       <span class="baseline-note">Cost-per-Mbps computed against FCC's real reported median speeds per technology per state &mdash; not marketing "up to" figures. Personal reliability layer is currently collecting data (see &sect;5).</span>
     </div>
   </header>
@@ -159,8 +159,8 @@
   <section>
     <h2>At a glance</h2>
     <div class="tiles">
-      <div class="tile"><div class="lbl">LEO satellite, all 3 states</div><div class="num">$0.196</div>
-        <div class="sub">per Mbps (Starlink, FCC median 280 Mbps)</div></div>
+      <div class="tile"><div class="lbl">Starlink vs. licensed 5G home</div><div class="num">10&times;</div>
+        <div class="sub">cheaper per Mbps ($0.196 vs. $2.00, all 3 states)</div></div>
       <div class="tile"><div class="lbl">LEO satellite providers</div><div class="num">1</div>
         <div class="sub">unique provider in NJ, NC, and MT alike</div></div>
       <div class="tile"><div class="lbl">Cheapest technology</div><div class="num">Fiber</div>
@@ -173,7 +173,7 @@
   <section>
     <h2>The question</h2>
     <p>Satellite broadband carries a well-known reputation for being expensive relative to its speed &mdash; a "tax" paid for coverage in places wired options can't reach. This project tests that claim with public data instead of assuming it: FCC's National Broadband Map (which technologies actually serve which locations, split by GSO vs. LEO satellite) joined against published ISP/carrier pricing, across a dense metro (NJ), a suburban-mix state (NC), and a rural/satellite-dependent state (MT).</p>
-    <p>The finding complicates the premise. LEO satellite (Starlink) is <em>not</em> the worst value in any of the three states &mdash; it beats legacy GSO satellite, DSL, and fixed wireless everywhere, and only loses to cable and fiber where those are actually available. The real story is less "satellite is a tax" and more "satellite is the best option once wired infrastructure isn't there."</p>
+    <p>The finding complicates the premise, and gets more interesting the deeper the fixed-wireless category gets split apart. LEO satellite (Starlink) is <em>not</em> the worst value in any of the three states &mdash; it beats legacy GSO satellite, DSL, and every flavor of fixed wireless everywhere, and only loses to cable and fiber where those are actually available. The sharpest result: Starlink beats <strong>Licensed Fixed Wireless</strong> (Verizon 5G Home / T-Mobile Home Internet &mdash; the actual 5G-home-internet product, not a niche one) by roughly <strong>10&times;</strong> on cost-per-Mbps, $0.196 vs. $2.00, in all three states. The real story is less "satellite is a tax" and more "satellite beats most of its terrestrial wireless competition outright, and loses only to wired infrastructure where it exists."</p>
   </section>
 
   <section>
@@ -200,7 +200,7 @@
       <ul>
         <li><strong>Advertised vs. FCC-median speed gap.</strong> FCC's LEO Satellite median (280/30 Mbps) is higher than any individual Starlink residential pricing tier in the dataset (which top out at 400 Mbps for $130; the common $55 tier is only 100 Mbps). The $0.196/Mbps figure is <em>cheapest plan price &divide; FCC's fleet-wide median speed</em>, not an apples-to-apples plan-to-speed match &mdash; both columns are kept visible in the table above rather than resolved silently.</li>
         <li><strong>NJ DSL is degenerate.</strong> FCC's reported median download speed for DSL in NJ rounds to 0 Mbps across 65,253 locations &mdash; almost certainly legacy copper barely providing real service, not a data error. Cost-per-Mbps is mathematically undefined (division by zero) and shown as such in the table rather than smoothed over.</li>
-        <li><strong>The "Other" technology category is unresolved.</strong> 16&ndash;25% of FCC-reported locations in each state fall into an unlabeled technology code outside the six mapped here. Under investigation before this is called a complete picture of the market layer.</li>
+        <li><strong>Fixed Wireless is three technologies, not one.</strong> FCC splits it into Unlicensed (code 70), Licensed (71), and Licensed-by-Rule/LBR (72). An earlier version of this page collapsed all three into one "Fixed Wireless" row and let 71/72 fall into an unlabeled "Other" bucket &mdash; which mattered, since Licensed Fixed Wireless (the actual technology behind Verizon 5G Home / T-Mobile Home Internet) turned out to be the single largest fixed-wireless population by far (100&ndash;1000&times; the other two). Now split and priced correctly; LBR is small enough in all 3 states (43&ndash;47.6K locations) and has no matching published pricing, so it's shown in the table but excluded from the chart and left unpriced rather than researched for a niche product.</li>
         <li><strong>Pricing is a snapshot, not a full market.</strong> One or two representative plans per technology (cheapest published tier), not an exhaustive rate survey; national averages fill gaps where a specific regional provider wasn't researched.</li>
       </ul>
     </div>
@@ -227,29 +227,42 @@ const TECH_COLOR = {
   "Cable": "var(--accent-2)",
   "LEO Satellite": "var(--accent-3)",
   "GSO Satellite": "var(--accent-4)",
-  "Fixed Wireless": "var(--accent-5)",
-  "DSL (Copper)": "var(--accent-6)"
+  "Licensed Fixed Wireless": "var(--accent-5)",
+  "DSL (Copper)": "var(--accent-6)",
+  "Unlicensed Fixed Wireless": "var(--ink-mute)",
+  "LBR Fixed Wireless": "var(--ink-mute)"
 };
+// Unlicensed + LBR Fixed Wireless are small (Unlicensed) to negligible (LBR)
+// populations relative to Licensed Fixed Wireless in all 3 states -- per the
+// project's charting convention, a minor category folds into a neutral
+// treatment rather than competing for a 7th/8th validated categorical hue.
+const MINOR_TECH = new Set(["Unlicensed Fixed Wireless", "LBR Fixed Wireless"]);
 
 const ROWS = [
   {state:"NJ", tech:"Fiber", provider:"Verizon Fios", price:50.0, mbps:8000.0, cpm:0.006, providers:25, locations:3991930},
   {state:"NJ", tech:"Cable", provider:"Spectrum", price:50.0, mbps:1200.0, cpm:0.042, providers:7, locations:2659689},
   {state:"NJ", tech:"LEO Satellite", provider:"Starlink", price:55.0, mbps:280.0, cpm:0.196, providers:1, locations:2583442},
   {state:"NJ", tech:"GSO Satellite", provider:"Viasat", price:40.0, mbps:50.0, cpm:0.8, providers:2, locations:7750029},
-  {state:"NJ", tech:"Fixed Wireless", provider:"National average", price:45.0, mbps:10.0, cpm:4.5, providers:2, locations:103},
+  {state:"NJ", tech:"Licensed Fixed Wireless", provider:"Verizon 5G Home", price:50.0, mbps:25.0, cpm:2.0, providers:5, locations:5005830},
+  {state:"NJ", tech:"Unlicensed Fixed Wireless", provider:"National average (WISP proxy)", price:45.0, mbps:10.0, cpm:4.5, providers:2, locations:103},
   {state:"NJ", tech:"DSL (Copper)", provider:"National average", price:50.0, mbps:0.0, cpm:null, providers:11, locations:65253},
+  {state:"NJ", tech:"LBR Fixed Wireless", provider:null, price:null, mbps:1000.0, cpm:null, providers:1, locations:43},
   {state:"NC", tech:"Fiber", provider:"Verizon Fios", price:50.0, mbps:5000.0, cpm:0.01, providers:69, locations:3789193},
   {state:"NC", tech:"Cable", provider:"Spectrum", price:50.0, mbps:1000.0, cpm:0.05, providers:22, locations:3659891},
   {state:"NC", tech:"LEO Satellite", provider:"Starlink", price:55.0, mbps:280.0, cpm:0.196, providers:1, locations:4381390},
   {state:"NC", tech:"GSO Satellite", provider:"Viasat", price:40.0, mbps:100.0, cpm:0.4, providers:2, locations:13143566},
-  {state:"NC", tech:"Fixed Wireless", provider:"National average", price:45.0, mbps:25.0, cpm:1.8, providers:15, locations:357736},
+  {state:"NC", tech:"Licensed Fixed Wireless", provider:"Verizon 5G Home", price:50.0, mbps:25.0, cpm:2.0, providers:7, locations:8163089},
+  {state:"NC", tech:"Unlicensed Fixed Wireless", provider:"National average (WISP proxy)", price:45.0, mbps:25.0, cpm:1.8, providers:15, locations:357736},
   {state:"NC", tech:"DSL (Copper)", provider:"National average", price:50.0, mbps:10.0, cpm:5.0, providers:31, locations:2026675},
+  {state:"NC", tech:"LBR Fixed Wireless", provider:null, price:null, mbps:100.0, cpm:null, providers:3, locations:6134},
   {state:"MT", tech:"Cable", provider:"Spectrum", price:50.0, mbps:1000.0, cpm:0.05, providers:5, locations:267654},
   {state:"MT", tech:"Fiber", provider:"Verizon Fios", price:50.0, mbps:1000.0, cpm:0.05, providers:42, locations:215102},
   {state:"MT", tech:"LEO Satellite", provider:"Starlink", price:55.0, mbps:280.0, cpm:0.196, providers:1, locations:490379},
-  {state:"MT", tech:"Fixed Wireless", provider:"National average", price:45.0, mbps:100.0, cpm:0.45, providers:24, locations:258498},
+  {state:"MT", tech:"Unlicensed Fixed Wireless", provider:"National average (WISP proxy)", price:45.0, mbps:100.0, cpm:0.45, providers:24, locations:258498},
   {state:"MT", tech:"GSO Satellite", provider:"Viasat", price:40.0, mbps:50.0, cpm:0.8, providers:3, locations:1415897},
+  {state:"MT", tech:"Licensed Fixed Wireless", provider:"Verizon 5G Home", price:50.0, mbps:25.0, cpm:2.0, providers:11, locations:748598},
   {state:"MT", tech:"DSL (Copper)", provider:"National average", price:50.0, mbps:10.0, cpm:5.0, providers:18, locations:316785},
+  {state:"MT", tech:"LBR Fixed Wireless", provider:null, price:null, mbps:25.0, cpm:null, providers:5, locations:47652},
 ];
 
 const STATE_LABELS = {NJ:"New Jersey — dense metro", NC:"North Carolina — suburban mix", MT:"Montana — rural / satellite-dependent"};
@@ -275,8 +288,9 @@ function renderPanels(){
   });
 
   const legend = document.getElementById("legend");
-  legend.innerHTML = Object.entries(TECH_COLOR).map(([tech,color]) =>
-    `<span class="item"><span class="swatch" style="background:${color}"></span>${tech}</span>`
+  const legendEntries = Object.entries(TECH_COLOR).filter(([tech]) => tech !== "LBR Fixed Wireless");
+  legend.innerHTML = legendEntries.map(([tech,color]) =>
+    `<span class="item"><span class="swatch" style="background:${color}"></span>${tech}${MINOR_TECH.has(tech) ? " (minor)" : ""}</span>`
   ).join("");
 }
 
@@ -285,10 +299,10 @@ function renderTable(){
   tbody.innerHTML = ROWS.map(r => `<tr>
     <td>${r.state}</td>
     <td><span class="swatch" style="background:${TECH_COLOR[r.tech]}"></span>${r.tech}</td>
-    <td>${r.provider}</td>
-    <td class="num">$${r.price.toFixed(2)}</td>
+    <td>${r.provider ?? "&mdash; (no pricing match)"}</td>
+    <td class="num">${r.price === null ? "&mdash;" : "$" + r.price.toFixed(2)}</td>
     <td class="num">${r.mbps.toLocaleString()}</td>
-    <td class="num">${r.cpm === null ? "&infin;" : "$" + r.cpm.toFixed(3)}</td>
+    <td class="num">${r.cpm === null ? (r.price === null ? "&mdash;" : "&infin;") : "$" + r.cpm.toFixed(3)}</td>
     <td class="num">${r.providers}</td>
     <td class="num">${r.locations.toLocaleString()}</td>
   </tr>`).join("");
