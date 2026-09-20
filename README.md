@@ -6,7 +6,7 @@ This project builds a cost-per-Mbps comparison across internet access technologi
 
 ## Three data layers
 
-1. **Market layer** — [FCC National Broadband Map](https://broadbandmap.fcc.gov/) (coverage by technology per location) + published ISP/carrier pricing → cost-per-Mbps by technology, by region.
+1. **Market layer** — [FCC National Broadband Map](https://broadbandmap.fcc.gov/) bulk CSV downloads (free, no API key — coverage by technology per location, with satellite split into GSO vs. LEO) + published ISP/carrier pricing → cost-per-Mbps by technology, by region.
 2. **Regional performance layer** — [Ookla Open Data](https://github.com/teamookla/ookla-open-data) and/or [M-Lab](https://www.measurementlab.net/data/) → actual measured speed/latency by region and technology, not advertised speed.
 3. **Personal layer** — a lightweight logger (speedtest-cli / Cloudflare speedtest) tracking the author's own broadband and cellular connections over time, plotted against the regional baseline from layer 2.
 
