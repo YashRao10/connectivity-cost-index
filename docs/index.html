@@ -195,9 +195,27 @@
   </section>
 
   <section>
+    <h2>Real-world speed vs. advertised (Ookla)</h2>
+    <p style="font-size:13.5px;color:var(--ink-soft);margin-top:-6px">FCC's numbers above are provider-<em>reported</em> advertised speeds. This section checks them against what people actually measure: median blended speed/latency per state from Ookla's public Speedtest data (Q2 2026), across every technology mix in that state &mdash; not filtered to one technology.</p>
+    <table>
+      <thead><tr><th>State</th><th>Network</th><th>Median down (Mbps)</th><th>Median up (Mbps)</th><th>Median latency (ms)</th><th>Tests</th></tr></thead>
+      <tbody>
+        <tr><td>NJ</td><td>Fixed</td><td class="num">337.5</td><td class="num">106.0</td><td class="num">11</td><td class="num">772,497</td></tr>
+        <tr><td>NJ</td><td>Mobile</td><td class="num">215.5</td><td class="num">16.8</td><td class="num">22</td><td class="num">83,506</td></tr>
+        <tr><td>NC</td><td>Fixed</td><td class="num">358.9</td><td class="num">69.9</td><td class="num">14</td><td class="num">987,926</td></tr>
+        <tr><td>NC</td><td>Mobile</td><td class="num">182.4</td><td class="num">9.7</td><td class="num">28</td><td class="num">79,346</td></tr>
+        <tr><td>MT</td><td>Fixed</td><td class="num">166.5</td><td class="num">24.9</td><td class="num">24</td><td class="num">59,228</td></tr>
+        <tr><td>MT</td><td>Mobile</td><td class="num">154.9</td><td class="num">12.9</td><td class="num">49</td><td class="num">7,401</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:13px;color:var(--ink-mute);margin-top:10px">These are blended medians across every technology serving a state &mdash; not "fiber's real speed" or "satellite's real speed" specifically. NJ's blended fixed median (337.5 Mbps) sitting far below Fiber's advertised "up to 8000 Mbps" isn't fiber underperforming; it's that the real-world mix, including slower DSL/wireless/satellite lines, pulls the state-wide median down. Mobile is meaningfully slower than fixed everywhere, and MT (rural) has the highest mobile latency (49ms) and lowest mobile test volume by far &mdash; consistent with a thinner cellular buildout.</p>
+  </section>
+
+  <section>
     <h2>Methodology &amp; caveats</h2>
     <div class="limits">
       <ul>
+        <li><strong>Ookla regional figures use a bounding-box approximation, not true state boundaries.</strong> Tiles were filtered by lon/lat centroid box per state, which can pick up border slivers from neighboring states (e.g. NJ's box touches NY/PA/DE edges). Good enough for a directional read; not precise enough to cite as an exact per-state number. A real fix needs a spatial join against Census state shapefiles.</li>
         <li><strong>Advertised vs. FCC-median speed gap.</strong> FCC's LEO Satellite median (280/30 Mbps) is higher than any individual Starlink residential pricing tier in the dataset (which top out at 400 Mbps for $130; the common $55 tier is only 100 Mbps). The $0.196/Mbps figure is <em>cheapest plan price &divide; FCC's fleet-wide median speed</em>, not an apples-to-apples plan-to-speed match &mdash; both columns are kept visible in the table above rather than resolved silently.</li>
         <li><strong>NJ DSL is degenerate.</strong> FCC's reported median download speed for DSL in NJ rounds to 0 Mbps across 65,253 locations &mdash; almost certainly legacy copper barely providing real service, not a data error. Cost-per-Mbps is mathematically undefined (division by zero) and shown as such in the table rather than smoothed over.</li>
         <li><strong>Fixed Wireless is three technologies, not one.</strong> FCC splits it into Unlicensed (code 70), Licensed (71), and Licensed-by-Rule/LBR (72). An earlier version of this page collapsed all three into one "Fixed Wireless" row and let 71/72 fall into an unlabeled "Other" bucket &mdash; which mattered, since Licensed Fixed Wireless (the actual technology behind Verizon 5G Home / T-Mobile Home Internet) turned out to be the single largest fixed-wireless population by far (100&ndash;1000&times; the other two). Now split and priced correctly; LBR is small enough in all 3 states (43&ndash;47.6K locations) and has no matching published pricing, so it's shown in the table but excluded from the chart and left unpriced rather than researched for a niche product.</li>
@@ -216,7 +234,7 @@
   <footer>
     Data: <a href="https://broadbandmap.fcc.gov/" target="_blank" rel="noopener">FCC National Broadband Map</a> (bulk CSV, no API key) &middot;
     published ISP/carrier pricing (see <code>data/pricing_snapshot.csv</code>) &middot;
-    <a href="https://github.com/teamookla/ookla-open-data" target="_blank" rel="noopener">Ookla Open Data</a> (pulled, not yet incorporated into this page).
+    <a href="https://github.com/teamookla/ookla-open-data" target="_blank" rel="noopener">Ookla Open Data</a> (Q2 2026 fixed + mobile tiles).
     Source: <a href="https://github.com/YashRao10/connectivity-cost-index" target="_blank" rel="noopener">github.com/YashRao10/connectivity-cost-index</a>.
   </footer>
 </div>
