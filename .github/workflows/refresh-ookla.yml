@@ -1,0 +1,42 @@
+name: Refresh Ookla regional summary
+
+# Ookla publishes a new quarterly Open Data tile file a few weeks after each
+# calendar quarter ends. Runs a few weeks into each new quarter (mid-month,
+# not day 1) to give Ookla's publish lag room, and can always be triggered
+# manually. FCC broadband coverage stays a manual pull (see scripts/load_fcc_broadband.py
+# docstring) since it needs either a browser session or a registered API key,
+# neither of which fits an unattended CI job.
+on:
+  schedule:
+    - cron: "0 12 15 1,4,7,10 *"  # 15th of Jan/Apr/Jul/Oct, 12:00 UTC
+  workflow_dispatch: {}
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Pull latest Ookla fixed + mobile tiles
+        run: |
+          python scripts/pull_ookla.py --latest --type fixed
+          python scripts/pull_ookla.py --latest --type mobile
+
+      - name: Build regional summary
+        run: python scripts/load_ookla_regional.py
+
+      - name: Commit updated summary if changed
+        run: |
+          git config user.name "connectivity-cost-index-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/ookla_regional_summary.csv
+          git diff --cached --quiet && echo "No changes" && exit 0
+          git commit -m "Automated quarterly refresh: Ookla regional summary"
+          git push
