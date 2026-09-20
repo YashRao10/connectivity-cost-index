@@ -2,21 +2,24 @@ state_usps,technology_label,locations_served,unique_providers,median_max_down_mb
 MT,Cable,267654,5,1000.0,35.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.05
 MT,Fiber,215102,42,1000.0,1000.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.05
 MT,LEO Satellite,490379,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
-MT,Fixed Wireless,258498,24,100.0,32.0,National average,Typical residential,45.0,50.0,0.9,0.45
+MT,Unlicensed Fixed Wireless,258498,24,100.0,32.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,0.45
 MT,GSO Satellite,1415897,3,50.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.8
+MT,Licensed Fixed Wireless,748598,11,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,2.0
 MT,DSL (Copper),316785,18,10.0,1.0,National average,Typical residential,50.0,25.0,2.0,5.0
-MT,Other,796250,16,25.0,5.0,,,,,,
+MT,LBR Fixed Wireless,47652,5,25.0,5.0,,,,,,
 NC,Fiber,3789193,69,5000.0,5000.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.01
 NC,Cable,3659891,22,1000.0,35.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.05
 NC,LEO Satellite,4381390,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
 NC,GSO Satellite,13143566,2,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.4
-NC,Fixed Wireless,357736,15,25.0,10.0,National average,Typical residential,45.0,50.0,0.9,1.8
+NC,Unlicensed Fixed Wireless,357736,15,25.0,10.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,1.8
+NC,Licensed Fixed Wireless,8163089,7,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,2.0
 NC,DSL (Copper),2026675,31,10.0,1.0,National average,Typical residential,50.0,25.0,2.0,5.0
-NC,Other,8169223,9,25.0,3.0,,,,,,
+NC,LBR Fixed Wireless,6134,3,100.0,20.0,,,,,,
 NJ,Fiber,3991930,25,8000.0,8000.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.006
 NJ,Cable,2659689,7,1200.0,35.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.042
 NJ,LEO Satellite,2583442,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
 NJ,GSO Satellite,7750029,2,50.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.8
-NJ,Fixed Wireless,103,2,10.0,1.0,National average,Typical residential,45.0,50.0,0.9,4.5
+NJ,Licensed Fixed Wireless,5005830,5,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,2.0
+NJ,Unlicensed Fixed Wireless,103,2,10.0,1.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,4.5
 NJ,DSL (Copper),65253,11,0.0,0.0,National average,Typical residential,50.0,25.0,2.0,inf
-NJ,Other,5005873,6,25.0,3.0,,,,,,
+NJ,LBR Fixed Wireless,43,1,1000.0,1000.0,,,,,,
