@@ -24,6 +24,9 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      - name: Pull Census state boundary shapefile
+        run: python scripts/pull_census_shapes.py
+
       - name: Pull latest Ookla fixed + mobile tiles
         run: |
           python scripts/pull_ookla.py --latest --type fixed
