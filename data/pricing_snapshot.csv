@@ -7,3 +7,10 @@ leo_satellite,Starlink,Roam Unlimited,175,100,1.750,2026-09,satelliteinternet.co
 direct_to_cell,T-Satellite (Starlink/T-Mobile),Standalone add-on,10,,,2026-09,usmobile.com
 leo_satellite,Amazon Kuiper,No public consumer pricing yet,,,,2026-09,orbitalradar.com
 gso_satellite,Legacy satphone (Iridium/Thuraya),Voice/data handset,,,,2026-09,payloadspace.com
+gso_satellite,HughesNet,Entry (up to 50 Mbps),54.99,50,1.100,2026-09,broadbandnow.com
+gso_satellite,HughesNet,Top tier (up to 100 Mbps),94.99,100,0.950,2026-09,satelliteinternet.com
+gso_satellite,Viasat,Essentials (up to 150 Mbps),69.99,150,0.467,2026-09,satelliteinternet.com
+cable,National average,Typical residential,65,300,0.217,2026-09,broadbandnow.com
+fiber,National average,Typical residential,80,500,0.160,2026-09,broadbandnow.com
+dsl,National average,Typical residential,50,25,2.000,2026-09,broadbandnow.com
+fixed_wireless,National average,Typical residential,45,50,0.900,2026-09,broadbandnow.com
