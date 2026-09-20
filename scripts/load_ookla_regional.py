@@ -1,50 +1,54 @@
-"""Filter Ookla Open Data performance tiles down to our 3 comparison states
-(NJ/NC/MT) and summarize actual measured speeds vs. FCC's advertised medians.
+"""Filter Ookla Open Data performance tiles down to our comparison states
+and summarize actual measured speeds vs. FCC's advertised medians.
 
 Input: data/raw/ookla/{fixed,mobile}/*.parquet (from scripts/pull_ookla.py)
+       data/raw/census/cb_2023_us_state_20m.shp (US Census cartographic
+       boundary file, 20m resolution -- small enough to ship in the repo
+       if desired, but currently gitignored under data/raw/)
 Output: data/ookla_regional_summary.csv
 
-Filtering approach: bounding-box on tile centroid (tile_x/tile_y = lon/lat),
-not a true point-in-polygon state boundary check. This is a v1 approximation
--- each bbox can pick up slivers of neighboring states near the border (e.g.
-NJ's bbox touches parts of NY/PA/DE). Good enough to see fixed-vs-mobile and
-actual-vs-advertised gaps at a glance; not precise enough for a per-state
-number anyone should cite as exact. A real fix would spatially join against
-US Census state boundary shapefiles (e.g. via geopandas), left as a TODO if
-this needs to be tighter.
+Filtering approach: true point-in-polygon spatial join (geopandas sjoin,
+predicate="within") of each tile's centroid against real Census state
+boundaries -- replaces the earlier v1 bounding-box approximation, which
+could misattribute border tiles to the wrong state. Shapely 2.x's vectorized
+point construction keeps this fast even at nationwide scale (~6-7M tiles).
 """
 
 from pathlib import Path
 
+import geopandas as gpd
 import pandas as pd
 import pyarrow.parquet as pq
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 RAW_DIR = DATA_DIR / "raw" / "ookla"
+CENSUS_SHP = DATA_DIR / "raw" / "census" / "cb_2023_us_state_20m.shp"
 
-# Approximate bounding boxes (lon_min, lon_max, lat_min, lat_max).
-STATE_BBOX = {
-    "NJ": (-75.6, -73.9, 38.9, 41.4),
-    "NC": (-84.3, -75.4, 33.8, 36.6),
-    "MT": (-116.1, -104.0, 44.4, 49.0),
-}
+# States covered by this comparison -- expand this list to scale the project;
+# no code changes needed elsewhere, load_fcc_broadband.py and
+# build_cost_comparison.py just need matching FCC downloads per new state.
+COMPARISON_STATES = ["NJ", "NC", "MT"]
 
 
-def load_and_filter(parquet_path: Path) -> pd.DataFrame:
+def load_state_boundaries() -> gpd.GeoDataFrame:
+    states = gpd.read_file(CENSUS_SHP)[["STUSPS", "geometry"]]
+    return states[states["STUSPS"].isin(COMPARISON_STATES)]
+
+
+def load_and_filter(parquet_path: Path, states: gpd.GeoDataFrame) -> pd.DataFrame:
     pf = pq.ParquetFile(parquet_path)
     cols = ["tile_x", "tile_y", "avg_d_kbps", "avg_u_kbps", "avg_lat_ms", "tests"]
     frames = []
     for batch in pf.iter_batches(batch_size=1_000_000, columns=cols):
         chunk = batch.to_pandas()
-        for state, (lon_min, lon_max, lat_min, lat_max) in STATE_BBOX.items():
-            mask = (
-                chunk["tile_x"].between(lon_min, lon_max)
-                & chunk["tile_y"].between(lat_min, lat_max)
-            )
-            if mask.any():
-                sub = chunk.loc[mask].copy()
-                sub["state_usps"] = state
-                frames.append(sub)
+        points = gpd.GeoDataFrame(
+            chunk,
+            geometry=gpd.points_from_xy(chunk["tile_x"], chunk["tile_y"]),
+            crs=states.crs,
+        )
+        joined = gpd.sjoin(points, states, how="inner", predicate="within")
+        if not joined.empty:
+            frames.append(joined.rename(columns={"STUSPS": "state_usps"}))
     return pd.concat(frames, ignore_index=True) if frames else pd.DataFrame()
 
 
@@ -68,15 +72,16 @@ def summarize(df: pd.DataFrame, net_type: str) -> pd.DataFrame:
 
 
 if __name__ == "__main__":
+    states = load_state_boundaries()
     results = []
     for net_type in ("fixed", "mobile"):
         files = sorted((RAW_DIR / net_type).glob("*.parquet"))
         if not files:
             print(f"No {net_type} parquet files found, skipping")
             continue
-        raw = load_and_filter(files[0])
+        raw = load_and_filter(files[0], states)
         if raw.empty:
-            print(f"No {net_type} tiles matched any state bbox")
+            print(f"No {net_type} tiles matched any state boundary")
             continue
         results.append(summarize(raw, net_type))
 
