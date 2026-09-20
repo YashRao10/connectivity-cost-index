@@ -11,7 +11,10 @@ $pythonExe = (Get-Command python).Source
 $script = Join-Path $repoRoot "logger\collect_sample.py"
 
 $action = New-ScheduledTaskAction -Execute $pythonExe -Argument "`"$script`" --label home-desktop" -WorkingDirectory $repoRoot
-$trigger = New-ScheduledTaskTrigger -Once -At (Get-Date) -RepetitionInterval (New-TimeSpan -Minutes 30) -RepetitionDuration ([TimeSpan]::MaxValue)
+# [TimeSpan]::MaxValue produces an out-of-range duration in the underlying
+# task XML (P99999999D...); 10 years is effectively "indefinitely" for a
+# 30-min-interval logger and stays within the format Task Scheduler accepts.
+$trigger = New-ScheduledTaskTrigger -Once -At (Get-Date) -RepetitionInterval (New-TimeSpan -Minutes 30) -RepetitionDuration (New-TimeSpan -Days 3650)
 $settings = New-ScheduledTaskSettingsSet -StartWhenAvailable -DontStopOnIdleEnd -ExecutionTimeLimit (New-TimeSpan -Minutes 2)
 
 Register-ScheduledTask -TaskName "ConnectivityLogger-HomeDesktop" `
