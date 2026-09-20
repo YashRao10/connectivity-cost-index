@@ -1,0 +1,9 @@
+technology,provider,plan,monthly_price_usd,advertised_mbps_down,cost_per_mbps_usd,as_of,source
+leo_satellite,Starlink,Residential,55,100,0.550,2026-09,satelliteinternet.com
+leo_satellite,Starlink,Residential 200,85,200,0.425,2026-09,satelliteinternet.com
+leo_satellite,Starlink,Residential Max,130,400,0.325,2026-09,satelliteinternet.com
+leo_satellite,Starlink,Roam 100GB,55,100,0.550,2026-09,satelliteinternet.com
+leo_satellite,Starlink,Roam Unlimited,175,100,1.750,2026-09,satelliteinternet.com
+direct_to_cell,T-Satellite (Starlink/T-Mobile),Standalone add-on,10,,,2026-09,usmobile.com
+leo_satellite,Amazon Kuiper,No public consumer pricing yet,,,,2026-09,orbitalradar.com
+gso_satellite,Legacy satphone (Iridium/Thuraya),Voice/data handset,,,,2026-09,payloadspace.com
