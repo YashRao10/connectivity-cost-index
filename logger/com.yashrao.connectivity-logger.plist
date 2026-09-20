@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.yashrao.connectivity-logger</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/usr/bin/python3</string>
+        <string>/Users/yashrao/dev/connectivity-cost-index/logger/collect_sample.py</string>
+        <string>--label</string>
+        <string>home-wifi</string>
+    </array>
+    <key>StartInterval</key>
+    <integer>1800</integer>
+    <key>StandardOutPath</key>
+    <string>/Users/yashrao/dev/connectivity-cost-index/logger/logger.out.log</string>
+    <key>StandardErrorPath</key>
+    <string>/Users/yashrao/dev/connectivity-cost-index/logger/logger.err.log</string>
+</dict>
+</plist>
