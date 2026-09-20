@@ -25,13 +25,20 @@ import pandas as pd
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 
 # Map pricing_snapshot's technology slugs to fcc_technology_summary's labels.
+# Fixed wireless is split into licensed/unlicensed/LBR (FCC codes 71/70/72) --
+# an earlier version collapsed these into one "fixed_wireless" slug and
+# compared Verizon 5G Home / T-Mobile Home Internet pricing (both licensed
+# spectrum) against the wrong, much smaller FCC population (unlicensed only).
+# Licensed dwarfs the other two by 100-1000x in all 3 states, so keeping them
+# split matters, not just for completeness.
 TECH_TO_FCC_LABEL = {
     "leo_satellite": "LEO Satellite",
     "gso_satellite": "GSO Satellite",
     "cable": "Cable",
     "fiber": "Fiber",
     "dsl": "DSL (Copper)",
-    "fixed_wireless": "Fixed Wireless",
+    "licensed_fixed_wireless": "Licensed Fixed Wireless",
+    "unlicensed_fixed_wireless": "Unlicensed Fixed Wireless",
     # direct_to_cell has no FCC fixed-broadband counterpart -- it's a mobile
     # add-on, not a fixed technology, so it's excluded from this join.
 }

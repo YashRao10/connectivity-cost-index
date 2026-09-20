@@ -19,10 +19,10 @@ cable,Spectrum,Gig 1 Gbps,90,1000,0.090,2026-09,cabletv.com
 fiber,AT&T Fiber,300 Mbps (standard),55,300,0.183,2026-09,broadbandnow.com
 fiber,Verizon Fios,300 Mbps,50,300,0.167,2026-09,internetproviders.ai
 fiber,Verizon Fios,fastest tier,120,2300,0.052,2026-09,internetproviders.ai
-fixed_wireless,Verizon 5G Home,Entry (100 Mbps),50,100,0.500,2026-09,myutilitysearch.com
-fixed_wireless,Verizon 5G Home,Top tier (300 Mbps),70,300,0.233,2026-09,myutilitysearch.com
-fixed_wireless,T-Mobile Home Internet,Standard,50,166,0.301,2026-09,t-mobile.com
+licensed_fixed_wireless,Verizon 5G Home,Entry (100 Mbps),50,100,0.500,2026-09,myutilitysearch.com
+licensed_fixed_wireless,Verizon 5G Home,Top tier (300 Mbps),70,300,0.233,2026-09,myutilitysearch.com
+licensed_fixed_wireless,T-Mobile Home Internet,Standard,50,166,0.301,2026-09,t-mobile.com
 cable,National average,Typical residential,65,300,0.217,2026-09,broadbandnow.com
 fiber,National average,Typical residential,80,500,0.160,2026-09,broadbandnow.com
 dsl,National average,Typical residential,50,25,2.000,2026-09,broadbandnow.com
-fixed_wireless,National average,Typical residential,45,50,0.900,2026-09,broadbandnow.com
+unlicensed_fixed_wireless,National average (WISP proxy),Typical residential,45,50,0.900,2026-09,broadbandnow.com

@@ -21,7 +21,20 @@ Technology codes (FCC BDC schema) -- confirmed against a real header:
     50 = Fiber to the premises
     60 = GSO Satellite (geostationary)
     61 = Non-GSO Satellite (LEO, e.g. Starlink)
-    70 = Terrestrial Fixed Wireless
+    70 = Unlicensed Fixed Wireless
+    71 = Licensed Fixed Wireless
+    72 = Licensed-by-Rule (LBR) Fixed Wireless
+
+Fixed wireless is NOT one category -- 70/71/72 are three separate FCC codes
+with very different population sizes (in NJ/NC/MT: 71 dwarfs 70 and 72 by
+100-1000x -- Licensed Fixed Wireless is Verizon 5G Home / T-Mobile Home
+Internet, i.e. the actual consumer 5G-home-internet technology, while 70 is
+small WISP-style unlicensed service). An earlier version of this script only
+mapped 70 and let 71/72 fall into "Other", which silently misrepresented
+"Other" as noise when it was actually the largest fixed-wireless population
+by far. Kept split (not collapsed into one "Fixed Wireless" bucket) because
+licensed vs. unlicensed spectrum has real performance/reliability
+implications worth keeping visible.
 
 Confirmed columns (from bdc_34_NGSOSatellite_fixed_broadband_D25_15sep2026.csv,
 NJ): frn, provider_id, brand_name, location_id, technology,
@@ -43,7 +56,9 @@ TECH_CODE_LABELS = {
     50: "Fiber",
     60: "GSO Satellite",
     61: "LEO Satellite",
-    70: "Fixed Wireless",
+    70: "Unlicensed Fixed Wireless",
+    71: "Licensed Fixed Wireless",
+    72: "LBR Fixed Wireless",
 }
 
 
