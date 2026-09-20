@@ -47,6 +47,28 @@ TECH_CODE_LABELS = {
 }
 
 
+# Only pull the columns the summary actually needs -- the full files also
+# carry frn, location_id, h3_res8_id, low_latency, business_residential_code,
+# block_geoid, provider_id, which roughly double the row width for no benefit
+# here and were what blew memory on a 61M-row concat (crashed with a
+# MemoryError on df.copy() inside summarize_by_technology, desktop had enough
+# disk but not enough RAM to hold the full frame plus a copy of it).
+USECOLS = [
+    "technology",
+    "max_advertised_download_speed",
+    "max_advertised_upload_speed",
+    "brand_name",
+    "state_usps",
+]
+DTYPES = {
+    "technology": "int8",
+    "max_advertised_download_speed": "float32",
+    "max_advertised_upload_speed": "float32",
+    "brand_name": "category",
+    "state_usps": "category",
+}
+
+
 def load_state_csvs() -> pd.DataFrame:
     files = sorted(RAW_DIR.rglob("*.csv"))
     if not files:
@@ -56,20 +78,26 @@ def load_state_csvs() -> pd.DataFrame:
         )
     frames = []
     for f in files:
-        df = pd.read_csv(f)
+        header = pd.read_csv(f, nrows=0).columns
+        usecols = [c for c in USECOLS if c in header]
+        dtypes = {c: DTYPES[c] for c in usecols if c != "state_usps"}
+        df = pd.read_csv(f, usecols=usecols, dtype=dtypes)
         if "state_usps" not in df.columns:
             # Fall back to the parent folder name (e.g. "nj_fixed") if a
             # future vintage drops the state_usps column.
             df["state_usps"] = f.parent.name.split("_")[0].upper()
+        df["state_usps"] = df["state_usps"].astype("category")
         frames.append(df)
+    # concat with categoricals: pandas unions categories automatically here
     return pd.concat(frames, ignore_index=True)
 
 
 def summarize_by_technology(df: pd.DataFrame) -> pd.DataFrame:
-    df = df.copy()
+    # No .copy() -- this column assignment doesn't need one, and copying the
+    # full frame is what exhausted memory on the 61M-row concat.
     df["technology_label"] = df["technology"].map(TECH_CODE_LABELS).fillna("Other")
     return (
-        df.groupby(["state_usps", "technology_label"])
+        df.groupby(["state_usps", "technology_label"], observed=True)
         .agg(
             locations_served=("technology", "count"),
             unique_providers=("brand_name", "nunique"),
