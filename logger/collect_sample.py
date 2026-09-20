@@ -18,8 +18,10 @@ market-layer analysis only unless/until that access exists.
 from __future__ import annotations
 
 import argparse
+import platform
 import re
 import sqlite3
+import statistics
 import subprocess
 import time
 from pathlib import Path
@@ -73,9 +75,11 @@ def measure_upload() -> float | None:
 
 
 def measure_ping():
+    is_windows = platform.system() == "Windows"
+    count_flag = "-n" if is_windows else "-c"
     try:
         out = subprocess.run(
-            ["ping", "-c", str(PING_COUNT), PING_TARGET],
+            ["ping", count_flag, str(PING_COUNT), PING_TARGET],
             capture_output=True,
             text=True,
             timeout=30,
@@ -83,16 +87,23 @@ def measure_ping():
     except subprocess.SubprocessError:
         return None, None, None
 
-    loss_match = re.search(r"([\d.]+)% packet loss", out)
+    # Packet loss: Windows says "Lost = 0 (0% loss)", macOS/Linux say
+    # "X% packet loss" -- try both rather than branching on platform, in
+    # case wording changes across OS versions.
+    loss_match = re.search(r"\(([\d.]+)%\s*loss\)", out) or re.search(
+        r"([\d.]+)% packet loss", out
+    )
     packet_loss = float(loss_match.group(1)) if loss_match else None
 
-    # macOS/BSD ping summary: round-trip min/avg/max/stddev = a/b/c/d ms
-    stats_match = re.search(
-        r"= ([\d.]+)/([\d.]+)/([\d.]+)/([\d.]+) ms", out
-    )
-    if stats_match:
-        avg_ms = float(stats_match.group(2))
-        jitter_ms = float(stats_match.group(4))
+    # Compute avg/jitter ourselves from individual reply times rather than
+    # trusting each OS's own summary line -- Windows ping doesn't report
+    # stddev/jitter at all, only min/max/avg, so this is the only way to
+    # get a jitter figure on Windows. Matches "time=12ms" (Windows) and
+    # "time=12.345 ms" (macOS/Linux) with one regex.
+    times = [float(m) for m in re.findall(r"time[=<]([\d.]+)\s*ms", out)]
+    if times:
+        avg_ms = round(statistics.mean(times), 2)
+        jitter_ms = round(statistics.stdev(times), 2) if len(times) > 1 else 0.0
     else:
         avg_ms = jitter_ms = None
     return avg_ms, jitter_ms, packet_loss
