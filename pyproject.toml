@@ -1,0 +1,13 @@
+[project]
+name = "connectivity-cost-index"
+version = "0.1.0"
+description = "Cost-per-Mbps comparison across internet access technologies, with a personal reliability overlay"
+requires-python = ">=3.11"
+dependencies = [
+    "requests",
+    "pandas",
+    "pyarrow",
+]
+
+[tool.ruff]
+line-length = 100
