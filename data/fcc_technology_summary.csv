@@ -1,4 +1,30 @@
 state_usps,technology_label,locations_served,unique_providers,median_max_down_mbps,median_max_up_mbps
+AL,GSO Satellite,6602646,3,100.0,4.0
+AL,Licensed Fixed Wireless,3730200,7,25.0,3.0
+AL,LEO Satellite,2197519,1,280.0,30.0
+AL,Cable,1893635,14,1000.0,35.0
+AL,Fiber,1659237,65,2000.0,2000.0
+AL,DSL (Copper),1069352,25,10.0,1.0
+AL,Unlicensed Fixed Wireless,24508,9,25.0,10.0
+AL,LBR Fixed Wireless,18069,1,100.0,20.0
+AL,Other,1,1,30.0,30.0
+AR,GSO Satellite,4067884,2,100.0,4.0
+AR,Licensed Fixed Wireless,2367084,9,25.0,3.0
+AR,LEO Satellite,1355779,1,280.0,30.0
+AR,Fiber,1155860,71,2000.0,2000.0
+AR,Cable,889275,21,1200.0,50.0
+AR,DSL (Copper),533541,21,10.0,1.0
+AR,Unlicensed Fixed Wireless,79432,28,45.0,10.0
+AR,LBR Fixed Wireless,70921,11,25.0,3.0
+AZ,GSO Satellite,8227689,3,100.0,4.0
+AZ,Licensed Fixed Wireless,5620131,10,25.0,3.0
+AZ,Unlicensed Fixed Wireless,3111626,42,100.0,25.0
+AZ,LEO Satellite,2755191,1,280.0,30.0
+AZ,Cable,2038494,11,2000.0,100.0
+AZ,DSL (Copper),1797224,20,40.0,3.0
+AZ,Fiber,1557665,50,2300.0,2300.0
+AZ,LBR Fixed Wireless,628704,9,400.0,100.0
+AZ,Other,1,1,0.0,0.0
 CA,GSO Satellite,30762079,3,100.0,4.0
 CA,Licensed Fixed Wireless,20621111,23,25.0,6.0
 CA,LEO Satellite,10246075,1,280.0,30.0
@@ -16,6 +42,20 @@ CO,Fiber,1502695,89,2000.0,2000.0
 CO,Unlicensed Fixed Wireless,1334546,53,50.0,10.0
 CO,DSL (Copper),1184080,23,40.0,3.0
 CO,LBR Fixed Wireless,752941,18,250.0,100.0
+CT,GSO Satellite,3271775,2,50.0,4.0
+CT,Licensed Fixed Wireless,2093490,3,25.0,3.0
+CT,Fiber,1790892,15,7000.0,7000.0
+CT,Cable,1144684,5,2000.0,100.0
+CT,LEO Satellite,1090843,1,280.0,30.0
+CT,DSL (Copper),178140,4,10.0,1.0
+DE,GSO Satellite,1213722,2,150.0,4.0
+DE,Licensed Fixed Wireless,855086,4,25.0,3.0
+DE,LEO Satellite,404574,1,280.0,30.0
+DE,Cable,389908,4,1200.0,50.0
+DE,Fiber,285581,12,2300.0,2300.0
+DE,Unlicensed Fixed Wireless,25163,3,25.0,3.0
+DE,LBR Fixed Wireless,10092,1,50.0,10.0
+DE,DSL (Copper),4,1,225.0,115.0
 FL,GSO Satellite,22993764,3,100.0,4.0
 FL,Licensed Fixed Wireless,16010328,10,25.0,3.0
 FL,LEO Satellite,7659382,1,280.0,30.0
@@ -25,6 +65,31 @@ FL,DSL (Copper),3427638,20,10.0,1.0
 FL,LBR Fixed Wireless,628004,8,50.0,10.0
 FL,Unlicensed Fixed Wireless,178258,18,50.0,25.0
 FL,Other,3,1,1000.0,1000.0
+GA,GSO Satellite,11601441,3,100.0,4.0
+GA,Licensed Fixed Wireless,6775248,8,25.0,3.0
+GA,LEO Satellite,3862293,1,280.0,30.0
+GA,Cable,3444290,25,1200.0,50.0
+GA,Fiber,2988931,101,2000.0,2000.0
+GA,DSL (Copper),1887066,31,10.0,1.0
+GA,Unlicensed Fixed Wireless,26241,15,50.0,5.0
+GA,LBR Fixed Wireless,2106,1,100.0,100.0
+ID,GSO Satellite,2294383,3,50.0,3.0
+ID,Licensed Fixed Wireless,1154690,12,120.0,20.0
+ID,Unlicensed Fixed Wireless,879982,33,50.0,10.0
+ID,LEO Satellite,763640,1,280.0,30.0
+ID,Fiber,599610,48,2000.0,2000.0
+ID,Cable,505792,13,1000.0,50.0
+ID,DSL (Copper),420160,22,25.0,3.0
+ID,LBR Fixed Wireless,159740,13,100.0,10.0
+IL,GSO Satellite,12380745,2,100.0,4.0
+IL,Licensed Fixed Wireless,8960016,14,25.0,6.0
+IL,LEO Satellite,4126493,1,280.0,30.0
+IL,Cable,4076726,12,1500.0,150.0
+IL,Fiber,2558108,116,5120.0,5120.0
+IL,DSL (Copper),2149896,34,50.0,10.0
+IL,Unlicensed Fixed Wireless,849468,55,60.0,10.0
+IL,LBR Fixed Wireless,504872,22,100.0,20.0
+IL,Other,13,1,0.0,0.0
 MT,GSO Satellite,1415897,3,50.0,4.0
 MT,Licensed Fixed Wireless,748598,11,25.0,3.0
 MT,LEO Satellite,490379,1,280.0,30.0

@@ -27,7 +27,10 @@ CENSUS_SHP = DATA_DIR / "raw" / "census" / "cb_2023_us_state_20m.shp"
 # States covered by this comparison -- expand this list to scale the project;
 # no code changes needed elsewhere, load_fcc_broadband.py and
 # build_cost_comparison.py just need matching FCC downloads per new state.
-COMPARISON_STATES = ["NJ", "NC", "MT", "CA", "TX", "NY", "OH", "FL", "WA", "CO"]
+COMPARISON_STATES = [
+    "NJ", "NC", "MT", "CA", "TX", "NY", "OH", "FL", "WA", "CO",
+    "AL", "AR", "AZ", "CT", "DE", "GA", "ID", "IL",
+]
 
 
 def load_state_boundaries() -> gpd.GeoDataFrame:
