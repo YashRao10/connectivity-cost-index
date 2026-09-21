@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
 <style>
   :root{
     color-scheme: light;
@@ -254,6 +255,16 @@
       <tbody></tbody>
     </table>
     <p style="font-size:13px;color:var(--ink-mute);margin-top:10px">The spread is wide: <strong>Montana gets ~$444 per GSO-satellite-served location</strong> vs. <strong>New Jersey's ~$34</strong> &mdash; a 13&times; difference. That's not a red flag; it's the formula working as intended (BEAD explicitly weights toward high-cost rural buildout, where running fiber to a handful of remote homes costs far more per location than a dense suburban buildout). The more interesting question this project can eventually answer with more states: does the per-location subsidy actually track real deployment cost, or does it just track politics/formula quirks? Not resolved here &mdash; this is a first pass, not a verdict.</p>
+  </section>
+
+  <section>
+    <h2>BEAD subsidy intensity, by state</h2>
+    <p style="font-size:13.5px;color:var(--ink-soft);margin-top:-6px">Same $ per GSO-satellite-served-location figure as the table above, shown geographically. Darker shading &#61; more subsidy dollars per underserved location (higher rural-buildout cost weighting). Grey states have no data in this pass &mdash; the project covers 10 states, not all 50. Hover a colored state for its numbers.</p>
+    <div class="panel" id="mapwrap" style="padding:16px">
+      <svg id="statemap" viewBox="0 0 960 600" style="width:100%;height:auto;display:block"></svg>
+      <div id="maptooltip" style="position:fixed;pointer-events:none;display:none;background:var(--panel);border:1px solid var(--border-hair);border-radius:6px;padding:8px 10px;font-family:var(--mono);font-size:12px;color:var(--ink);box-shadow:0 4px 16px rgba(0,0,0,0.25);z-index:50"></div>
+    </div>
+    <div class="legend" id="maplegend"></div>
   </section>
 
   <section>
@@ -563,11 +574,53 @@ function renderOoklaTable(){
   </tr>`).join("");
 }
 
+function renderMap(){
+  const svg = d3.select("#statemap");
+  const tooltip = document.getElementById("maptooltip");
+  const width = 960, height = 600;
+  const projection = d3.geoAlbersUsa().translate([width/2, height/2]).scale(1200);
+  const path = d3.geoPath().projection(projection);
+
+  fetch("data/state_map.geojson").then(r => r.json()).then(geo => {
+    const priced = geo.features.filter(f => f.properties.bead_usd_per_gso_location != null);
+    const values = priced.map(f => f.properties.bead_usd_per_gso_location);
+    const color = d3.scaleSequential(d3.interpolateRgb("#dff0e8", "#0ca34a")).domain([d3.min(values), d3.max(values)]);
+    const noDataFill = "var(--grid)";
+
+    svg.selectAll("path")
+      .data(geo.features)
+      .join("path")
+      .attr("d", path)
+      .attr("fill", d => d.properties.has_data ? color(d.properties.bead_usd_per_gso_location) : noDataFill)
+      .attr("stroke", "var(--bg)")
+      .attr("stroke-width", 1)
+      .style("cursor", d => d.properties.has_data ? "pointer" : "default")
+      .on("mousemove", (event, d) => {
+        if (!d.properties.has_data) { tooltip.style.display = "none"; return; }
+        const p = d.properties;
+        tooltip.innerHTML = `<strong>${p.NAME}</strong><br>$${p.bead_usd_per_gso_location.toFixed(2)} per GSO-served location<br>BEAD allocation: $${Math.round(p.bead_allocation_usd).toLocaleString()}<br>Cheapest tech: ${p.cheapest_technology ?? "n/a"} ($${p.cheapest_cost_per_mbps_usd?.toFixed(3) ?? "n/a"}/Mbps)`;
+        tooltip.style.display = "block";
+        tooltip.style.left = (event.clientX + 14) + "px";
+        tooltip.style.top = (event.clientY + 14) + "px";
+      })
+      .on("mouseleave", () => { tooltip.style.display = "none"; });
+
+    const legend = document.getElementById("maplegend");
+    const lo = d3.min(values), hi = d3.max(values);
+    legend.innerHTML = `
+      <span class="item"><span class="swatch" style="background:${color(lo)}"></span>$${lo.toFixed(0)}/location (least subsidy-intense &mdash; NJ)</span>
+      <span class="item"><span class="swatch" style="background:${color(hi)}"></span>$${hi.toFixed(0)}/location (most subsidy-intense &mdash; MT)</span>
+      <span class="item"><span class="swatch" style="background:var(--grid)"></span>no data (not in this 10-state pass)</span>
+    `;
+  });
+}
+
 renderRangeChart();
 setupFilterControls();
 renderTable();
 renderOoklaTable();
 renderBeadTable();
+renderMap();
 </script>
 </body>
 </html>
