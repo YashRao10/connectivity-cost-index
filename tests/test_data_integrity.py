@@ -110,11 +110,18 @@ def test_ookla_summary_covers_all_51_states(ookla_summary):
 
 def test_bead_comparison_schema(bead_comparison):
     expected_cols = {
-        "state_usps", "bead_allocation_usd", "gso_satellite_locations",
-        "bead_usd_per_gso_location",
+        "state_usps", "original_allocation_usd", "provisional_award_usd",
+        "pct_change_vs_original", "gso_satellite_locations",
+        "provisional_usd_per_gso_location",
     }
     assert expected_cols.issubset(bead_comparison.columns)
 
 
 def test_bead_allocations_are_positive(bead_comparison):
-    assert (bead_comparison["bead_allocation_usd"] > 0).all()
+    assert (bead_comparison["original_allocation_usd"] > 0).all()
+    assert (bead_comparison["provisional_award_usd"] > 0).all()
+
+
+def test_bead_comparison_covers_all_51_states(bead_comparison):
+    missing = VALID_STATE_CODES - set(bead_comparison["state_usps"])
+    assert not missing, f"BEAD layer missing state(s): {missing}"

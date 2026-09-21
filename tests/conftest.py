@@ -56,7 +56,7 @@ def ookla_summary() -> pd.DataFrame:
 
 @pytest.fixture(scope="session")
 def bead_comparison() -> pd.DataFrame:
-    path = DATA_DIR / "bead_allocation_v1.csv"
+    path = DATA_DIR / "bead_allocation_v2.csv"
     if not path.exists():
         pytest.skip(f"{path} not present (run scripts/build_bead_comparison.py first)")
     return pd.read_csv(path)
