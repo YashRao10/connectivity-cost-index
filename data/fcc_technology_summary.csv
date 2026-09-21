@@ -338,6 +338,30 @@ TX,Unlicensed Fixed Wireless,5111566,128,100.0,20.0
 TX,DSL (Copper),2871146,64,25.0,5.0
 TX,LBR Fixed Wireless,1579944,35,200.0,50.0
 TX,Other,867,1,100.0,100.0
+UT,GSO Satellite,3104711,3,100.0,4.0
+UT,Licensed Fixed Wireless,2394996,10,25.0,3.0
+UT,Fiber,1431851,37,2500.0,2500.0
+UT,Unlicensed Fixed Wireless,1054304,32,50.0,15.0
+UT,LEO Satellite,1034144,1,280.0,30.0
+UT,Cable,862760,9,2000.0,250.0
+UT,DSL (Copper),601188,14,10.0,1.0
+UT,LBR Fixed Wireless,249129,6,25.0,5.0
+VA,GSO Satellite,8751193,2,100.0,4.0
+VA,Licensed Fixed Wireless,4600239,11,25.0,3.0
+VA,LEO Satellite,2915803,1,280.0,30.0
+VA,Cable,2344951,15,2000.0,35.0
+VA,Fiber,2315451,63,1000.0,1000.0
+VA,DSL (Copper),271861,19,0.0,0.0
+VA,Unlicensed Fixed Wireless,193742,22,25.0,5.0
+VA,LBR Fixed Wireless,2784,3,100.0,20.0
+VT,GSO Satellite,768584,2,50.0,4.0
+VT,Licensed Fixed Wireless,563775,5,25.0,3.0
+VT,LEO Satellite,282226,1,280.0,30.0
+VT,Fiber,203946,22,2000.0,2000.0
+VT,Cable,191040,4,1200.0,35.0
+VT,DSL (Copper),108650,9,10.0,1.0
+VT,Unlicensed Fixed Wireless,9014,4,75.0,25.0
+VT,LBR Fixed Wireless,7990,5,50.0,10.0
 WA,GSO Satellite,7728964,3,100.0,4.0
 WA,Licensed Fixed Wireless,4967049,11,25.0,3.0
 WA,LEO Satellite,2572740,1,280.0,30.0

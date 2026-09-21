@@ -338,6 +338,30 @@ TX,Licensed Fixed Wireless,21010925,32,25.0,6.0,Verizon 5G Home,Entry (100 Mbps)
 TX,DSL (Copper),2871146,64,25.0,5.0,National average,Typical residential,50.0,25.0,2.0,2.0
 TX,LBR Fixed Wireless,1579944,35,200.0,50.0,,,,,,
 TX,Other,867,1,100.0,100.0,,,,,,
+UT,Fiber,1431851,37,2500.0,2500.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.02
+UT,Cable,862760,9,2000.0,250.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.025
+UT,LEO Satellite,1034144,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
+UT,GSO Satellite,3104711,3,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.4
+UT,Unlicensed Fixed Wireless,1054304,32,50.0,15.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,0.9
+UT,Licensed Fixed Wireless,2394996,10,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,2.0
+UT,DSL (Copper),601188,14,10.0,1.0,National average,Typical residential,50.0,25.0,2.0,5.0
+UT,LBR Fixed Wireless,249129,6,25.0,5.0,,,,,,
+VA,Cable,2344951,15,2000.0,35.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.025
+VA,Fiber,2315451,63,1000.0,1000.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.05
+VA,LEO Satellite,2915803,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
+VA,GSO Satellite,8751193,2,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.4
+VA,Unlicensed Fixed Wireless,193742,22,25.0,5.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,1.8
+VA,Licensed Fixed Wireless,4600239,11,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,2.0
+VA,DSL (Copper),271861,19,0.0,0.0,National average,Typical residential,50.0,25.0,2.0,inf
+VA,LBR Fixed Wireless,2784,3,100.0,20.0,,,,,,
+VT,Fiber,203946,22,2000.0,2000.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.025
+VT,Cable,191040,4,1200.0,35.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.042
+VT,LEO Satellite,282226,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
+VT,Unlicensed Fixed Wireless,9014,4,75.0,25.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,0.6
+VT,GSO Satellite,768584,2,50.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.8
+VT,Licensed Fixed Wireless,563775,5,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,2.0
+VT,DSL (Copper),108650,9,10.0,1.0,National average,Typical residential,50.0,25.0,2.0,5.0
+VT,LBR Fixed Wireless,7990,5,50.0,10.0,,,,,,
 WA,Cable,2294425,19,2000.0,250.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.025
 WA,Fiber,1177139,76,2000.0,1000.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.025
 WA,LEO Satellite,2572740,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
