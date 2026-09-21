@@ -170,7 +170,7 @@
       <p class="kicker"><span class="dot"></span>live market + reliability data</p>
       <h1>Connectivity Cost Index</h1>
       <p class="tag">Is satellite internet's pricing premium justified by its performance, or is it a connectivity tax paid for coverage rather than speed?</p>
-      <span class="status">v2.0 &middot; market + real-world layers &middot; 10 states (NJ, NC, MT, CA, TX, NY, OH, FL, WA, CO)</span>
+      <span class="status">v3.0 &middot; market layer: all 50 states + DC &middot; real-world/BEAD layers: partial coverage (see below)</span>
       <span class="baseline-note">Cost-per-Mbps computed against FCC's real reported median speeds per technology per state &mdash; not marketing "up to" figures. Personal reliability layer is currently collecting data (see &sect; personal reliability layer, below).</span>
     </div>
   </header>
@@ -178,34 +178,34 @@
   <section>
     <h2>At a glance</h2>
     <div class="tiles">
-      <div class="tile"><div class="lbl">Starlink vs. licensed 5G home</div><div class="num">10&times;</div>
-        <div class="sub">cheaper per Mbps ($0.196 vs. $2.00) in <strong>all 10</strong> states, metro to rural</div></div>
+      <div class="tile"><div class="lbl">Starlink vs. licensed 5G home</div><div class="num">51/51</div>
+        <div class="sub">cheaper per Mbps in every state + DC &mdash; margin ranges 2.1&times; (ID) to 25.5&times; (AK)</div></div>
       <div class="tile"><div class="lbl">LEO satellite providers</div><div class="num">1</div>
-        <div class="sub">unique provider in every one of the 10 states</div></div>
+        <div class="sub">unique provider in all 50 states + DC</div></div>
       <div class="tile"><div class="lbl">Cheapest technology</div><div class="num">Fiber</div>
-        <div class="sub">$0.006&ndash;0.05/Mbps where available</div></div>
-      <div class="tile"><div class="lbl">Worst technology</div><div class="num">DSL</div>
-        <div class="sub">$1&ndash;5/Mbps, or unusable in NJ</div></div>
+        <div class="sub">$0.006&ndash;0.053/Mbps where available</div></div>
+      <div class="tile"><div class="lbl">Where satellite loses</div><div class="num">3 states</div>
+        <div class="sub">RI, HI, NV: DSL or unlicensed fixed wireless edge out LEO satellite</div></div>
     </div>
   </section>
 
   <section>
     <h2>The question</h2>
-    <p>Satellite broadband carries a well-known reputation for being expensive relative to its speed &mdash; a "tax" paid for coverage in places wired options can't reach. This project tests that claim with public data instead of assuming it: FCC's National Broadband Map (which technologies actually serve which locations, split by GSO vs. LEO satellite) joined against published ISP/carrier pricing, across 10 states chosen for regional spread &mdash; West Coast (CA, WA), Sun Belt (TX, FL), Midwest (OH), Mountain West (CO, MT), and Northeast/major-metro (NJ, NY, NC).</p>
-    <p>The finding complicates the premise, and holds up as the sample grows. LEO satellite (Starlink) is <em>not</em> the worst value in any of the 10 states &mdash; it beats legacy GSO satellite, DSL, and every flavor of fixed wireless everywhere, and only loses to cable and fiber where those are actually available. The sharpest result: Starlink beats <strong>Licensed Fixed Wireless</strong> (Verizon 5G Home / T-Mobile Home Internet &mdash; the actual 5G-home-internet product, not a niche one) by exactly <strong>10&times;</strong> on cost-per-Mbps, $0.196 vs. $2.00, in <em>every single one</em> of the 10 states &mdash; dense metros (NJ, NY, CA) and rural states (MT) alike. This was true at 3 states; it's just as true at 10 across every region type tested. The real story is less "satellite is a tax" and more "satellite beats most of its terrestrial wireless competition outright, and loses only to wired infrastructure where it exists."</p>
-    <p style="font-size:13px;color:var(--ink-mute)">Worth flagging up front, not buried in methodology: Starlink and Licensed Fixed Wireless show <em>zero</em> cross-state variance in this dataset ($0.196 and $2.00 exactly everywhere) because both use one national price point against a technology-level FCC median that doesn't move much by state. Fiber, Cable, GSO Satellite, and DSL vary meaningfully by state because their real per-state median speeds do. The 10x gap is real and the underlying market structure (one national LEO provider, one dominant national price) is itself part of the finding &mdash; but it's a mechanical constant, not 10 independent confirmations of the same result. See methodology for the full caveat.</p>
+    <p>Satellite broadband carries a well-known reputation for being expensive relative to its speed &mdash; a "tax" paid for coverage in places wired options can't reach. This project tests that claim with public data instead of assuming it: FCC's National Broadband Map (which technologies actually serve which locations, split by GSO vs. LEO satellite) joined against published ISP/carrier pricing. The market layer now covers <strong>all 50 states plus DC</strong> &mdash; every region type, not a sample.</p>
+    <p>The finding holds at full scale, though it's more nuanced than the earlier 10-state version suggested. LEO satellite (Starlink) beats legacy GSO satellite everywhere (51 of 51) and beats <strong>Licensed Fixed Wireless</strong> (Verizon 5G Home / T-Mobile Home Internet &mdash; the actual 5G-home-internet product, not a niche one) everywhere too (51 of 51) &mdash; but not always by the same exact 10&times; margin the smaller sample showed. Most states land at exactly 10&times; ($0.196 vs. $2.00), but the gap ranges from a modest 2.1&times; in Idaho ($0.417) up to 25.5&times; in Alaska ($5.00). It does <em>not</em> beat every other technology everywhere, though: DSL in Rhode Island, and unlicensed fixed wireless pricing in Hawaii, Nevada, and Rhode Island, both come in cheaper than LEO satellite on this metric &mdash; real exceptions, not smoothed over. The real story is less "satellite always wins" and more "satellite reliably beats its most direct national competitor (licensed 5G home internet) everywhere, while losing occasionally to cheaper legacy/local options and consistently to wired infrastructure where that exists."</p>
+    <p style="font-size:13px;color:var(--ink-mute)">Worth flagging up front, not buried in methodology: Starlink's own cost-per-Mbps is <em>flat</em> at $0.196 in every state (one national price against an FCC technology-level median that barely moves), while Licensed Fixed Wireless is <em>not</em> flat at full scale &mdash; it varies from $0.417 to $5.00 depending on that state's FCC-reported median speed tier for the technology. So the "beats it everywhere" finding is 51 genuinely different comparisons, not one national ratio repeated 51 times &mdash; a meaningfully stronger claim than the original 10-state framing, which happened to sample only states where Licensed Fixed Wireless's speed tier was identical. See methodology for the full caveat.</p>
   </section>
 
   <section>
-    <h2>Cost per Mbps, range across all 10 states</h2>
-    <p style="font-size:13.5px;color:var(--ink-soft);margin-top:-6px">Each bar spans the lowest-to-highest <code>monthly price &divide; FCC median advertised download speed</code> seen for that technology across all 10 states (cheapest published plan per technology). A bar with no visible span means the value is identical everywhere &mdash; true for LEO Satellite and Licensed Fixed Wireless (see note above). NJ's DSL entry (undefined, median speed rounds to 0 Mbps) is excluded from this range; see methodology.</p>
+    <h2>Cost per Mbps, range across all 50 states + DC</h2>
+    <p style="font-size:13.5px;color:var(--ink-soft);margin-top:-6px">Each bar spans the lowest-to-highest <code>monthly price &divide; FCC median advertised download speed</code> seen for that technology nationwide (cheapest published plan per technology). A bar with no visible span means the value is identical everywhere &mdash; true only for LEO Satellite now that the sample covers all 50 states + DC (Licensed Fixed Wireless, flat in the earlier 10-state sample, now shows real variance &mdash; see note above). States with an undefined DSL cost (median speed rounds to 0 Mbps) are excluded from this range; see methodology.</p>
     <div class="panel" id="rangechart"></div>
     <div class="legend" id="legend"></div>
   </section>
 
   <section>
     <h2>BEAD subsidy intensity, by state</h2>
-    <p style="font-size:13.5px;color:var(--ink-soft);margin-top:-6px">Same $ per GSO-satellite-served-location figure as the table further below, shown geographically. Darker shading &#61; more subsidy dollars per underserved location (higher rural-buildout cost weighting). Grey states have no data in this pass &mdash; the project covers 10 states, not all 50. Hover a colored state for its numbers.</p>
+    <p style="font-size:13.5px;color:var(--ink-soft);margin-top:-6px">Same $ per GSO-satellite-served-location figure as the table further below, shown geographically. Darker shading &#61; more subsidy dollars per underserved location (higher rural-buildout cost weighting). Grey states have no BEAD data yet &mdash; this policy layer still only covers the original 10-state sample (BEAD allocation research wasn't re-run at full 50-state scale, see methodology), even though the market layer above it now covers all 50 states + DC. Hover a colored state for its numbers.</p>
     <div class="panel" id="mapwrap" style="padding:16px">
       <svg id="statemap" viewBox="0 0 960 600" style="width:100%;height:auto;display:block"></svg>
       <div id="maptooltip" style="position:fixed;pointer-events:none;display:none;background:var(--panel);border:1px solid var(--border-hair);border-radius:6px;padding:8px 10px;font-family:var(--mono);font-size:12px;color:var(--ink);box-shadow:0 4px 16px rgba(0,0,0,0.25);z-index:50"></div>
@@ -249,12 +249,12 @@
 
   <section>
     <h2>Real-world speed vs. advertised (Ookla)</h2>
-    <p style="font-size:13.5px;color:var(--ink-soft);margin-top:-6px">FCC's numbers above are provider-<em>reported</em> advertised speeds. This section checks them against what people actually measure: median blended speed/latency per state from Ookla's public Speedtest data (Q2 2026), across every technology mix in that state &mdash; not filtered to one technology.</p>
+    <p style="font-size:13.5px;color:var(--ink-soft);margin-top:-6px">FCC's numbers above are provider-<em>reported</em> advertised speeds. This section checks them against what people actually measure: median blended speed/latency per state from Ookla's public Speedtest data (Q2 2026), across every technology mix in that state &mdash; not filtered to one technology. Covers 36 of the 51 states/DC with FCC data so far &mdash; this layer hasn't caught up to the market layer's full national expansion yet.</p>
     <table id="ooklatable">
       <thead><tr><th>State</th><th>Network</th><th>Median down (Mbps)</th><th>Median up (Mbps)</th><th>Median latency (ms)</th><th>Tests</th></tr></thead>
       <tbody></tbody>
     </table>
-    <p style="font-size:13px;color:var(--ink-mute);margin-top:10px">These are blended medians across every technology serving a state &mdash; not "fiber's real speed" or "satellite's real speed" specifically. A high-fiber-density state's blended fixed median sitting far below fiber's advertised "up to 8000 Mbps" isn't fiber underperforming; it's that the real-world mix, including slower DSL/wireless/satellite lines, pulls the state-wide median down. Mobile is meaningfully slower than fixed everywhere. Across the 10 states, fixed median download ranges from 171.1 Mbps (MT, rural) to 398.8 Mbps (FL) &mdash; MT also has the highest mobile latency (49ms) and lowest mobile test volume by far, consistent with a thinner cellular buildout. This layer now uses a real Census-shapefile point-in-polygon join per state (upgraded from an earlier bounding-box approximation).</p>
+    <p style="font-size:13px;color:var(--ink-mute);margin-top:10px">These are blended medians across every technology serving a state &mdash; not "fiber's real speed" or "satellite's real speed" specifically. A high-fiber-density state's blended fixed median sitting far below fiber's advertised "up to 8000 Mbps" isn't fiber underperforming; it's that the real-world mix, including slower DSL/wireless/satellite lines, pulls the state-wide median down. Mobile is meaningfully slower than fixed everywhere. Across the 36 states covered so far, fixed median download ranges from 171.1 Mbps (MT, rural) to 398.8 Mbps (FL) &mdash; MT also has the highest mobile latency (49ms) and lowest mobile test volume by far, consistent with a thinner cellular buildout. This layer now uses a real Census-shapefile point-in-polygon join per state (upgraded from an earlier bounding-box approximation).</p>
   </section>
 
   <section>
@@ -285,11 +285,12 @@
     <div class="limits">
       <ul>
         <li><strong>Ookla regional figures now use a real state-boundary join (fixed from v1.2).</strong> Originally filtered by a lon/lat bounding box, which could pick up border slivers from neighboring states. Now does a true point-in-polygon join against US Census cartographic boundary shapefiles (via geopandas). Numbers shifted slightly once border noise was excluded (e.g. NC's fixed-tile count dropped from ~124K to ~73K tiles, median down speed nudged up).</li>
-        <li><strong>Starlink and Licensed Fixed Wireless show zero cross-state variance in this dataset.</strong> Both are priced from a single national plan compared against an FCC technology-level median that barely moves by state (280/30 Mbps for LEO Satellite, 25/3 Mbps for Licensed Fixed Wireless, in literally every one of the 10 states). The resulting $0.196 vs. $2.00 numbers are exactly identical everywhere &mdash; a real reflection of national pricing and a fairly flat FCC-reported speed tier, not 10 independently-arrived-at confirmations of the same ratio. Fiber, Cable, GSO Satellite, and DSL vary meaningfully by state because their real per-state median speeds do.</li>
-        <li><strong>A small "Other" technology bucket appears in 4 of the 10 states.</strong> CA (4 locations), FL (3), NY (1), and TX (867) have a handful of locations under an FCC technology code outside the 8 mapped here. Negligible in every case (never above ~0.01% of a state's locations) &mdash; noted rather than silently dropped, but not worth a dedicated investigation at this size.</li>
+        <li><strong>Starlink's cost-per-Mbps is flat nationwide; Licensed Fixed Wireless's is not, once the sample grew past 10 states.</strong> Starlink is priced from a single national plan against an FCC technology-level median that barely moves (280/30 Mbps in all 51 states/DC), so its $0.196/Mbps is genuinely identical everywhere. The original 10-state sample happened to show Licensed Fixed Wireless at a flat $2.00 too, which looked like the same mechanical pattern &mdash; but at full 51-state scale it actually varies $0.417 (Idaho) to $5.00 (Alaska), because that technology's FCC-reported speed tier isn't as nationally uniform as Starlink's. The "beats it everywhere" finding is therefore stronger now, not weaker: 51 genuinely different comparisons landing the same direction, not one ratio repeated.</li>
+        <li><strong>LEO satellite does not beat every technology everywhere.</strong> DSL in Rhode Island ($0.05/Mbps) and unlicensed fixed wireless pricing in Hawaii, Nevada, and Rhode Island (as low as $0.045/Mbps) all come in cheaper than Starlink's $0.196/Mbps on this metric. These are real exceptions surfaced by the full-state expansion, not present in the original 10-state sample, and are not smoothed over here.</li>
+        <li><strong>A small "Other" technology bucket appears in 15 of the 51 states/DC.</strong> Locations under an FCC technology code outside the 8 mapped here, largest in TX (867 locations). Negligible in every case (never above ~0.001% of a state's locations) &mdash; noted rather than silently dropped, but not worth a dedicated investigation at this size.</li>
         <li><strong>BEAD allocation figures are pre-restructuring and materially wrong for at least 3 verified states (see callout above).</strong> The June 2023 initial allocation was superseded by NTIA's 2025 "Benefit of the Bargain" restructuring; confirmed actual awards are dramatically lower for NJ (-76%), TX (~-62%), and CO (~-52%) so far. This isn't a minor staleness caveat &mdash; the underlying program changed. NTIA's own allocation-totals page blocks automated fetching, so even the original figures were sourced via secondary aggregators rather than pulled programmatically. A full re-verification against confirmed final/provisional awards for every state is the next planned step for this layer, not optional polish. GSO Satellite locations served is used as an "underserved" proxy, not a precise BEAD-eligibility count (a location can have both satellite and another option available) &mdash; grounded in BEAD's own treatment of satellite as non-qualifying/lower-tier service, but still an approximation, and this is a first pass at the policy layer, not a finished analysis.</li>
         <li><strong>Advertised vs. FCC-median speed gap.</strong> FCC's LEO Satellite median (280/30 Mbps) is higher than any individual Starlink residential pricing tier in the dataset (which top out at 400 Mbps for $130; the common $55 tier is only 100 Mbps). The $0.196/Mbps figure is <em>cheapest plan price &divide; FCC's fleet-wide median speed</em>, not an apples-to-apples plan-to-speed match &mdash; both columns are kept visible in the table above rather than resolved silently.</li>
-        <li><strong>NJ DSL is degenerate.</strong> FCC's reported median download speed for DSL in NJ rounds to 0 Mbps across 65,253 locations &mdash; almost certainly legacy copper barely providing real service, not a data error. Cost-per-Mbps is mathematically undefined (division by zero) and shown as such in the table rather than smoothed over.</li>
+        <li><strong>DSL is degenerate in 2 states.</strong> FCC's reported median download speed for DSL rounds to 0 Mbps in NJ (65,253 locations) and VA (271,861 locations) &mdash; almost certainly legacy copper barely providing real service, not a data error. Cost-per-Mbps is mathematically undefined (division by zero) in both and shown as such in the table rather than smoothed over.</li>
         <li><strong>Fixed Wireless is three technologies, not one.</strong> FCC splits it into Unlicensed (code 70), Licensed (71), and Licensed-by-Rule/LBR (72). An earlier version of this page collapsed all three into one "Fixed Wireless" row and let 71/72 fall into an unlabeled "Other" bucket &mdash; which mattered, since Licensed Fixed Wireless (the actual technology behind Verizon 5G Home / T-Mobile Home Internet) turned out to be the single largest fixed-wireless population by far in every state. Now split and priced correctly; LBR has no matching published pricing in any state, so it's shown in the table but excluded from the range chart and left unpriced rather than researched for a niche product.</li>
         <li><strong>Pricing is a snapshot, not a full market.</strong> One or two representative plans per technology (cheapest published tier), not an exhaustive rate survey; national averages fill gaps where a specific regional provider wasn't researched.</li>
       </ul>
@@ -842,7 +843,7 @@ function renderRangeChart(){
     const leftPct = (min / overallMax) * 100;
     const widthPct = Math.max(1.5, ((max - min) / overallMax) * 100);
     const label = min === max
-      ? `$${min.toFixed(3)} (flat, all 10 states)`
+      ? `$${min.toFixed(3)} (flat, all 50 states + DC)`
       : `$${min.toFixed(3)}&ndash;$${max.toFixed(3)}`;
     return `<div class="barrow" style="grid-template-columns:150px 1fr 150px">
       <span>${tech}</span>
@@ -1047,7 +1048,7 @@ function renderMap(){
     legend.innerHTML = `
       <span class="item"><span class="swatch" style="background:${color(lo)}"></span>$${lo.toFixed(0)}/location (least subsidy-intense &mdash; NJ)</span>
       <span class="item"><span class="swatch" style="background:${color(hi)}"></span>$${hi.toFixed(0)}/location (most subsidy-intense &mdash; MT)</span>
-      <span class="item"><span class="swatch" style="background:var(--grid)"></span>no data (not in this 10-state pass)</span>
+      <span class="item"><span class="swatch" style="background:var(--grid)"></span>no BEAD data yet (policy layer covers 10 of 50 states)</span>
     `;
   });
 }
