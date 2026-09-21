@@ -152,7 +152,7 @@
       <p class="kicker"><span class="dot"></span>live market + reliability data</p>
       <h1>Connectivity Cost Index</h1>
       <p class="tag">Is satellite internet's pricing premium justified by its performance, or is it a connectivity tax paid for coverage rather than speed?</p>
-      <span class="status">v1.2 &middot; market + real-world layers &middot; 3 states (NJ, NC, MT)</span>
+      <span class="status">v2.0 &middot; market + real-world layers &middot; 10 states (NJ, NC, MT, CA, TX, NY, OH, FL, WA, CO)</span>
       <span class="baseline-note">Cost-per-Mbps computed against FCC's real reported median speeds per technology per state &mdash; not marketing "up to" figures. Personal reliability layer is currently collecting data (see &sect; personal reliability layer, below).</span>
     </div>
   </header>
@@ -161,26 +161,27 @@
     <h2>At a glance</h2>
     <div class="tiles">
       <div class="tile"><div class="lbl">Starlink vs. licensed 5G home</div><div class="num">10&times;</div>
-        <div class="sub">cheaper per Mbps ($0.196 vs. $2.00, all 3 states)</div></div>
+        <div class="sub">cheaper per Mbps ($0.196 vs. $2.00) in <strong>all 10</strong> states, metro to rural</div></div>
       <div class="tile"><div class="lbl">LEO satellite providers</div><div class="num">1</div>
-        <div class="sub">unique provider in NJ, NC, and MT alike</div></div>
+        <div class="sub">unique provider in every one of the 10 states</div></div>
       <div class="tile"><div class="lbl">Cheapest technology</div><div class="num">Fiber</div>
         <div class="sub">$0.006&ndash;0.05/Mbps where available</div></div>
       <div class="tile"><div class="lbl">Worst technology</div><div class="num">DSL</div>
-        <div class="sub">$5.00/Mbps, or unusable in NJ</div></div>
+        <div class="sub">$1&ndash;5/Mbps, or unusable in NJ</div></div>
     </div>
   </section>
 
   <section>
     <h2>The question</h2>
-    <p>Satellite broadband carries a well-known reputation for being expensive relative to its speed &mdash; a "tax" paid for coverage in places wired options can't reach. This project tests that claim with public data instead of assuming it: FCC's National Broadband Map (which technologies actually serve which locations, split by GSO vs. LEO satellite) joined against published ISP/carrier pricing, across a dense metro (NJ), a suburban-mix state (NC), and a rural/satellite-dependent state (MT).</p>
-    <p>The finding complicates the premise, and gets more interesting the deeper the fixed-wireless category gets split apart. LEO satellite (Starlink) is <em>not</em> the worst value in any of the three states &mdash; it beats legacy GSO satellite, DSL, and every flavor of fixed wireless everywhere, and only loses to cable and fiber where those are actually available. The sharpest result: Starlink beats <strong>Licensed Fixed Wireless</strong> (Verizon 5G Home / T-Mobile Home Internet &mdash; the actual 5G-home-internet product, not a niche one) by roughly <strong>10&times;</strong> on cost-per-Mbps, $0.196 vs. $2.00, in all three states. The real story is less "satellite is a tax" and more "satellite beats most of its terrestrial wireless competition outright, and loses only to wired infrastructure where it exists."</p>
+    <p>Satellite broadband carries a well-known reputation for being expensive relative to its speed &mdash; a "tax" paid for coverage in places wired options can't reach. This project tests that claim with public data instead of assuming it: FCC's National Broadband Map (which technologies actually serve which locations, split by GSO vs. LEO satellite) joined against published ISP/carrier pricing, across 10 states chosen for regional spread &mdash; West Coast (CA, WA), Sun Belt (TX, FL), Midwest (OH), Mountain West (CO, MT), and Northeast/major-metro (NJ, NY, NC).</p>
+    <p>The finding complicates the premise, and holds up as the sample grows. LEO satellite (Starlink) is <em>not</em> the worst value in any of the 10 states &mdash; it beats legacy GSO satellite, DSL, and every flavor of fixed wireless everywhere, and only loses to cable and fiber where those are actually available. The sharpest result: Starlink beats <strong>Licensed Fixed Wireless</strong> (Verizon 5G Home / T-Mobile Home Internet &mdash; the actual 5G-home-internet product, not a niche one) by exactly <strong>10&times;</strong> on cost-per-Mbps, $0.196 vs. $2.00, in <em>every single one</em> of the 10 states &mdash; dense metros (NJ, NY, CA) and rural states (MT) alike. This was true at 3 states; it's just as true at 10 across every region type tested. The real story is less "satellite is a tax" and more "satellite beats most of its terrestrial wireless competition outright, and loses only to wired infrastructure where it exists."</p>
+    <p style="font-size:13px;color:var(--ink-mute)">Worth flagging up front, not buried in methodology: Starlink and Licensed Fixed Wireless show <em>zero</em> cross-state variance in this dataset ($0.196 and $2.00 exactly everywhere) because both use one national price point against a technology-level FCC median that doesn't move much by state. Fiber, Cable, GSO Satellite, and DSL vary meaningfully by state because their real per-state median speeds do. The 10x gap is real and the underlying market structure (one national LEO provider, one dominant national price) is itself part of the finding &mdash; but it's a mechanical constant, not 10 independent confirmations of the same result. See methodology for the full caveat.</p>
   </section>
 
   <section>
-    <h2>Cost per Mbps, by state and technology</h2>
-    <p style="font-size:13.5px;color:var(--ink-soft);margin-top:-6px">Bars show <code>monthly price &divide; FCC median advertised download speed</code> for the cheapest published plan per technology. Sorted cheapest to most expensive within each state. NJ's DSL entry is omitted from the chart (FCC-reported median speed rounds to 0 Mbps &mdash; see methodology) but shown in the table.</p>
-    <div class="statepanels" id="statepanels"></div>
+    <h2>Cost per Mbps, range across all 10 states</h2>
+    <p style="font-size:13.5px;color:var(--ink-soft);margin-top:-6px">Each bar spans the lowest-to-highest <code>monthly price &divide; FCC median advertised download speed</code> seen for that technology across all 10 states (cheapest published plan per technology). A bar with no visible span means the value is identical everywhere &mdash; true for LEO Satellite and Licensed Fixed Wireless (see note above). NJ's DSL entry (undefined, median speed rounds to 0 Mbps) is excluded from this range; see methodology.</p>
+    <div class="panel" id="rangechart"></div>
     <div class="legend" id="legend"></div>
   </section>
 
@@ -198,28 +199,23 @@
   <section>
     <h2>Real-world speed vs. advertised (Ookla)</h2>
     <p style="font-size:13.5px;color:var(--ink-soft);margin-top:-6px">FCC's numbers above are provider-<em>reported</em> advertised speeds. This section checks them against what people actually measure: median blended speed/latency per state from Ookla's public Speedtest data (Q2 2026), across every technology mix in that state &mdash; not filtered to one technology.</p>
-    <table>
+    <table id="ooklatable">
       <thead><tr><th>State</th><th>Network</th><th>Median down (Mbps)</th><th>Median up (Mbps)</th><th>Median latency (ms)</th><th>Tests</th></tr></thead>
-      <tbody>
-        <tr><td>NJ</td><td>Fixed</td><td class="num">337.5</td><td class="num">106.0</td><td class="num">11</td><td class="num">772,497</td></tr>
-        <tr><td>NJ</td><td>Mobile</td><td class="num">215.5</td><td class="num">16.8</td><td class="num">22</td><td class="num">83,506</td></tr>
-        <tr><td>NC</td><td>Fixed</td><td class="num">358.9</td><td class="num">69.9</td><td class="num">14</td><td class="num">987,926</td></tr>
-        <tr><td>NC</td><td>Mobile</td><td class="num">182.4</td><td class="num">9.7</td><td class="num">28</td><td class="num">79,346</td></tr>
-        <tr><td>MT</td><td>Fixed</td><td class="num">166.5</td><td class="num">24.9</td><td class="num">24</td><td class="num">59,228</td></tr>
-        <tr><td>MT</td><td>Mobile</td><td class="num">154.9</td><td class="num">12.9</td><td class="num">49</td><td class="num">7,401</td></tr>
-      </tbody>
+      <tbody></tbody>
     </table>
-    <p style="font-size:13px;color:var(--ink-mute);margin-top:10px">These are blended medians across every technology serving a state &mdash; not "fiber's real speed" or "satellite's real speed" specifically. NJ's blended fixed median (337.5 Mbps) sitting far below Fiber's advertised "up to 8000 Mbps" isn't fiber underperforming; it's that the real-world mix, including slower DSL/wireless/satellite lines, pulls the state-wide median down. Mobile is meaningfully slower than fixed everywhere, and MT (rural) has the highest mobile latency (49ms) and lowest mobile test volume by far &mdash; consistent with a thinner cellular buildout.</p>
+    <p style="font-size:13px;color:var(--ink-mute);margin-top:10px">These are blended medians across every technology serving a state &mdash; not "fiber's real speed" or "satellite's real speed" specifically. A high-fiber-density state's blended fixed median sitting far below fiber's advertised "up to 8000 Mbps" isn't fiber underperforming; it's that the real-world mix, including slower DSL/wireless/satellite lines, pulls the state-wide median down. Mobile is meaningfully slower than fixed everywhere. Across the 10 states, fixed median download ranges from 171.1 Mbps (MT, rural) to 398.8 Mbps (FL) &mdash; MT also has the highest mobile latency (49ms) and lowest mobile test volume by far, consistent with a thinner cellular buildout. This layer now uses a real Census-shapefile point-in-polygon join per state (upgraded from an earlier bounding-box approximation).</p>
   </section>
 
   <section>
     <h2>Methodology &amp; caveats</h2>
     <div class="limits">
       <ul>
-        <li><strong>Ookla regional figures use a bounding-box approximation, not true state boundaries.</strong> Tiles were filtered by lon/lat centroid box per state, which can pick up border slivers from neighboring states (e.g. NJ's box touches NY/PA/DE edges). Good enough for a directional read; not precise enough to cite as an exact per-state number. A real fix needs a spatial join against Census state shapefiles.</li>
+        <li><strong>Ookla regional figures now use a real state-boundary join (fixed from v1.2).</strong> Originally filtered by a lon/lat bounding box, which could pick up border slivers from neighboring states. Now does a true point-in-polygon join against US Census cartographic boundary shapefiles (via geopandas). Numbers shifted slightly once border noise was excluded (e.g. NC's fixed-tile count dropped from ~124K to ~73K tiles, median down speed nudged up).</li>
+        <li><strong>Starlink and Licensed Fixed Wireless show zero cross-state variance in this dataset.</strong> Both are priced from a single national plan compared against an FCC technology-level median that barely moves by state (280/30 Mbps for LEO Satellite, 25/3 Mbps for Licensed Fixed Wireless, in literally every one of the 10 states). The resulting $0.196 vs. $2.00 numbers are exactly identical everywhere &mdash; a real reflection of national pricing and a fairly flat FCC-reported speed tier, not 10 independently-arrived-at confirmations of the same ratio. Fiber, Cable, GSO Satellite, and DSL vary meaningfully by state because their real per-state median speeds do.</li>
+        <li><strong>A small "Other" technology bucket appears in 4 of the 10 states.</strong> CA (4 locations), FL (3), NY (1), and TX (867) have a handful of locations under an FCC technology code outside the 8 mapped here. Negligible in every case (never above ~0.01% of a state's locations) &mdash; noted rather than silently dropped, but not worth a dedicated investigation at this size.</li>
         <li><strong>Advertised vs. FCC-median speed gap.</strong> FCC's LEO Satellite median (280/30 Mbps) is higher than any individual Starlink residential pricing tier in the dataset (which top out at 400 Mbps for $130; the common $55 tier is only 100 Mbps). The $0.196/Mbps figure is <em>cheapest plan price &divide; FCC's fleet-wide median speed</em>, not an apples-to-apples plan-to-speed match &mdash; both columns are kept visible in the table above rather than resolved silently.</li>
         <li><strong>NJ DSL is degenerate.</strong> FCC's reported median download speed for DSL in NJ rounds to 0 Mbps across 65,253 locations &mdash; almost certainly legacy copper barely providing real service, not a data error. Cost-per-Mbps is mathematically undefined (division by zero) and shown as such in the table rather than smoothed over.</li>
-        <li><strong>Fixed Wireless is three technologies, not one.</strong> FCC splits it into Unlicensed (code 70), Licensed (71), and Licensed-by-Rule/LBR (72). An earlier version of this page collapsed all three into one "Fixed Wireless" row and let 71/72 fall into an unlabeled "Other" bucket &mdash; which mattered, since Licensed Fixed Wireless (the actual technology behind Verizon 5G Home / T-Mobile Home Internet) turned out to be the single largest fixed-wireless population by far (100&ndash;1000&times; the other two). Now split and priced correctly; LBR is small enough in all 3 states (43&ndash;47.6K locations) and has no matching published pricing, so it's shown in the table but excluded from the chart and left unpriced rather than researched for a niche product.</li>
+        <li><strong>Fixed Wireless is three technologies, not one.</strong> FCC splits it into Unlicensed (code 70), Licensed (71), and Licensed-by-Rule/LBR (72). An earlier version of this page collapsed all three into one "Fixed Wireless" row and let 71/72 fall into an unlabeled "Other" bucket &mdash; which mattered, since Licensed Fixed Wireless (the actual technology behind Verizon 5G Home / T-Mobile Home Internet) turned out to be the single largest fixed-wireless population by far in every state. Now split and priced correctly; LBR has no matching published pricing in any state, so it's shown in the table but excluded from the range chart and left unpriced rather than researched for a niche product.</li>
         <li><strong>Pricing is a snapshot, not a full market.</strong> One or two representative plans per technology (cheapest published tier), not an exhaustive rate survey; national averages fill gaps where a specific regional provider wasn't researched.</li>
       </ul>
     </div>
@@ -235,7 +231,8 @@
   <footer>
     Data: <a href="https://broadbandmap.fcc.gov/" target="_blank" rel="noopener">FCC National Broadband Map</a> (bulk CSV, no API key) &middot;
     published ISP/carrier pricing (see <code>data/pricing_snapshot.csv</code>) &middot;
-    <a href="https://github.com/teamookla/ookla-open-data" target="_blank" rel="noopener">Ookla Open Data</a> (Q2 2026 fixed + mobile tiles).
+    <a href="https://github.com/teamookla/ookla-open-data" target="_blank" rel="noopener">Ookla Open Data</a> (auto-refreshed quarterly via GitHub Actions) &middot;
+    <a href="https://www.census.gov/geographies/mapping-files/time-series/geo/carto-boundary-file.html" target="_blank" rel="noopener">US Census cartographic boundary shapefiles</a> (state join).
     Source: <a href="https://github.com/YashRao10/connectivity-cost-index" target="_blank" rel="noopener">github.com/YashRao10/connectivity-cost-index</a>.
   </footer>
 </div>
@@ -249,31 +246,42 @@ const TECH_COLOR = {
   "Licensed Fixed Wireless": "var(--sig-lime)",
   "DSL (Copper)": "var(--sig-blue)",
   "Unlicensed Fixed Wireless": "var(--ink-mute)",
-  "LBR Fixed Wireless": "var(--ink-mute)"
+  "LBR Fixed Wireless": "var(--ink-mute)",
+  "Other": "var(--ink-mute)"
 };
-// Unlicensed + LBR Fixed Wireless are small (Unlicensed) to negligible (LBR)
-// populations relative to Licensed Fixed Wireless in all 3 states -- per the
+// Unlicensed/LBR Fixed Wireless and the tiny "Other" bucket are small-to-
+// negligible populations relative to the 6 major technologies -- per the
 // project's charting convention, a minor category folds into a neutral
-// treatment rather than competing for a 7th/8th validated categorical hue.
-const MINOR_TECH = new Set(["Unlicensed Fixed Wireless", "LBR Fixed Wireless"]);
+// treatment rather than competing for a 7th/8th/9th validated categorical hue.
+const MINOR_TECH = new Set(["Unlicensed Fixed Wireless", "LBR Fixed Wireless", "Other"]);
 
 const ROWS = [
-  {state:"NJ", tech:"Fiber", provider:"Verizon Fios", price:50.0, mbps:8000.0, cpm:0.006, providers:25, locations:3991930},
-  {state:"NJ", tech:"Cable", provider:"Spectrum", price:50.0, mbps:1200.0, cpm:0.042, providers:7, locations:2659689},
-  {state:"NJ", tech:"LEO Satellite", provider:"Starlink", price:55.0, mbps:280.0, cpm:0.196, providers:1, locations:2583442},
-  {state:"NJ", tech:"GSO Satellite", provider:"Viasat", price:40.0, mbps:50.0, cpm:0.8, providers:2, locations:7750029},
-  {state:"NJ", tech:"Licensed Fixed Wireless", provider:"Verizon 5G Home", price:50.0, mbps:25.0, cpm:2.0, providers:5, locations:5005830},
-  {state:"NJ", tech:"Unlicensed Fixed Wireless", provider:"National average (WISP proxy)", price:45.0, mbps:10.0, cpm:4.5, providers:2, locations:103},
-  {state:"NJ", tech:"DSL (Copper)", provider:"National average", price:50.0, mbps:0.0, cpm:null, providers:11, locations:65253},
-  {state:"NJ", tech:"LBR Fixed Wireless", provider:null, price:null, mbps:1000.0, cpm:null, providers:1, locations:43},
-  {state:"NC", tech:"Fiber", provider:"Verizon Fios", price:50.0, mbps:5000.0, cpm:0.01, providers:69, locations:3789193},
-  {state:"NC", tech:"Cable", provider:"Spectrum", price:50.0, mbps:1000.0, cpm:0.05, providers:22, locations:3659891},
-  {state:"NC", tech:"LEO Satellite", provider:"Starlink", price:55.0, mbps:280.0, cpm:0.196, providers:1, locations:4381390},
-  {state:"NC", tech:"GSO Satellite", provider:"Viasat", price:40.0, mbps:100.0, cpm:0.4, providers:2, locations:13143566},
-  {state:"NC", tech:"Licensed Fixed Wireless", provider:"Verizon 5G Home", price:50.0, mbps:25.0, cpm:2.0, providers:7, locations:8163089},
-  {state:"NC", tech:"Unlicensed Fixed Wireless", provider:"National average (WISP proxy)", price:45.0, mbps:25.0, cpm:1.8, providers:15, locations:357736},
-  {state:"NC", tech:"DSL (Copper)", provider:"National average", price:50.0, mbps:10.0, cpm:5.0, providers:31, locations:2026675},
-  {state:"NC", tech:"LBR Fixed Wireless", provider:null, price:null, mbps:100.0, cpm:null, providers:3, locations:6134},
+  {state:"CA", tech:"Fiber", provider:"Verizon Fios", price:50.0, mbps:5000.0, cpm:0.01, providers:87, locations:5429304},
+  {state:"CA", tech:"Cable", provider:"Spectrum", price:50.0, mbps:1000.0, cpm:0.05, providers:25, locations:9659237},
+  {state:"CA", tech:"LEO Satellite", provider:"Starlink", price:55.0, mbps:280.0, cpm:0.196, providers:1, locations:10246075},
+  {state:"CA", tech:"GSO Satellite", provider:"Viasat", price:40.0, mbps:100.0, cpm:0.4, providers:3, locations:30762079},
+  {state:"CA", tech:"Unlicensed Fixed Wireless", provider:"National average (WISP proxy)", price:45.0, mbps:100.0, cpm:0.45, providers:92, locations:5575339},
+  {state:"CA", tech:"DSL (Copper)", provider:"National average", price:50.0, mbps:50.0, cpm:1.0, providers:27, locations:4567718},
+  {state:"CA", tech:"Licensed Fixed Wireless", provider:"Verizon 5G Home", price:50.0, mbps:25.0, cpm:2.0, providers:23, locations:20621111},
+  {state:"CA", tech:"LBR Fixed Wireless", provider:null, price:null, mbps:250.0, cpm:null, providers:22, locations:2160997},
+  {state:"CA", tech:"Other", provider:null, price:null, mbps:0.0, cpm:null, providers:1, locations:4},
+  {state:"CO", tech:"Cable", provider:"Spectrum", price:50.0, mbps:2000.0, cpm:0.025, providers:10, locations:1658876},
+  {state:"CO", tech:"Fiber", provider:"Verizon Fios", price:50.0, mbps:2000.0, cpm:0.025, providers:89, locations:1502695},
+  {state:"CO", tech:"LEO Satellite", provider:"Starlink", price:55.0, mbps:280.0, cpm:0.196, providers:1, locations:2002660},
+  {state:"CO", tech:"GSO Satellite", provider:"Viasat", price:40.0, mbps:100.0, cpm:0.4, providers:3, locations:6014318},
+  {state:"CO", tech:"Unlicensed Fixed Wireless", provider:"National average (WISP proxy)", price:45.0, mbps:50.0, cpm:0.9, providers:53, locations:1334546},
+  {state:"CO", tech:"DSL (Copper)", provider:"National average", price:50.0, mbps:40.0, cpm:1.25, providers:23, locations:1184080},
+  {state:"CO", tech:"Licensed Fixed Wireless", provider:"Verizon 5G Home", price:50.0, mbps:25.0, cpm:2.0, providers:19, locations:3976215},
+  {state:"CO", tech:"LBR Fixed Wireless", provider:null, price:null, mbps:250.0, cpm:null, providers:18, locations:752941},
+  {state:"FL", tech:"Fiber", provider:"Verizon Fios", price:50.0, mbps:5000.0, cpm:0.01, providers:76, locations:6217194},
+  {state:"FL", tech:"Cable", provider:"Spectrum", price:50.0, mbps:1200.0, cpm:0.042, providers:17, locations:7355352},
+  {state:"FL", tech:"LEO Satellite", provider:"Starlink", price:55.0, mbps:280.0, cpm:0.196, providers:1, locations:7659382},
+  {state:"FL", tech:"GSO Satellite", provider:"Viasat", price:40.0, mbps:100.0, cpm:0.4, providers:3, locations:22993764},
+  {state:"FL", tech:"Unlicensed Fixed Wireless", provider:"National average (WISP proxy)", price:45.0, mbps:50.0, cpm:0.9, providers:18, locations:178258},
+  {state:"FL", tech:"Licensed Fixed Wireless", provider:"Verizon 5G Home", price:50.0, mbps:25.0, cpm:2.0, providers:10, locations:16010328},
+  {state:"FL", tech:"DSL (Copper)", provider:"National average", price:50.0, mbps:10.0, cpm:5.0, providers:20, locations:3427638},
+  {state:"FL", tech:"LBR Fixed Wireless", provider:null, price:null, mbps:50.0, cpm:null, providers:8, locations:628004},
+  {state:"FL", tech:"Other", provider:null, price:null, mbps:1000.0, cpm:null, providers:1, locations:3},
   {state:"MT", tech:"Cable", provider:"Spectrum", price:50.0, mbps:1000.0, cpm:0.05, providers:5, locations:267654},
   {state:"MT", tech:"Fiber", provider:"Verizon Fios", price:50.0, mbps:1000.0, cpm:0.05, providers:42, locations:215102},
   {state:"MT", tech:"LEO Satellite", provider:"Starlink", price:55.0, mbps:280.0, cpm:0.196, providers:1, locations:490379},
@@ -282,32 +290,108 @@ const ROWS = [
   {state:"MT", tech:"Licensed Fixed Wireless", provider:"Verizon 5G Home", price:50.0, mbps:25.0, cpm:2.0, providers:11, locations:748598},
   {state:"MT", tech:"DSL (Copper)", provider:"National average", price:50.0, mbps:10.0, cpm:5.0, providers:18, locations:316785},
   {state:"MT", tech:"LBR Fixed Wireless", provider:null, price:null, mbps:25.0, cpm:null, providers:5, locations:47652},
+  {state:"NC", tech:"Fiber", provider:"Verizon Fios", price:50.0, mbps:5000.0, cpm:0.01, providers:69, locations:3789193},
+  {state:"NC", tech:"Cable", provider:"Spectrum", price:50.0, mbps:1000.0, cpm:0.05, providers:22, locations:3659891},
+  {state:"NC", tech:"LEO Satellite", provider:"Starlink", price:55.0, mbps:280.0, cpm:0.196, providers:1, locations:4381390},
+  {state:"NC", tech:"GSO Satellite", provider:"Viasat", price:40.0, mbps:100.0, cpm:0.4, providers:2, locations:13143566},
+  {state:"NC", tech:"Unlicensed Fixed Wireless", provider:"National average (WISP proxy)", price:45.0, mbps:25.0, cpm:1.8, providers:15, locations:357736},
+  {state:"NC", tech:"Licensed Fixed Wireless", provider:"Verizon 5G Home", price:50.0, mbps:25.0, cpm:2.0, providers:7, locations:8163089},
+  {state:"NC", tech:"DSL (Copper)", provider:"National average", price:50.0, mbps:10.0, cpm:5.0, providers:31, locations:2026675},
+  {state:"NC", tech:"LBR Fixed Wireless", provider:null, price:null, mbps:100.0, cpm:null, providers:3, locations:6134},
+  {state:"NJ", tech:"Fiber", provider:"Verizon Fios", price:50.0, mbps:8000.0, cpm:0.006, providers:25, locations:3991930},
+  {state:"NJ", tech:"Cable", provider:"Spectrum", price:50.0, mbps:1200.0, cpm:0.042, providers:7, locations:2659689},
+  {state:"NJ", tech:"LEO Satellite", provider:"Starlink", price:55.0, mbps:280.0, cpm:0.196, providers:1, locations:2583442},
+  {state:"NJ", tech:"GSO Satellite", provider:"Viasat", price:40.0, mbps:50.0, cpm:0.8, providers:2, locations:7750029},
+  {state:"NJ", tech:"Licensed Fixed Wireless", provider:"Verizon 5G Home", price:50.0, mbps:25.0, cpm:2.0, providers:5, locations:5005830},
+  {state:"NJ", tech:"Unlicensed Fixed Wireless", provider:"National average (WISP proxy)", price:45.0, mbps:10.0, cpm:4.5, providers:2, locations:103},
+  {state:"NJ", tech:"DSL (Copper)", provider:"National average", price:50.0, mbps:0.0, cpm:null, providers:11, locations:65253},
+  {state:"NJ", tech:"LBR Fixed Wireless", provider:null, price:null, mbps:1000.0, cpm:null, providers:1, locations:43},
+  {state:"NY", tech:"Fiber", provider:"Verizon Fios", price:50.0, mbps:8000.0, cpm:0.006, providers:83, locations:6598435},
+  {state:"NY", tech:"Cable", provider:"Spectrum", price:50.0, mbps:1000.0, cpm:0.05, providers:15, locations:4445719},
+  {state:"NY", tech:"LEO Satellite", provider:"Starlink", price:55.0, mbps:280.0, cpm:0.196, providers:1, locations:4700029},
+  {state:"NY", tech:"GSO Satellite", provider:"Viasat", price:40.0, mbps:100.0, cpm:0.4, providers:3, locations:14078313},
+  {state:"NY", tech:"Unlicensed Fixed Wireless", provider:"National average (WISP proxy)", price:45.0, mbps:100.0, cpm:0.45, providers:14, locations:285489},
+  {state:"NY", tech:"Licensed Fixed Wireless", provider:"Verizon 5G Home", price:50.0, mbps:25.0, cpm:2.0, providers:7, locations:5337761},
+  {state:"NY", tech:"DSL (Copper)", provider:"National average", price:50.0, mbps:10.0, cpm:5.0, providers:29, locations:269093},
+  {state:"NY", tech:"LBR Fixed Wireless", provider:null, price:null, mbps:100.0, cpm:null, providers:3, locations:166646},
+  {state:"NY", tech:"Other", provider:null, price:null, mbps:0.0, cpm:null, providers:1, locations:1},
+  {state:"OH", tech:"Fiber", provider:"Verizon Fios", price:50.0, mbps:3000.0, cpm:0.017, providers:97, locations:3594816},
+  {state:"OH", tech:"Cable", provider:"Spectrum", price:50.0, mbps:1000.0, cpm:0.05, providers:24, locations:4567906},
+  {state:"OH", tech:"LEO Satellite", provider:"Starlink", price:55.0, mbps:280.0, cpm:0.196, providers:1, locations:4541690},
+  {state:"OH", tech:"GSO Satellite", provider:"Viasat", price:40.0, mbps:100.0, cpm:0.4, providers:2, locations:13387643},
+  {state:"OH", tech:"Unlicensed Fixed Wireless", provider:"National average (WISP proxy)", price:45.0, mbps:50.0, cpm:0.9, providers:52, locations:679640},
+  {state:"OH", tech:"Licensed Fixed Wireless", provider:"Verizon 5G Home", price:50.0, mbps:25.0, cpm:2.0, providers:16, locations:9806722},
+  {state:"OH", tech:"DSL (Copper)", provider:"National average", price:50.0, mbps:25.0, cpm:2.0, providers:34, locations:1897825},
+  {state:"OH", tech:"LBR Fixed Wireless", provider:null, price:null, mbps:100.0, cpm:null, providers:19, locations:716542},
+  {state:"TX", tech:"Fiber", provider:"Verizon Fios", price:50.0, mbps:5000.0, cpm:0.01, providers:178, locations:10369034},
+  {state:"TX", tech:"Cable", provider:"Spectrum", price:50.0, mbps:1000.0, cpm:0.05, providers:23, locations:8693494},
+  {state:"TX", tech:"LEO Satellite", provider:"Starlink", price:55.0, mbps:280.0, cpm:0.196, providers:1, locations:10227823},
+  {state:"TX", tech:"GSO Satellite", provider:"Viasat", price:40.0, mbps:100.0, cpm:0.4, providers:3, locations:30680821},
+  {state:"TX", tech:"Unlicensed Fixed Wireless", provider:"National average (WISP proxy)", price:45.0, mbps:100.0, cpm:0.45, providers:128, locations:5111566},
+  {state:"TX", tech:"Licensed Fixed Wireless", provider:"Verizon 5G Home", price:50.0, mbps:25.0, cpm:2.0, providers:32, locations:21010925},
+  {state:"TX", tech:"DSL (Copper)", provider:"National average", price:50.0, mbps:25.0, cpm:2.0, providers:64, locations:2871146},
+  {state:"TX", tech:"LBR Fixed Wireless", provider:null, price:null, mbps:200.0, cpm:null, providers:35, locations:1579944},
+  {state:"TX", tech:"Other", provider:null, price:null, mbps:100.0, cpm:null, providers:1, locations:867},
+  {state:"WA", tech:"Cable", provider:"Spectrum", price:50.0, mbps:2000.0, cpm:0.025, providers:19, locations:2294425},
+  {state:"WA", tech:"Fiber", provider:"Verizon Fios", price:50.0, mbps:2000.0, cpm:0.025, providers:76, locations:1177139},
+  {state:"WA", tech:"LEO Satellite", provider:"Starlink", price:55.0, mbps:280.0, cpm:0.196, providers:1, locations:2572740},
+  {state:"WA", tech:"GSO Satellite", provider:"Viasat", price:40.0, mbps:100.0, cpm:0.4, providers:3, locations:7728964},
+  {state:"WA", tech:"Unlicensed Fixed Wireless", provider:"National average (WISP proxy)", price:45.0, mbps:100.0, cpm:0.45, providers:44, locations:1019823},
+  {state:"WA", tech:"Licensed Fixed Wireless", provider:"Verizon 5G Home", price:50.0, mbps:25.0, cpm:2.0, providers:11, locations:4967049},
+  {state:"WA", tech:"DSL (Copper)", provider:"National average", price:50.0, mbps:25.0, cpm:2.0, providers:21, locations:997359},
+  {state:"WA", tech:"LBR Fixed Wireless", provider:null, price:null, mbps:50.0, cpm:null, providers:11, locations:390382},
 ];
 
-const STATE_LABELS = {NJ:"New Jersey — dense metro", NC:"North Carolina — suburban mix", MT:"Montana — rural / satellite-dependent"};
+const OOKLA_ROWS = [
+  {state:"CA", net:"Fixed", down:322.3, up:48.4, lat:15, tests:2015511},
+  {state:"CA", net:"Mobile", down:211.8, up:13.7, lat:23, tests:203642},
+  {state:"CO", net:"Fixed", down:302.1, up:63.5, lat:14, tests:354756},
+  {state:"CO", net:"Mobile", down:183.1, up:10.9, lat:22, tests:26900},
+  {state:"FL", net:"Fixed", down:398.8, up:125.8, lat:13, tests:1271951},
+  {state:"FL", net:"Mobile", down:220.4, up:11.8, lat:24, tests:103744},
+  {state:"MT", net:"Fixed", down:171.1, up:25.1, lat:23, tests:50609},
+  {state:"MT", net:"Mobile", down:161.3, up:13.6, lat:49, tests:6585},
+  {state:"NC", net:"Fixed", down:363.6, up:50.0, lat:15, tests:602689},
+  {state:"NC", net:"Mobile", down:167.2, up:9.2, lat:28, tests:48079},
+  {state:"NJ", net:"Fixed", down:343.5, up:114.9, lat:11, tests:435534},
+  {state:"NJ", net:"Mobile", down:188.0, up:14.2, lat:23, tests:34763},
+  {state:"NY", net:"Fixed", down:328.5, up:47.7, lat:12, tests:709438},
+  {state:"NY", net:"Mobile", down:205.3, up:15.1, lat:26, tests:71061},
+  {state:"OH", net:"Fixed", down:330.7, up:37.4, lat:15, tests:514068},
+  {state:"OH", net:"Mobile", down:227.9, up:12.5, lat:28, tests:44032},
+  {state:"TX", net:"Fixed", down:317.1, up:108.2, lat:13, tests:1593571},
+  {state:"TX", net:"Mobile", down:210.8, up:11.5, lat:25, tests:174316},
+  {state:"WA", net:"Fixed", down:280.7, up:41.3, lat:14, tests:368812},
+  {state:"WA", net:"Mobile", down:192.4, up:11.8, lat:24, tests:51216},
+];
 
-function renderPanels(){
-  const container = document.getElementById("statepanels");
-  const maxCpm = Math.max(...ROWS.filter(r => r.cpm !== null).map(r => r.cpm));
-  ["NJ","NC","MT"].forEach(st => {
-    const rows = ROWS.filter(r => r.state === st && r.cpm !== null).sort((a,b) => a.cpm - b.cpm);
-    const panel = document.createElement("div");
-    panel.className = "panel";
-    let html = `<h3>${st}</h3><p class="sub">${STATE_LABELS[st]}</p>`;
-    rows.forEach(r => {
-      const pct = Math.max(4, (r.cpm / maxCpm) * 100);
-      html += `<div class="barrow">
-        <span>${r.tech}</span>
-        <span class="track"><span style="width:${pct}%;background:${TECH_COLOR[r.tech]}"></span></span>
-        <span class="val">$${r.cpm.toFixed(3)}</span>
-      </div>`;
-    });
-    panel.innerHTML = html;
-    container.appendChild(panel);
+function renderRangeChart(){
+  const container = document.getElementById("rangechart");
+  const byTech = {};
+  ROWS.forEach(r => {
+    if (r.cpm === null || MINOR_TECH.has(r.tech)) return;
+    (byTech[r.tech] ??= []).push(r.cpm);
   });
+  const overallMax = Math.max(...Object.values(byTech).flat());
+  const techsSorted = Object.entries(byTech)
+    .map(([tech, vals]) => ({tech, min: Math.min(...vals), max: Math.max(...vals)}))
+    .sort((a,b) => a.min - b.min);
+
+  container.innerHTML = techsSorted.map(({tech, min, max}) => {
+    const leftPct = (min / overallMax) * 100;
+    const widthPct = Math.max(1.5, ((max - min) / overallMax) * 100);
+    const label = min === max
+      ? `$${min.toFixed(3)} (flat, all 10 states)`
+      : `$${min.toFixed(3)}&ndash;$${max.toFixed(3)}`;
+    return `<div class="barrow" style="grid-template-columns:150px 1fr 150px">
+      <span>${tech}</span>
+      <span class="track"><span style="left:${leftPct}%;width:${widthPct}%;background:${TECH_COLOR[tech]}"></span></span>
+      <span class="val">${label}</span>
+    </div>`;
+  }).join("");
 
   const legend = document.getElementById("legend");
-  const legendEntries = Object.entries(TECH_COLOR).filter(([tech]) => tech !== "LBR Fixed Wireless");
+  const legendEntries = Object.entries(TECH_COLOR).filter(([tech]) => tech !== "LBR Fixed Wireless" && tech !== "Other");
   legend.innerHTML = legendEntries.map(([tech,color]) =>
     `<span class="item"><span class="swatch" style="background:${color}"></span>${tech}${MINOR_TECH.has(tech) ? " (minor)" : ""}</span>`
   ).join("");
@@ -327,8 +411,21 @@ function renderTable(){
   </tr>`).join("");
 }
 
-renderPanels();
+function renderOoklaTable(){
+  const tbody = document.querySelector("#ooklatable tbody");
+  tbody.innerHTML = OOKLA_ROWS.map(r => `<tr>
+    <td>${r.state}</td>
+    <td>${r.net}</td>
+    <td class="num">${r.down}</td>
+    <td class="num">${r.up}</td>
+    <td class="num">${r.lat}</td>
+    <td class="num">${r.tests.toLocaleString()}</td>
+  </tr>`).join("");
+}
+
+renderRangeChart();
 renderTable();
+renderOoklaTable();
 </script>
 </body>
 </html>
