@@ -30,6 +30,14 @@ def test_fcc_summary_state_codes_are_valid(fcc_summary):
     assert not unknown, f"Invalid state code(s): {unknown}"
 
 
+def test_fcc_summary_covers_all_51_states(fcc_summary):
+    # Catches the opposite failure mode from the "valid codes" check above:
+    # a state silently missing from a rebuild (upstream download skipped,
+    # a merge dropping rows) rather than a bad/unexpected code appearing.
+    missing = VALID_STATE_CODES - set(fcc_summary["state_usps"])
+    assert not missing, f"Market layer missing state(s): {missing}"
+
+
 def test_fcc_summary_locations_served_non_negative(fcc_summary):
     assert (fcc_summary["locations_served"] >= 0).all()
 
@@ -89,6 +97,15 @@ def test_ookla_summary_schema(ookla_summary):
 def test_ookla_summary_speeds_are_positive(ookla_summary):
     assert (ookla_summary["median_down_mbps"] > 0).all()
     assert (ookla_summary["median_up_mbps"] > 0).all()
+
+
+def test_ookla_summary_covers_all_51_states(ookla_summary):
+    # As of v3.1 this layer matches the market layer's full coverage --
+    # if COMPARISON_STATES in load_ookla_regional.py ever regresses back
+    # to a partial list, this should catch it rather than silently
+    # shipping a site claiming "all 50 states + DC" that isn't true.
+    missing = VALID_STATE_CODES - set(ookla_summary["state_usps"])
+    assert not missing, f"Ookla real-world layer missing state(s): {missing}"
 
 
 def test_bead_comparison_schema(bead_comparison):
