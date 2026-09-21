@@ -32,7 +32,7 @@ COMPARISON_STATES = [
     "AL", "AR", "AZ", "CT", "DE", "GA", "ID", "IL",
     "IN", "IA", "KS", "KY", "LA",
     "ME", "MD", "MA", "MI", "MN",
-    "MS", "NE", "NV",
+    "MS", "NE", "NV", "MO", "NH", "NM", "ND", "OK",
 ]
 
 
