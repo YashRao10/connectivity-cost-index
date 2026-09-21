@@ -9,8 +9,11 @@ Output: docs/data/state_map.geojson
 Excludes AK, HI, and non-state territories (PR, GU, VI, AS, MP) -- keeping
 the map to the contiguous 48 + DC avoids Alaska's antimeridian-wrap
 rendering headaches and Hawaii's disconnected-islands layout for a simple
-single-projection SVG map. None of our 10 comparison states are AK/HI, so
-nothing we actually report is cut.
+single-projection SVG map. As of the 51-state (50+DC) expansion, AK and HI
+DO have real market-layer data (see data/cost_comparison_v1.csv) -- they're
+just not plotted here. The full comparison table on the site covers them;
+only this map's rendering excludes them. See docs/index.html's map section
+caption.
 """
 
 import json
