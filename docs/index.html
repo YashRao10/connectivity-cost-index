@@ -170,7 +170,7 @@
       <p class="kicker"><span class="dot"></span>live market + reliability data</p>
       <h1>Connectivity Cost Index</h1>
       <p class="tag">Is satellite internet's pricing premium justified by its performance, or is it a connectivity tax paid for coverage rather than speed?</p>
-      <span class="status">v3.2 &middot; market, real-world, and BEAD policy layers: all 50 states + DC</span>
+      <span class="status">v3.3 &middot; market, real-world, and BEAD policy layers: all 50 states + DC</span>
       <span class="baseline-note">Cost-per-Mbps computed against FCC's real reported median speeds per technology per state &mdash; not marketing "up to" figures. Personal reliability layer is currently collecting data (see &sect; personal reliability layer, below).</span>
     </div>
   </header>
@@ -259,12 +259,12 @@
 
   <section>
     <h2>Quarter-over-quarter trend (Q1 &rarr; Q2 2026)</h2>
-    <p style="font-size:13.5px;color:var(--ink-soft);margin-top:-6px">Covers the original 10-state sample only (not yet the full expanded state list above) and only two quarters of history &mdash; not enough to call this a confirmed trend, but worth tracking now that it's visible. Median download speed <em>declined</em> from Q1 to Q2 2026 in the large majority of state/network combinations, most sharply for Montana (fixed -16.5%, mobile -13.1%) and Colorado mobile (-12.5%). Florida was the one clear exception (fixed +3.0%).</p>
+    <p style="font-size:13.5px;color:var(--ink-soft);margin-top:-6px">Now covers all 50 states + DC (102 state/network combinations), matching the layers above &mdash; still only two quarters of history, not enough to call this a confirmed trend, but the picture is more nuanced at full scale than the original 10-state sample suggested. Median download speed <em>declined</em> from Q1 to Q2 2026 in 82 of 102 combinations (80.4%), most sharply for Nebraska mobile (-23.3%) and West Virginia mobile (-15.8%). But 19 combinations actually <em>increased</em> &mdash; Florida wasn't the lone exception it looked like at 10 states; Arizona (fixed +3.2%, mobile +9.6%), DC mobile (+11.0%), and Wyoming mobile (+9.4%) also gained.</p>
     <table id="timeseriestable">
       <thead><tr><th>State</th><th>Network</th><th>Q1 2026 (Mbps)</th><th>Q2 2026 (Mbps)</th><th>Change</th></tr></thead>
       <tbody></tbody>
     </table>
-    <p style="font-size:13px;color:var(--ink-mute);margin-top:10px">The cause isn't established here &mdash; a near-universal decline across 9 of 10 states and both network types in a single quarter could reflect real network congestion/usage growth, a shift in who's running speed tests (device/carrier mix), or something in Ookla's own data collection changing between releases. Not attributing this to any specific cause without more quarters of history; flagging it as an observed pattern worth watching, not a conclusion. This will get more reliable automatically as the quarterly GitHub Actions refresh accumulates more history.</p>
+    <p style="font-size:13px;color:var(--ink-mute);margin-top:10px">The cause isn't established here &mdash; a majority decline across most states and both network types in a single quarter could reflect real network congestion/usage growth, a shift in who's running speed tests (device/carrier mix), or something in Ookla's own data collection changing between releases. Not attributing this to any specific cause without more quarters of history; flagging it as an observed pattern worth watching, not a conclusion. This will get more reliable automatically as the quarterly GitHub Actions refresh accumulates more history.</p>
   </section>
 
   <section>
@@ -286,6 +286,7 @@
       <ul>
         <li><strong>Ookla regional figures now use a real state-boundary join (fixed from v1.2).</strong> Originally filtered by a lon/lat bounding box, which could pick up border slivers from neighboring states. Now does a true point-in-polygon join against US Census cartographic boundary shapefiles (via geopandas). Numbers shifted slightly once border noise was excluded (e.g. NC's fixed-tile count dropped from ~124K to ~73K tiles, median down speed nudged up).</li>
         <li><strong>Ookla layer expanded to all 50 states + DC (v3.1), matching the market layer.</strong> The nationwide Ookla tile files were already local; expanding coverage only required widening <code>COMPARISON_STATES</code> in <code>load_ookla_regional.py</code>, no new downloads. Alaska overtook Montana as the slowest/highest-latency state once added (148.7 Mbps median fixed download, 61ms mobile latency) &mdash; a genuinely new finding from the expanded sample, not visible at 36 states.</li>
+        <li><strong>Q1&rarr;Q2 trend expanded to all 50 states + DC (v3.3), correcting an overstated finding.</strong> The 10-state sample's "near-universal decline, Florida the one exception" framing didn't hold at full scale: 82 of 102 state/network combinations declined (80.4%, not effectively 90%+), and 19 combinations actually increased, including Arizona, DC mobile, and Wyoming mobile &mdash; not just Florida. Required downloading Q1 2026's raw tile files (they weren't kept locally after the original 10-state run) since <code>build_ookla_timeseries.py</code> needs the actual prior-quarter tiles, not just the current summary CSV.</li>
         <li><strong>Starlink's cost-per-Mbps is flat nationwide; Licensed Fixed Wireless's is not, once the sample grew past 10 states.</strong> Starlink is priced from a single national plan against an FCC technology-level median that barely moves (280/30 Mbps in all 51 states/DC), so its $0.196/Mbps is genuinely identical everywhere. The original 10-state sample happened to show Licensed Fixed Wireless at a flat $2.00 too, which looked like the same mechanical pattern &mdash; but at full 51-state scale it actually varies $0.417 (Idaho) to $5.00 (Alaska), because that technology's FCC-reported speed tier isn't as nationally uniform as Starlink's. The "beats it everywhere" finding is therefore stronger now, not weaker: 51 genuinely different comparisons landing the same direction, not one ratio repeated.</li>
         <li><strong>LEO satellite does not beat every technology everywhere.</strong> DSL in Rhode Island ($0.05/Mbps) and unlicensed fixed wireless pricing in Hawaii, Nevada, and Rhode Island (as low as $0.045/Mbps) all come in cheaper than Starlink's $0.196/Mbps on this metric. These are real exceptions surfaced by the full-state expansion, not present in the original 10-state sample, and are not smoothed over here.</li>
         <li><strong>A small "Other" technology bucket appears in 15 of the 51 states/DC.</strong> Locations under an FCC technology code outside the 8 mapped here, largest in TX (867 locations). Negligible in every case (never above ~0.001% of a state's locations) &mdash; noted rather than silently dropped, but not worth a dedicated investigation at this size.</li>
@@ -1037,26 +1038,108 @@ function renderBeadTable(){
 }
 
 const TIMESERIES_ROWS = [
+  {state:"NE", net:"Mobile", q1:237.6, q2:182.2, pct:-23.3},
+  {state:"SD", net:"Mobile", q1:244.7, q2:192.6, pct:-21.3},
+  {state:"AR", net:"Mobile", q1:207.7, q2:168.9, pct:-18.7},
+  {state:"AL", net:"Mobile", q1:207.2, q2:170.2, pct:-17.9},
+  {state:"AK", net:"Fixed", q1:178.5, q2:148.7, pct:-16.7},
   {state:"MT", net:"Fixed", q1:204.9, q2:171.1, pct:-16.5},
+  {state:"DE", net:"Mobile", q1:237.9, q2:198.8, pct:-16.4},
+  {state:"GA", net:"Mobile", q1:234, q2:197, pct:-15.8},
+  {state:"WV", net:"Mobile", q1:217.2, q2:182.9, pct:-15.8},
+  {state:"VT", net:"Mobile", q1:103.3, q2:88, pct:-14.8},
+  {state:"MO", net:"Mobile", q1:249.7, q2:214.5, pct:-14.1},
+  {state:"MN", net:"Mobile", q1:260.7, q2:225.9, pct:-13.4},
+  {state:"NH", net:"Mobile", q1:129.3, q2:112.2, pct:-13.2},
+  {state:"IA", net:"Mobile", q1:203.7, q2:176.9, pct:-13.2},
   {state:"MT", net:"Mobile", q1:185.7, q2:161.3, pct:-13.1},
+  {state:"AK", net:"Mobile", q1:54.9, q2:47.8, pct:-12.9},
+  {state:"MI", net:"Mobile", q1:232, q2:202.3, pct:-12.8},
+  {state:"ME", net:"Fixed", q1:353.1, q2:308.5, pct:-12.6},
   {state:"CO", net:"Mobile", q1:209.3, q2:183.1, pct:-12.5},
-  {state:"NC", net:"Mobile", q1:185.7, q2:167.2, pct:-10.0},
-  {state:"NJ", net:"Mobile", q1:207.9, q2:188.0, pct:-9.6},
+  {state:"KS", net:"Mobile", q1:245.6, q2:215.4, pct:-12.3},
+  {state:"IL", net:"Mobile", q1:268.6, q2:236.6, pct:-11.9},
+  {state:"MS", net:"Mobile", q1:137.7, q2:122.9, pct:-10.7},
+  {state:"NC", net:"Mobile", q1:185.7, q2:167.2, pct:-10},
+  {state:"MA", net:"Mobile", q1:199.4, q2:179.4, pct:-10},
+  {state:"SC", net:"Mobile", q1:203.9, q2:183.6, pct:-10},
+  {state:"CT", net:"Mobile", q1:192.5, q2:173.4, pct:-9.9},
+  {state:"NJ", net:"Mobile", q1:207.9, q2:188, pct:-9.6},
+  {state:"TN", net:"Mobile", q1:231.8, q2:210.2, pct:-9.3},
+  {state:"IN", net:"Mobile", q1:264.6, q2:240.1, pct:-9.3},
+  {state:"RI", net:"Fixed", q1:327.9, q2:299.1, pct:-8.8},
+  {state:"VA", net:"Mobile", q1:195.3, q2:178.8, pct:-8.4},
+  {state:"MD", net:"Mobile", q1:223.5, q2:204.9, pct:-8.3},
+  {state:"ID", net:"Fixed", q1:227.6, q2:208.6, pct:-8.3},
+  {state:"WY", net:"Fixed", q1:220.1, q2:202.2, pct:-8.2},
   {state:"OH", net:"Mobile", q1:247.4, q2:227.9, pct:-7.9},
-  {state:"WA", net:"Fixed", q1:299.0, q2:280.7, pct:-6.1},
+  {state:"UT", net:"Fixed", q1:334.3, q2:308.2, pct:-7.8},
+  {state:"WV", net:"Fixed", q1:287.4, q2:265.9, pct:-7.5},
+  {state:"WI", net:"Fixed", q1:304.2, q2:282.7, pct:-7},
+  {state:"KY", net:"Mobile", q1:242.1, q2:225.4, pct:-6.9},
+  {state:"OK", net:"Mobile", q1:216, q2:201.3, pct:-6.8},
+  {state:"NH", net:"Fixed", q1:351.8, q2:328.2, pct:-6.7},
+  {state:"VT", net:"Fixed", q1:248.4, q2:232, pct:-6.6},
+  {state:"MI", net:"Fixed", q1:316.1, q2:296.3, pct:-6.3},
+  {state:"WA", net:"Fixed", q1:299, q2:280.7, pct:-6.1},
+  {state:"MA", net:"Fixed", q1:339.9, q2:319.1, pct:-6.1},
+  {state:"IN", net:"Fixed", q1:314.4, q2:295.3, pct:-6.1},
+  {state:"PA", net:"Mobile", q1:233.1, q2:219.3, pct:-5.9},
+  {state:"MD", net:"Fixed", q1:335.7, q2:315.9, pct:-5.9},
+  {state:"MN", net:"Fixed", q1:270.2, q2:255.1, pct:-5.6},
+  {state:"VA", net:"Fixed", q1:297.7, q2:280.9, pct:-5.6},
+  {state:"CT", net:"Fixed", q1:399, q2:377.1, pct:-5.5},
+  {state:"OK", net:"Fixed", q1:247.2, q2:234, pct:-5.3},
   {state:"NY", net:"Fixed", q1:346.5, q2:328.5, pct:-5.2},
+  {state:"OR", net:"Fixed", q1:282.9, q2:268.2, pct:-5.2},
   {state:"CO", net:"Fixed", q1:318.4, q2:302.1, pct:-5.1},
-  {state:"NY", net:"Mobile", q1:216.2, q2:205.3, pct:-5.0},
+  {state:"NY", net:"Mobile", q1:216.2, q2:205.3, pct:-5},
+  {state:"SD", net:"Fixed", q1:254.1, q2:241.5, pct:-5},
+  {state:"PA", net:"Fixed", q1:315.9, q2:302, pct:-4.4},
+  {state:"IL", net:"Fixed", q1:315, q2:302, pct:-4.1},
+  {state:"DE", net:"Fixed", q1:351.2, q2:336.9, pct:-4.1},
+  {state:"DC", net:"Fixed", q1:339.6, q2:326.2, pct:-4},
   {state:"TX", net:"Mobile", q1:219.3, q2:210.8, pct:-3.9},
+  {state:"LA", net:"Mobile", q1:173.9, q2:167.1, pct:-3.9},
+  {state:"MO", net:"Fixed", q1:285, q2:274.4, pct:-3.7},
+  {state:"TN", net:"Fixed", q1:339.7, q2:327.6, pct:-3.6},
   {state:"NJ", net:"Fixed", q1:355.5, q2:343.5, pct:-3.4},
+  {state:"KY", net:"Fixed", q1:315.7, q2:305.1, pct:-3.3},
   {state:"OH", net:"Fixed", q1:341.2, q2:330.7, pct:-3.1},
+  {state:"KS", net:"Fixed", q1:281.1, q2:272.4, pct:-3.1},
+  {state:"IA", net:"Fixed", q1:243.2, q2:236.7, pct:-2.7},
+  {state:"UT", net:"Mobile", q1:235.4, q2:229.2, pct:-2.6},
+  {state:"NM", net:"Fixed", q1:187.2, q2:182.6, pct:-2.5},
+  {state:"WI", net:"Mobile", q1:183.3, q2:180.2, pct:-1.7},
+  {state:"AR", net:"Fixed", q1:243.6, q2:239.5, pct:-1.7},
+  {state:"NE", net:"Fixed", q1:295.8, q2:291.1, pct:-1.6},
+  {state:"HI", net:"Mobile", q1:107.1, q2:105.4, pct:-1.5},
   {state:"TX", net:"Fixed", q1:319.6, q2:317.1, pct:-0.8},
-  {state:"CA", net:"Mobile", q1:213.0, q2:211.8, pct:-0.6},
+  {state:"CA", net:"Mobile", q1:213, q2:211.8, pct:-0.6},
   {state:"WA", net:"Mobile", q1:193.1, q2:192.4, pct:-0.4},
   {state:"CA", net:"Fixed", q1:323.1, q2:322.3, pct:-0.3},
+  {state:"GA", net:"Fixed", q1:336.7, q2:336.5, pct:-0.1},
+  {state:"ND", net:"Fixed", q1:266.3, q2:266, pct:-0.1},
+  {state:"AL", net:"Fixed", q1:311.5, q2:311.6, pct:0},
+  {state:"SC", net:"Fixed", q1:356.3, q2:357.1, pct:0.2},
   {state:"FL", net:"Mobile", q1:219.9, q2:220.4, pct:0.3},
+  {state:"NV", net:"Mobile", q1:195.7, q2:196.7, pct:0.5},
   {state:"NC", net:"Fixed", q1:361.8, q2:363.6, pct:0.5},
-  {state:"FL", net:"Fixed", q1:387.1, q2:398.8, pct:3.0},
+  {state:"NM", net:"Mobile", q1:160.7, q2:161.7, pct:0.6},
+  {state:"NV", net:"Fixed", q1:339, q2:343.2, pct:1.2},
+  {state:"OR", net:"Mobile", q1:185.5, q2:187.8, pct:1.2},
+  {state:"MS", net:"Fixed", q1:287.2, q2:290.9, pct:1.3},
+  {state:"RI", net:"Mobile", q1:224.8, q2:228.9, pct:1.8},
+  {state:"LA", net:"Fixed", q1:280.2, q2:286.4, pct:2.2},
+  {state:"ID", net:"Mobile", q1:190.1, q2:194.9, pct:2.5},
+  {state:"FL", net:"Fixed", q1:387.1, q2:398.8, pct:3},
+  {state:"AZ", net:"Fixed", q1:283.2, q2:292.2, pct:3.2},
+  {state:"ND", net:"Mobile", q1:204.7, q2:214.1, pct:4.6},
+  {state:"HI", net:"Fixed", q1:306.6, q2:322.8, pct:5.3},
+  {state:"ME", net:"Mobile", q1:93.8, q2:99.5, pct:6.1},
+  {state:"WY", net:"Mobile", q1:109, q2:119.2, pct:9.4},
+  {state:"AZ", net:"Mobile", q1:187.8, q2:205.8, pct:9.6},
+  {state:"DC", net:"Mobile", q1:265.3, q2:294.6, pct:11},
 ];
 
 function renderTimeseriesTable(){

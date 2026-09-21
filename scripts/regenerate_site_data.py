@@ -60,6 +60,25 @@ def build_rows_block() -> str:
     return "\n".join(lines)
 
 
+def build_timeseries_rows_block() -> str:
+    df = pd.read_csv(DATA_DIR / "ookla_timeseries.csv")
+    df = df.dropna(subset=["down_mbps_qoq_change_pct"])
+    df = df.sort_values("down_mbps_qoq_change_pct")
+    lines = ["const TIMESERIES_ROWS = ["]
+    for _, r in df.iterrows():
+        lines.append(
+            "  {{state:{}, net:{}, q1:{}, q2:{}, pct:{}}},".format(
+                js_str(r["state_usps"]),
+                js_str(r["network_type"].capitalize()),
+                js_num(round(r["prev_median_down_mbps"], 1)),
+                js_num(round(r["median_down_mbps"], 1)),
+                js_num(r["down_mbps_qoq_change_pct"]),
+            )
+        )
+    lines.append("];")
+    return "\n".join(lines)
+
+
 def build_ookla_rows_block() -> str:
     df = pd.read_csv(DATA_DIR / "ookla_regional_summary.csv")
     df = df.sort_values(["state_usps", "network_type"])
@@ -90,10 +109,13 @@ def main() -> None:
     html = HTML_PATH.read_text(encoding="utf-8")
     html = replace_block(html, "ROWS", build_rows_block())
     html = replace_block(html, "OOKLA_ROWS", build_ookla_rows_block())
+    html = replace_block(html, "TIMESERIES_ROWS", build_timeseries_rows_block())
     HTML_PATH.write_text(html, encoding="utf-8")
 
     n_states = pd.read_csv(DATA_DIR / "cost_comparison_v1.csv")["state_usps"].nunique()
-    print(f"Regenerated ROWS + OOKLA_ROWS for {n_states} states in {HTML_PATH}")
+    n_ts_states = pd.read_csv(DATA_DIR / "ookla_timeseries.csv")["state_usps"].nunique()
+    print(f"Regenerated ROWS + OOKLA_ROWS for {n_states} states, "
+          f"TIMESERIES_ROWS for {n_ts_states} states, in {HTML_PATH}")
     print("Note: narrative prose (headline stats, 'N states' mentions, BEAD section) "
           "was NOT touched -- update that separately once state count stabilizes.")
 
