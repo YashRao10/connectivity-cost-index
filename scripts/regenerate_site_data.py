@@ -45,8 +45,7 @@ def build_rows_block() -> str:
     lines = ["const ROWS = ["]
     for _, r in df.iterrows():
         lines.append(
-            "  {state:%s, tech:%s, provider:%s, price:%s, mbps:%s, cpm:%s, providers:%s, locations:%s},"
-            % (
+            "  {{state:{}, tech:{}, provider:{}, price:{}, mbps:{}, cpm:{}, providers:{}, locations:{}}},".format(
                 js_str(r["state_usps"]),
                 js_str(r["technology_label"]),
                 js_str(r.get("provider")),
@@ -67,8 +66,7 @@ def build_ookla_rows_block() -> str:
     lines = ["const OOKLA_ROWS = ["]
     for _, r in df.iterrows():
         lines.append(
-            "  {state:%s, net:%s, down:%s, up:%s, lat:%s, tests:%s},"
-            % (
+            "  {{state:{}, net:{}, down:{}, up:{}, lat:{}, tests:{}}},".format(
                 js_str(r["state_usps"]),
                 js_str(r["network_type"].capitalize()),
                 js_num(round(r["median_down_mbps"], 1)),

@@ -15,7 +15,6 @@ Output: data/ookla_timeseries.csv
 from pathlib import Path
 
 import pandas as pd
-
 from load_ookla_regional import load_and_filter, load_state_boundaries, summarize
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"

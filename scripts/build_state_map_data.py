@@ -1,9 +1,13 @@
 """Build a simplified, web-sized GeoJSON of US states for the site's
-choropleth map, annotated with our comparison metrics for the 10 states
-we have data for (all other states render as "no data" background).
+choropleth map, annotated with our comparison metrics. As of the v2 BEAD
+rebuild (verified "Benefit of the Bargain" provisional awards, all 50
+states + DC), every mapped state has real data -- no more grey "no data"
+states within the map's coverage (AK/HI are excluded from the map's
+projection entirely, see below, not "no data").
 
 Input: data/raw/census/cb_2023_us_state_20m.shp (via pull_census_shapes.py)
        data/cost_comparison_v1.csv
+       data/bead_allocation_v2.csv
 Output: docs/data/state_map.geojson
 
 Excludes AK, HI, and non-state territories (PR, GU, VI, AS, MP) -- keeping
@@ -62,9 +66,14 @@ def main() -> None:
     comparison = pd.read_csv(DATA_DIR / "cost_comparison_v1.csv")
     cheapest = cheapest_per_state(comparison)
     leo = leo_satellite_per_state(comparison)
-    bead = pd.read_csv(DATA_DIR / "bead_allocation_v1.csv")[
-        ["state_usps", "bead_allocation_usd", "bead_usd_per_gso_location"]
-    ]
+    bead = pd.read_csv(DATA_DIR / "bead_allocation_v2.csv")[
+        ["state_usps", "provisional_award_usd", "provisional_usd_per_gso_location"]
+    ].rename(
+        columns={
+            "provisional_award_usd": "bead_allocation_usd",
+            "provisional_usd_per_gso_location": "bead_usd_per_gso_location",
+        }
+    )
 
     merged = (
         states.merge(cheapest, on="state_usps", how="left")
