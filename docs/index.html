@@ -111,6 +111,23 @@
   table{width:100%;border-collapse:collapse;font-size:13px}
   th,td{text-align:left;padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:middle}
   th{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-mute);font-weight:500}
+  #datatable th[data-key]{cursor:pointer;user-select:none;white-space:nowrap}
+  #datatable th[data-key]:hover{color:var(--ink)}
+  #datatable th[data-key].sorted::after{content:" \25B2"; color:var(--sig-cyan)}
+  #datatable th[data-key].sorted.desc::after{content:" \25BC"}
+
+  .filterbar{display:flex;flex-wrap:wrap;align-items:center;gap:14px;background:var(--panel);
+       border:1px solid var(--line);border-radius:8px;padding:12px 16px;margin-bottom:14px}
+  .filtergroup{display:flex;flex-direction:column;gap:3px}
+  .filterlbl{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-mute)}
+  .filterbar select, .filterbar input{font-family:var(--sans);font-size:13px;background:var(--bg);
+       color:var(--ink);border:1px solid var(--line);border-radius:5px;padding:5px 8px}
+  .filterbar select[multiple]{min-width:140px;height:32px}
+  .filterreset{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.05em;
+       background:transparent;color:var(--sig-cyan);border:1px solid var(--sig-cyan);border-radius:5px;
+       padding:6px 12px;cursor:pointer;align-self:flex-end}
+  .filterreset:hover{background:color-mix(in srgb, var(--sig-cyan) 12%, transparent)}
+  .filtercount{font-family:var(--mono);font-size:11.5px;color:var(--ink-mute);margin-left:auto;align-self:flex-end}
   tbody tr:hover{background:var(--grid)}
   td.num{font-variant-numeric:tabular-nums;white-space:nowrap;font-family:var(--mono);font-size:12.5px}
   .swatch{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:7px;vertical-align:middle}
@@ -187,10 +204,33 @@
 
   <section>
     <h2>Full comparison table</h2>
+    <p style="font-size:13px;color:var(--ink-mute);margin-top:-6px">Filter by state/technology/price, click a column header to sort.</p>
+    <div class="filterbar" id="filterbar">
+      <div class="filtergroup">
+        <span class="filterlbl">State (ctrl/cmd-click for multiple)</span>
+        <select id="filterState" multiple size="4"></select>
+      </div>
+      <div class="filtergroup">
+        <span class="filterlbl">Technology (ctrl/cmd-click for multiple)</span>
+        <select id="filterTech" multiple size="4"></select>
+      </div>
+      <div class="filtergroup">
+        <span class="filterlbl">Max $/mo</span>
+        <input type="number" id="filterMaxPrice" placeholder="any" min="0" step="5">
+      </div>
+      <button id="filterReset" class="filterreset">Reset</button>
+      <span class="filtercount" id="filterCount"></span>
+    </div>
     <table id="datatable">
       <thead><tr>
-        <th>State</th><th>Technology</th><th>Provider</th><th>Monthly ($)</th>
-        <th>FCC median down (Mbps)</th><th>$/Mbps</th><th>Unique providers</th><th>Locations served</th>
+        <th data-key="state" data-type="str">State</th>
+        <th data-key="tech" data-type="str">Technology</th>
+        <th data-key="provider" data-type="str">Provider</th>
+        <th data-key="price" data-type="num">Monthly ($)</th>
+        <th data-key="mbps" data-type="num">FCC median down (Mbps)</th>
+        <th data-key="cpm" data-type="num">$/Mbps</th>
+        <th data-key="providers" data-type="num">Unique providers</th>
+        <th data-key="locations" data-type="num">Locations served</th>
       </tr></thead>
       <tbody></tbody>
     </table>
@@ -408,9 +448,40 @@ function renderRangeChart(){
   ).join("");
 }
 
+// --- Filtering + sorting for the full comparison table ---
+let tableSort = {key: "state", dir: "asc"};
+
+function currentFilters(){
+  const selectedStates = Array.from(document.getElementById("filterState").selectedOptions).map(o => o.value);
+  const selectedTechs = Array.from(document.getElementById("filterTech").selectedOptions).map(o => o.value);
+  const maxPriceRaw = document.getElementById("filterMaxPrice").value;
+  const maxPrice = maxPriceRaw === "" ? null : parseFloat(maxPriceRaw);
+  return {selectedStates, selectedTechs, maxPrice};
+}
+
+function filteredSortedRows(){
+  const {selectedStates, selectedTechs, maxPrice} = currentFilters();
+  let rows = ROWS.filter(r =>
+    (selectedStates.length === 0 || selectedStates.includes(r.state)) &&
+    (selectedTechs.length === 0 || selectedTechs.includes(r.tech)) &&
+    (maxPrice === null || (r.price !== null && r.price <= maxPrice))
+  );
+  const {key, dir} = tableSort;
+  const mul = dir === "asc" ? 1 : -1;
+  rows = rows.slice().sort((a, b) => {
+    let av = a[key], bv = b[key];
+    if (av === null) av = dir === "asc" ? Infinity : -Infinity;
+    if (bv === null) bv = dir === "asc" ? Infinity : -Infinity;
+    if (typeof av === "string") return av.localeCompare(bv) * mul;
+    return (av - bv) * mul;
+  });
+  return rows;
+}
+
 function renderTable(){
+  const rows = filteredSortedRows();
   const tbody = document.querySelector("#datatable tbody");
-  tbody.innerHTML = ROWS.map(r => `<tr>
+  tbody.innerHTML = rows.map(r => `<tr>
     <td>${r.state}</td>
     <td><span class="swatch" style="background:${TECH_COLOR[r.tech]}"></span>${r.tech}</td>
     <td>${r.provider ?? "&mdash; (no pricing match)"}</td>
@@ -420,6 +491,41 @@ function renderTable(){
     <td class="num">${r.providers}</td>
     <td class="num">${r.locations.toLocaleString()}</td>
   </tr>`).join("");
+  document.getElementById("filterCount").textContent = `${rows.length} / ${ROWS.length} rows`;
+}
+
+function setupFilterControls(){
+  const stateSel = document.getElementById("filterState");
+  const techSel = document.getElementById("filterTech");
+  const states = [...new Set(ROWS.map(r => r.state))].sort();
+  const techs = [...new Set(ROWS.map(r => r.tech))].sort();
+  stateSel.innerHTML = states.map(s => `<option value="${s}">${s}</option>`).join("");
+  techSel.innerHTML = techs.map(t => `<option value="${t}">${t}</option>`).join("");
+
+  stateSel.addEventListener("change", renderTable);
+  techSel.addEventListener("change", renderTable);
+  document.getElementById("filterMaxPrice").addEventListener("input", renderTable);
+  document.getElementById("filterReset").addEventListener("click", () => {
+    Array.from(stateSel.options).forEach(o => o.selected = false);
+    Array.from(techSel.options).forEach(o => o.selected = false);
+    document.getElementById("filterMaxPrice").value = "";
+    renderTable();
+  });
+
+  document.querySelectorAll("#datatable th[data-key]").forEach(th => {
+    th.addEventListener("click", () => {
+      const key = th.dataset.key;
+      if (tableSort.key === key) {
+        tableSort.dir = tableSort.dir === "asc" ? "desc" : "asc";
+      } else {
+        tableSort = {key, dir: "asc"};
+      }
+      document.querySelectorAll("#datatable th[data-key]").forEach(h => h.classList.remove("sorted", "desc"));
+      th.classList.add("sorted");
+      if (tableSort.dir === "desc") th.classList.add("desc");
+      renderTable();
+    });
+  });
 }
 
 const BEAD_ROWS = [
@@ -458,6 +564,7 @@ function renderOoklaTable(){
 }
 
 renderRangeChart();
+setupFilterControls();
 renderTable();
 renderOoklaTable();
 renderBeadTable();
