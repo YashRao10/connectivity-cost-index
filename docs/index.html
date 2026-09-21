@@ -207,12 +207,23 @@
   </section>
 
   <section>
+    <h2>Where the subsidy money goes: BEAD allocation vs. satellite dependence</h2>
+    <p style="font-size:13.5px;color:var(--ink-soft);margin-top:-6px">The federal BEAD program allocated $42.45B across states in 2023 to build broadband infrastructure. Does that money track where the market gaps actually are? As a first-pass proxy, GSO Satellite locations served (from the FCC layer above) stands in for "underserved" locations &mdash; BEAD's own eligibility rules treat satellite as non-qualifying/lower-tier service in most cases, so places with heavy GSO satellite coverage plausibly correlate with places lacking adequate terrestrial options.</p>
+    <table id="beadtable">
+      <thead><tr><th>State</th><th>BEAD allocation</th><th>GSO satellite locations</th><th>$ per GSO-served location</th></tr></thead>
+      <tbody></tbody>
+    </table>
+    <p style="font-size:13px;color:var(--ink-mute);margin-top:10px">The spread is wide: <strong>Montana gets ~$444 per GSO-satellite-served location</strong> vs. <strong>New Jersey's ~$34</strong> &mdash; a 13&times; difference. That's not a red flag; it's the formula working as intended (BEAD explicitly weights toward high-cost rural buildout, where running fiber to a handful of remote homes costs far more per location than a dense suburban buildout). The more interesting question this project can eventually answer with more states: does the per-location subsidy actually track real deployment cost, or does it just track politics/formula quirks? Not resolved here &mdash; this is a first pass, not a verdict.</p>
+  </section>
+
+  <section>
     <h2>Methodology &amp; caveats</h2>
     <div class="limits">
       <ul>
         <li><strong>Ookla regional figures now use a real state-boundary join (fixed from v1.2).</strong> Originally filtered by a lon/lat bounding box, which could pick up border slivers from neighboring states. Now does a true point-in-polygon join against US Census cartographic boundary shapefiles (via geopandas). Numbers shifted slightly once border noise was excluded (e.g. NC's fixed-tile count dropped from ~124K to ~73K tiles, median down speed nudged up).</li>
         <li><strong>Starlink and Licensed Fixed Wireless show zero cross-state variance in this dataset.</strong> Both are priced from a single national plan compared against an FCC technology-level median that barely moves by state (280/30 Mbps for LEO Satellite, 25/3 Mbps for Licensed Fixed Wireless, in literally every one of the 10 states). The resulting $0.196 vs. $2.00 numbers are exactly identical everywhere &mdash; a real reflection of national pricing and a fairly flat FCC-reported speed tier, not 10 independently-arrived-at confirmations of the same ratio. Fiber, Cable, GSO Satellite, and DSL vary meaningfully by state because their real per-state median speeds do.</li>
         <li><strong>A small "Other" technology bucket appears in 4 of the 10 states.</strong> CA (4 locations), FL (3), NY (1), and TX (867) have a handful of locations under an FCC technology code outside the 8 mapped here. Negligible in every case (never above ~0.01% of a state's locations) &mdash; noted rather than silently dropped, but not worth a dedicated investigation at this size.</li>
+        <li><strong>BEAD allocation figures are the June 2023 initial announcement, not final awards.</strong> Each state's actual approved Final Proposal has since been negotiated and may differ from the original allocation. NTIA's own allocation-totals page blocks automated fetching, so these were sourced via secondary aggregators rather than pulled programmatically &mdash; worth re-verifying against NTIA directly before treating any single number here as authoritative. GSO Satellite locations served is used as an "underserved" proxy, not a precise BEAD-eligibility count (a location can have both satellite and another option available) &mdash; grounded in BEAD's own treatment of satellite as non-qualifying/lower-tier service, but still an approximation, and this is a first pass at the policy layer, not a finished analysis.</li>
         <li><strong>Advertised vs. FCC-median speed gap.</strong> FCC's LEO Satellite median (280/30 Mbps) is higher than any individual Starlink residential pricing tier in the dataset (which top out at 400 Mbps for $130; the common $55 tier is only 100 Mbps). The $0.196/Mbps figure is <em>cheapest plan price &divide; FCC's fleet-wide median speed</em>, not an apples-to-apples plan-to-speed match &mdash; both columns are kept visible in the table above rather than resolved silently.</li>
         <li><strong>NJ DSL is degenerate.</strong> FCC's reported median download speed for DSL in NJ rounds to 0 Mbps across 65,253 locations &mdash; almost certainly legacy copper barely providing real service, not a data error. Cost-per-Mbps is mathematically undefined (division by zero) and shown as such in the table rather than smoothed over.</li>
         <li><strong>Fixed Wireless is three technologies, not one.</strong> FCC splits it into Unlicensed (code 70), Licensed (71), and Licensed-by-Rule/LBR (72). An earlier version of this page collapsed all three into one "Fixed Wireless" row and let 71/72 fall into an unlabeled "Other" bucket &mdash; which mattered, since Licensed Fixed Wireless (the actual technology behind Verizon 5G Home / T-Mobile Home Internet) turned out to be the single largest fixed-wireless population by far in every state. Now split and priced correctly; LBR has no matching published pricing in any state, so it's shown in the table but excluded from the range chart and left unpriced rather than researched for a niche product.</li>
@@ -411,6 +422,29 @@ function renderTable(){
   </tr>`).join("");
 }
 
+const BEAD_ROWS = [
+  {state:"NJ", alloc:263689548.65, gso:7750029, perloc:34.02},
+  {state:"NY", alloc:664618251.49, gso:14078313, perloc:47.21},
+  {state:"FL", alloc:1169947392.70, gso:22993764, perloc:50.88},
+  {state:"OH", alloc:793688107.63, gso:13387643, perloc:59.29},
+  {state:"CA", alloc:1864136508.93, gso:30762079, perloc:60.60},
+  {state:"TX", alloc:3312616455.45, gso:30680821, perloc:107.97},
+  {state:"NC", alloc:1532999481.15, gso:13143566, perloc:116.63},
+  {state:"CO", alloc:826522650.41, gso:6014318, perloc:137.43},
+  {state:"WA", alloc:1227742066.30, gso:7728964, perloc:158.85},
+  {state:"MT", alloc:628973798.59, gso:1415897, perloc:444.22},
+];
+
+function renderBeadTable(){
+  const tbody = document.querySelector("#beadtable tbody");
+  tbody.innerHTML = BEAD_ROWS.map(r => `<tr>
+    <td>${r.state}</td>
+    <td class="num">$${Math.round(r.alloc).toLocaleString()}</td>
+    <td class="num">${r.gso.toLocaleString()}</td>
+    <td class="num">$${r.perloc.toFixed(2)}</td>
+  </tr>`).join("");
+}
+
 function renderOoklaTable(){
   const tbody = document.querySelector("#ooklatable tbody");
   tbody.innerHTML = OOKLA_ROWS.map(r => `<tr>
@@ -426,6 +460,7 @@ function renderOoklaTable(){
 renderRangeChart();
 renderTable();
 renderOoklaTable();
+renderBeadTable();
 </script>
 </body>
 </html>
