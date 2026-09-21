@@ -27,12 +27,17 @@ CENSUS_SHP = DATA_DIR / "raw" / "census" / "cb_2023_us_state_20m.shp"
 # States covered by this comparison -- expand this list to scale the project;
 # no code changes needed elsewhere, load_fcc_broadband.py and
 # build_cost_comparison.py just need matching FCC downloads per new state.
+# As of the 51-state (50+DC) market-layer expansion, this list matches it --
+# includes AK and HI (unlike build_state_map_data.py's EXCLUDED set, which
+# drops them only for map-projection reasons, not data-availability ones).
 COMPARISON_STATES = [
     "NJ", "NC", "MT", "CA", "TX", "NY", "OH", "FL", "WA", "CO",
     "AL", "AR", "AZ", "CT", "DE", "GA", "ID", "IL",
     "IN", "IA", "KS", "KY", "LA",
     "ME", "MD", "MA", "MI", "MN",
     "MS", "NE", "NV", "MO", "NH", "NM", "ND", "OK",
+    "OR", "PA", "RI", "SC", "SD", "TN", "UT", "VT", "VA", "WV", "WI", "WY",
+    "AK", "HI", "DC",
 ]
 
 
