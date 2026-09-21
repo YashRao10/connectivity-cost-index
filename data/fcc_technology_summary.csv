@@ -73,6 +73,14 @@ GA,Fiber,2988931,101,2000.0,2000.0
 GA,DSL (Copper),1887066,31,10.0,1.0
 GA,Unlicensed Fixed Wireless,26241,15,50.0,5.0
 GA,LBR Fixed Wireless,2106,1,100.0,100.0
+IA,GSO Satellite,4049127,2,100.0,4.0
+IA,Licensed Fixed Wireless,2421110,15,25.0,6.0
+IA,Fiber,1693569,217,2000.0,2000.0
+IA,LEO Satellite,1350247,1,280.0,30.0
+IA,Cable,914732,27,1000.0,50.0
+IA,DSL (Copper),783602,38,10.0,1.0
+IA,Unlicensed Fixed Wireless,509295,60,50.0,10.0
+IA,LBR Fixed Wireless,322165,19,150.0,130.0
 ID,GSO Satellite,2294383,3,50.0,3.0
 ID,Licensed Fixed Wireless,1154690,12,120.0,20.0
 ID,Unlicensed Fixed Wireless,879982,33,50.0,10.0
@@ -90,6 +98,39 @@ IL,DSL (Copper),2149896,34,50.0,10.0
 IL,Unlicensed Fixed Wireless,849468,55,60.0,10.0
 IL,LBR Fixed Wireless,504872,22,100.0,20.0
 IL,Other,13,1,0.0,0.0
+IN,GSO Satellite,8173855,2,100.0,4.0
+IN,Licensed Fixed Wireless,5149238,12,25.0,3.0
+IN,LEO Satellite,2724288,1,280.0,30.0
+IN,Fiber,2619519,92,5000.0,5000.0
+IN,Cable,2185767,9,1200.0,35.0
+IN,Unlicensed Fixed Wireless,1149396,48,25.0,3.0
+IN,DSL (Copper),1027309,29,25.0,3.0
+IN,LBR Fixed Wireless,522347,21,150.0,20.0
+KS,GSO Satellite,3568184,2,100.0,3.0
+KS,Licensed Fixed Wireless,2279170,16,25.0,6.0
+KS,Fiber,1406083,87,2500.0,2500.0
+KS,LEO Satellite,1189259,1,280.0,30.0
+KS,Cable,983212,22,2000.0,50.0
+KS,DSL (Copper),483225,21,25.0,3.0
+KS,LBR Fixed Wireless,452223,25,100.0,20.0
+KS,Unlicensed Fixed Wireless,353966,42,100.0,12.0
+KS,Other,1,1,0.0,0.0
+KY,GSO Satellite,5521885,3,100.0,4.0
+KY,Licensed Fixed Wireless,3164379,9,25.0,3.0
+KY,LEO Satellite,1839054,1,280.0,30.0
+KY,Fiber,1740690,68,3000.0,2000.0
+KY,Cable,1315520,25,1000.0,1000.0
+KY,DSL (Copper),712696,14,10.0,1.0
+KY,Unlicensed Fixed Wireless,297289,21,100.0,30.0
+KY,LBR Fixed Wireless,36403,7,50.0,10.0
+LA,GSO Satellite,5610175,3,100.0,4.0
+LA,Licensed Fixed Wireless,3194640,6,25.0,3.0
+LA,LEO Satellite,1868460,1,280.0,30.0
+LA,Cable,1568065,13,1200.0,35.0
+LA,Fiber,1281390,46,5000.0,5000.0
+LA,DSL (Copper),898445,12,10.0,1.0
+LA,Unlicensed Fixed Wireless,291938,18,50.0,50.0
+LA,LBR Fixed Wireless,88618,6,499.0,100.0
 MT,GSO Satellite,1415897,3,50.0,4.0
 MT,Licensed Fixed Wireless,748598,11,25.0,3.0
 MT,LEO Satellite,490379,1,280.0,30.0

@@ -30,6 +30,7 @@ CENSUS_SHP = DATA_DIR / "raw" / "census" / "cb_2023_us_state_20m.shp"
 COMPARISON_STATES = [
     "NJ", "NC", "MT", "CA", "TX", "NY", "OH", "FL", "WA", "CO",
     "AL", "AR", "AZ", "CT", "DE", "GA", "ID", "IL",
+    "IN", "IA", "KS", "KY", "LA",
 ]
 
 
