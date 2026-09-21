@@ -370,3 +370,28 @@ WA,Unlicensed Fixed Wireless,1019823,44,100.0,20.0,National average (WISP proxy)
 WA,Licensed Fixed Wireless,4967049,11,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,2.0
 WA,DSL (Copper),997359,21,25.0,3.0,National average,Typical residential,50.0,25.0,2.0,2.0
 WA,LBR Fixed Wireless,390382,11,50.0,10.0,,,,,,
+WI,Fiber,1397325,86,5000.0,5000.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.01
+WI,Cable,1615392,15,1000.0,35.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.05
+WI,LEO Satellite,2303344,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
+WI,GSO Satellite,6917041,3,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.4
+WI,Unlicensed Fixed Wireless,854064,30,100.0,20.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,0.45
+WI,Licensed Fixed Wireless,4166392,12,25.0,5.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,2.0
+WI,DSL (Copper),1180659,25,25.0,3.0,National average,Typical residential,50.0,25.0,2.0,2.0
+WI,LBR Fixed Wireless,520998,13,50.0,8.0,,,,,,
+WI,Other,1,1,0.0,0.0,,,,,,
+WV,Fiber,430234,31,7000.0,7000.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.007
+WV,Cable,665786,12,1000.0,35.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.05
+WV,LEO Satellite,893544,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
+WV,GSO Satellite,2695580,3,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.4
+WV,Unlicensed Fixed Wireless,137202,22,50.0,10.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,0.9
+WV,Licensed Fixed Wireless,1222230,4,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,2.0
+WV,DSL (Copper),155641,9,10.0,1.0,National average,Typical residential,50.0,25.0,2.0,5.0
+WV,LBR Fixed Wireless,13744,7,100.0,20.0,,,,,,
+WY,Fiber,138575,25,5000.0,5000.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.01
+WY,Cable,166372,5,1000.0,35.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.05
+WY,LEO Satellite,260714,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
+WY,GSO Satellite,789778,3,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.4
+WY,Unlicensed Fixed Wireless,273250,21,100.0,25.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,0.45
+WY,Licensed Fixed Wireless,458864,8,50.0,6.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,1.0
+WY,DSL (Copper),177245,12,10.0,1.0,National average,Typical residential,50.0,25.0,2.0,5.0
+WY,LBR Fixed Wireless,74343,6,50.0,20.0,,,,,,
