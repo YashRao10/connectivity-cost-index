@@ -42,7 +42,7 @@ def tile_url(year: int, quarter: int, net_type: str) -> str:
 
 def find_latest_available(net_type: str, max_lookback: int = 6) -> tuple[int, int]:
     """Walk backward from the current calendar quarter until one exists."""
-    today = datetime.date.today()
+    today = datetime.datetime.now(tz=datetime.UTC).date()
     year, quarter = today.year, (today.month - 1) // 3 + 1
     for _ in range(max_lookback):
         url, _ = tile_url(year, quarter, net_type)
