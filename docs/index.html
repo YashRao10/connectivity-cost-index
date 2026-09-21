@@ -248,6 +248,16 @@
   </section>
 
   <section>
+    <h2>Quarter-over-quarter trend (Q1 &rarr; Q2 2026)</h2>
+    <p style="font-size:13.5px;color:var(--ink-soft);margin-top:-6px">Only two quarters of history exist so far &mdash; not enough to call this a confirmed trend, but worth tracking now that it's visible. Median download speed <em>declined</em> from Q1 to Q2 2026 in the large majority of state/network combinations, most sharply for Montana (fixed -16.5%, mobile -13.1%) and Colorado mobile (-12.5%). Florida was the one clear exception (fixed +3.0%).</p>
+    <table id="timeseriestable">
+      <thead><tr><th>State</th><th>Network</th><th>Q1 2026 (Mbps)</th><th>Q2 2026 (Mbps)</th><th>Change</th></tr></thead>
+      <tbody></tbody>
+    </table>
+    <p style="font-size:13px;color:var(--ink-mute);margin-top:10px">The cause isn't established here &mdash; a near-universal decline across 9 of 10 states and both network types in a single quarter could reflect real network congestion/usage growth, a shift in who's running speed tests (device/carrier mix), or something in Ookla's own data collection changing between releases. Not attributing this to any specific cause without more quarters of history; flagging it as an observed pattern worth watching, not a conclusion. This will get more reliable automatically as the quarterly GitHub Actions refresh accumulates more history.</p>
+  </section>
+
+  <section>
     <h2>Where the subsidy money goes: BEAD allocation vs. satellite dependence</h2>
     <div class="callout" style="margin-bottom:14px">
       <strong>The numbers below are pre-restructuring and known to be significantly out of date.</strong> They reflect BEAD's original June 2023 state allocations. In 2025, NTIA restructured the program ("Benefit of the Bargain"), and actual approved/provisional awards have come in far lower for at least some states verified so far: New Jersey's final approved award is ~$62M against a $263.7M original allocation (a 76% cut); Texas's provisional award is ~$1.27B against $3.31B (~62% cut); Colorado's is ~$397M against $826.5M (~52% cut). This is not a rounding difference &mdash; it's a materially different program than the one these figures describe. Also notable: California's approved plan reports its BEAD-funded locations split 52.9% fiber / 27% LEO satellite / 20.1% fixed wireless, a directly relevant data point for this project that isn't reflected in the simple allocation-total figure below at all. Full re-pull against verified final/provisional awards for every state is the next planned step for this layer &mdash; treat everything below as illustrative of the original 2023 formula's logic, not current reality.
@@ -565,6 +575,44 @@ function renderBeadTable(){
   </tr>`).join("");
 }
 
+const TIMESERIES_ROWS = [
+  {state:"MT", net:"Fixed", q1:204.9, q2:171.1, pct:-16.5},
+  {state:"MT", net:"Mobile", q1:185.7, q2:161.3, pct:-13.1},
+  {state:"CO", net:"Mobile", q1:209.3, q2:183.1, pct:-12.5},
+  {state:"NC", net:"Mobile", q1:185.7, q2:167.2, pct:-10.0},
+  {state:"NJ", net:"Mobile", q1:207.9, q2:188.0, pct:-9.6},
+  {state:"OH", net:"Mobile", q1:247.4, q2:227.9, pct:-7.9},
+  {state:"WA", net:"Fixed", q1:299.0, q2:280.7, pct:-6.1},
+  {state:"NY", net:"Fixed", q1:346.5, q2:328.5, pct:-5.2},
+  {state:"CO", net:"Fixed", q1:318.4, q2:302.1, pct:-5.1},
+  {state:"NY", net:"Mobile", q1:216.2, q2:205.3, pct:-5.0},
+  {state:"TX", net:"Mobile", q1:219.3, q2:210.8, pct:-3.9},
+  {state:"NJ", net:"Fixed", q1:355.5, q2:343.5, pct:-3.4},
+  {state:"OH", net:"Fixed", q1:341.2, q2:330.7, pct:-3.1},
+  {state:"TX", net:"Fixed", q1:319.6, q2:317.1, pct:-0.8},
+  {state:"CA", net:"Mobile", q1:213.0, q2:211.8, pct:-0.6},
+  {state:"WA", net:"Mobile", q1:193.1, q2:192.4, pct:-0.4},
+  {state:"CA", net:"Fixed", q1:323.1, q2:322.3, pct:-0.3},
+  {state:"FL", net:"Mobile", q1:219.9, q2:220.4, pct:0.3},
+  {state:"NC", net:"Fixed", q1:361.8, q2:363.6, pct:0.5},
+  {state:"FL", net:"Fixed", q1:387.1, q2:398.8, pct:3.0},
+];
+
+function renderTimeseriesTable(){
+  const tbody = document.querySelector("#timeseriestable tbody");
+  tbody.innerHTML = TIMESERIES_ROWS.map(r => {
+    const color = r.pct < 0 ? "var(--sig-rose)" : "var(--sig-lime)";
+    const sign = r.pct > 0 ? "+" : "";
+    return `<tr>
+      <td>${r.state}</td>
+      <td>${r.net}</td>
+      <td class="num">${r.q1}</td>
+      <td class="num">${r.q2}</td>
+      <td class="num" style="color:${color}">${sign}${r.pct}%</td>
+    </tr>`;
+  }).join("");
+}
+
 function renderOoklaTable(){
   const tbody = document.querySelector("#ooklatable tbody");
   tbody.innerHTML = OOKLA_ROWS.map(r => `<tr>
@@ -622,6 +670,7 @@ renderRangeChart();
 setupFilterControls();
 renderTable();
 renderOoklaTable();
+renderTimeseriesTable();
 renderBeadTable();
 renderMap();
 </script>

@@ -82,6 +82,16 @@ if __name__ == "__main__":
         if not files:
             print(f"No {net_type} parquet files found, skipping")
             continue
+        if len(files) > 1:
+            # Silently picking files[0] here would pick whichever quarter
+            # sorts first alphabetically, not necessarily the one intended --
+            # a real risk once more than one quarter's file is present
+            # locally (e.g. while building a time series). Fail loud instead.
+            raise SystemExit(
+                f"Multiple {net_type} parquet files found in {RAW_DIR / net_type}: "
+                f"{[f.name for f in files]}. Remove the ones you don't want "
+                "summarized, or use build_ookla_timeseries.py for multi-quarter runs."
+            )
         raw = load_and_filter(files[0], states)
         if raw.empty:
             print(f"No {net_type} tiles matched any state boundary")
