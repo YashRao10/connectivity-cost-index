@@ -31,6 +31,7 @@ COMPARISON_STATES = [
     "NJ", "NC", "MT", "CA", "TX", "NY", "OH", "FL", "WA", "CO",
     "AL", "AR", "AZ", "CT", "DE", "GA", "ID", "IL",
     "IN", "IA", "KS", "KY", "LA",
+    "ME", "MD", "MA", "MI", "MN",
 ]
 
 
