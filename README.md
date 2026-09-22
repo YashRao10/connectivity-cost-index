@@ -13,7 +13,7 @@ A cost-per-Mbps comparison across internet access technologies (LEO satellite, G
 3. **Policy layer** — NTIA BEAD program allocations vs. GSO-satellite-served locations as an underserved-locations proxy, verified against the 2025 "Benefit of the Bargain" restructuring (not just the original 2023 announcement, which is confirmed wrong for several states post-restructuring) — surfaced as both a table and an interactive US choropleth map. All 50 states + DC.
 4. **Personal reliability layer (in progress)** — a lightweight logger (Cloudflare speed-test endpoints + ping, no external dependencies) running on real broadband/cellular connections, building toward a personal-vs-market overlay once enough data has accumulated.
 
-The live site (`docs/index.html`) also has filtering/sorting on the full technology comparison table, and an interactive choropleth map (the map itself excludes AK/HI/territories for projection simplicity — see `scripts/build_state_map_data.py` — though both have real data in every other layer and table).
+The live site (`docs/index.html`) also has filtering/sorting on the full technology comparison table, and an interactive choropleth map covering all 50 states + DC (AK/HI render as AlbersUSA insets; only non-state territories PR/GU/VI/AS/MP are excluded — see `scripts/build_state_map_data.py`).
 
 ## Repo layout
 
