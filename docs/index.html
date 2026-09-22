@@ -186,7 +186,7 @@
       <p class="kicker"><span class="dot"></span>live market + reliability data</p>
       <h1>Connectivity Cost Index</h1>
       <p class="tag">Is satellite internet's pricing premium justified by its performance, or is it a connectivity tax paid for coverage rather than speed?</p>
-      <span class="status">v3.3 &middot; market, real-world, and BEAD policy layers: all 50 states + DC</span>
+      <span class="status">v3.4 &middot; market, real-world, and BEAD policy layers: all 50 states + DC, map now plots every state</span>
       <span class="baseline-note">Cost-per-Mbps computed against FCC's real reported median speeds per technology per state &mdash; not marketing "up to" figures. Personal reliability layer is currently collecting data (see &sect; personal reliability layer, below).</span>
     </div>
   </header>
@@ -319,6 +319,7 @@
         <li><strong>DSL is degenerate in 2 states.</strong> FCC's reported median download speed for DSL rounds to 0 Mbps in NJ (65,253 locations) and VA (271,861 locations) &mdash; almost certainly legacy copper barely providing real service, not a data error. Cost-per-Mbps is mathematically undefined (division by zero) in both and shown as such in the table rather than smoothed over.</li>
         <li><strong>Fixed Wireless is three technologies, not one.</strong> FCC splits it into Unlicensed (code 70), Licensed (71), and Licensed-by-Rule/LBR (72). An earlier version of this page collapsed all three into one "Fixed Wireless" row and let 71/72 fall into an unlabeled "Other" bucket &mdash; which mattered, since Licensed Fixed Wireless (the actual technology behind Verizon 5G Home / T-Mobile Home Internet) turned out to be the single largest fixed-wireless population by far in every state. Now split and priced correctly; LBR has no matching published pricing in any state, so it's shown in the table but excluded from the range chart and left unpriced rather than researched for a niche product.</li>
         <li><strong>Pricing is a snapshot, not a full market.</strong> One or two representative plans per technology (cheapest published tier), not an exhaustive rate survey; national averages fill gaps where a specific regional provider wasn't researched.</li>
+        <li><strong>Choropleth map now plots all 50 states + DC (v3.4), not just the contiguous 48 + DC.</strong> Alaska and Hawaii were previously excluded from the map's rendering (though not from any table or the underlying data) over antimeridian-wrap and disconnected-islands concerns. The map already used d3's AlbersUSA projection, which solves exactly that problem by repositioning AK/HI as bottom-left insets &mdash; so the exclusion was unnecessary. Alaska turns out to be the map's actual most subsidy-intense state ($784/location), which the map's legend previously couldn't show since AK wasn't plotted.</li>
       </ul>
     </div>
   </section>
