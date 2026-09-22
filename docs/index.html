@@ -122,8 +122,9 @@
   .tile .num{font-size:25px;font-weight:700;font-variant-numeric:tabular-nums;margin-top:5px;letter-spacing:-0.01em;font-family:var(--sans)}
   .tile .sub{font-size:12px;color:var(--ink-mute);margin-top:3px}
 
-  table{width:100%;border-collapse:collapse;font-size:13px}
-  th,td{text-align:left;padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:middle}
+  .table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -2px}
+  table{width:100%;min-width:520px;border-collapse:collapse;font-size:13px}
+  th,td{text-align:left;padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:middle;white-space:nowrap}
   th{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-mute);font-weight:500}
   #datatable th[data-key]{cursor:pointer;user-select:none;white-space:nowrap}
   #datatable th[data-key]:hover{color:var(--ink)}
@@ -245,6 +246,7 @@
       <button id="filterReset" class="filterreset">Reset</button>
       <span class="filtercount" id="filterCount"></span>
     </div>
+    <div class="table-scroll">
     <table id="datatable">
       <thead><tr>
         <th data-key="state" data-type="str">State</th>
@@ -258,25 +260,30 @@
       </tr></thead>
       <tbody></tbody>
     </table>
+    </div>
   </section>
 
   <section>
     <h2>Real-world speed vs. advertised (Ookla)</h2>
     <p style="font-size:13.5px;color:var(--ink-soft);margin-top:-6px">FCC's numbers above are provider-<em>reported</em> advertised speeds. This section checks them against what people actually measure: median blended speed/latency per state from Ookla's public Speedtest data (Q2 2026), across every technology mix in that state &mdash; not filtered to one technology. Now covers all 50 states + DC, matching the market layer above.</p>
+    <div class="table-scroll">
     <table id="ooklatable">
       <thead><tr><th>State</th><th>Network</th><th>Median down (Mbps)</th><th>Median up (Mbps)</th><th>Median latency (ms)</th><th>Tests</th></tr></thead>
       <tbody></tbody>
     </table>
+    </div>
     <p style="font-size:13px;color:var(--ink-mute);margin-top:10px">These are blended medians across every technology serving a state &mdash; not "fiber's real speed" or "satellite's real speed" specifically. A high-fiber-density state's blended fixed median sitting far below fiber's advertised "up to 8000 Mbps" isn't fiber underperforming; it's that the real-world mix, including slower DSL/wireless/satellite lines, pulls the state-wide median down. Mobile is meaningfully slower than fixed everywhere. At full 51-state scale, fixed median download ranges from 148.7 Mbps (AK) to 398.8 Mbps (FL) &mdash; Alaska overtook Montana for the slowest/highest-latency spot once it was added: AK also has the highest mobile latency (61ms), while Vermont now has the lowest mobile test volume. This layer now uses a real Census-shapefile point-in-polygon join per state (upgraded from an earlier bounding-box approximation).</p>
   </section>
 
   <section>
     <h2>Quarter-over-quarter trend (Q1 &rarr; Q2 2026)</h2>
     <p style="font-size:13.5px;color:var(--ink-soft);margin-top:-6px">Now covers all 50 states + DC (102 state/network combinations), matching the layers above &mdash; still only two quarters of history, not enough to call this a confirmed trend, but the picture is more nuanced at full scale than the original 10-state sample suggested. Median download speed <em>declined</em> from Q1 to Q2 2026 in 82 of 102 combinations (80.4%), most sharply for Nebraska mobile (-23.3%) and West Virginia mobile (-15.8%). But 19 combinations actually <em>increased</em> &mdash; Florida wasn't the lone exception it looked like at 10 states; Arizona (fixed +3.2%, mobile +9.6%), DC mobile (+11.0%), and Wyoming mobile (+9.4%) also gained.</p>
+    <div class="table-scroll">
     <table id="timeseriestable">
       <thead><tr><th>State</th><th>Network</th><th>Q1 2026 (Mbps)</th><th>Q2 2026 (Mbps)</th><th>Change</th></tr></thead>
       <tbody></tbody>
     </table>
+    </div>
     <p style="font-size:13px;color:var(--ink-mute);margin-top:10px">The cause isn't established here &mdash; a majority decline across most states and both network types in a single quarter could reflect real network congestion/usage growth, a shift in who's running speed tests (device/carrier mix), or something in Ookla's own data collection changing between releases. Not attributing this to any specific cause without more quarters of history; flagging it as an observed pattern worth watching, not a conclusion. This will get more reliable automatically as the quarterly GitHub Actions refresh accumulates more history.</p>
   </section>
 
@@ -286,10 +293,12 @@
     <div class="callout" style="margin:14px 0">
       <strong>The restructuring cut funding nationally, not just in the handful of states first checked.</strong> Median cut across all 50 states + DC: <strong>&minus;54.4%</strong> vs. the original 2023 allocation. The range is wide: California (&minus;17.1%) and Illinois (&minus;0.9%) came through relatively unscathed; Washington DC (&minus;99.0%) and Connecticut (&minus;95.0%) were cut nearly to zero. This is confirmed structural, not a data artifact &mdash; see methodology for sourcing.
     </div>
+    <div class="table-scroll">
     <table id="beadtable">
       <thead><tr><th>State</th><th>Original (2023)</th><th>Provisional (2025)</th><th>Change</th><th>GSO satellite locations</th><th>$ per GSO-served location</th></tr></thead>
       <tbody></tbody>
     </table>
+    </div>
     <p style="font-size:13px;color:var(--ink-mute);margin-top:10px">The per-location spread is now dramatic: <strong>Alaska's provisional award works out to ~$784 per GSO-satellite-served location</strong> vs. <strong>Connecticut's ~$2.21</strong> &mdash; a 355&times; difference (up from the 13&times; spread the original 10-state sample showed). Some of this is the formula working as intended (BEAD weights toward high-cost rural buildout), but a 355&times; spread post-restructuring is large enough that "does the per-location subsidy track real deployment cost, or mostly track how much each state's award was cut" is now a real, open question this data can't fully answer &mdash; not resolved here.</p>
   </section>
 
