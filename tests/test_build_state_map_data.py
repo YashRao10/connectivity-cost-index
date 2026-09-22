@@ -26,16 +26,20 @@ def state_map_geojson() -> dict:
         return json.load(f)
 
 
-def test_map_excludes_exactly_ak_hi_and_territories(state_map_geojson):
+def test_map_excludes_exactly_non_state_territories(state_map_geojson):
     # Documents the intentional exclusion (see build_state_map_data.py's
     # docstring/EXCLUDED) as a test, not just a comment -- if someone
     # changes EXCLUDED without updating the map's own rendering, or a
     # non-territory state goes missing by accident, this should fail.
+    # AK/HI are NOT excluded -- d3.geoAlbersUsa() plots them as insets.
     mapped_states = {f["properties"]["state_usps"] for f in state_map_geojson["features"]}
     expected = VALID_STATE_CODES - EXCLUDED
     assert mapped_states == expected, (
         f"Mapped states don't match VALID_STATE_CODES minus EXCLUDED. "
         f"Missing: {expected - mapped_states}, unexpected: {mapped_states - expected}"
+    )
+    assert {"AK", "HI"}.issubset(mapped_states), (
+        "AK/HI should be plotted as AlbersUSA insets, not excluded"
     )
 
 

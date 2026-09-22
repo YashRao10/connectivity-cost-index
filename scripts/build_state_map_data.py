@@ -2,22 +2,20 @@
 choropleth map, annotated with our comparison metrics. As of the v2 BEAD
 rebuild (verified "Benefit of the Bargain" provisional awards, all 50
 states + DC), every mapped state has real data -- no more grey "no data"
-states within the map's coverage (AK/HI are excluded from the map's
-projection entirely, see below, not "no data").
+states within the map's coverage.
 
 Input: data/raw/census/cb_2023_us_state_20m.shp (via pull_census_shapes.py)
        data/cost_comparison_v1.csv
        data/bead_allocation_v2.csv
 Output: docs/data/state_map.geojson
 
-Excludes AK, HI, and non-state territories (PR, GU, VI, AS, MP) -- keeping
-the map to the contiguous 48 + DC avoids Alaska's antimeridian-wrap
-rendering headaches and Hawaii's disconnected-islands layout for a simple
-single-projection SVG map. As of the 51-state (50+DC) expansion, AK and HI
-DO have real market-layer data (see data/cost_comparison_v1.csv) -- they're
-just not plotted here. The full comparison table on the site covers them;
-only this map's rendering excludes them. See docs/index.html's map section
-caption.
+Excludes only non-state territories (PR, GU, VI, AS, MP) -- the site's
+d3.geoAlbersUsa() projection (docs/index.html) natively repositions AK and
+HI as bottom-left insets specifically to solve the antimeridian-wrap /
+disconnected-islands problem, so there's no reason to filter them out of
+the source geometry; AlbersUSA has no equivalent inset handling for the
+non-contiguous territories, which is why those stay excluded. All 50
+states + DC are plotted.
 """
 
 import json
@@ -30,7 +28,7 @@ DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 DOCS_DATA_DIR = Path(__file__).resolve().parent.parent / "docs" / "data"
 CENSUS_SHP = DATA_DIR / "raw" / "census" / "cb_2023_us_state_20m.shp"
 
-EXCLUDED = {"AK", "HI", "PR", "GU", "VI", "AS", "MP"}
+EXCLUDED = {"PR", "GU", "VI", "AS", "MP"}
 SIMPLIFY_TOLERANCE = 0.01  # degrees; ~1km, fine for a page-sized map
 
 

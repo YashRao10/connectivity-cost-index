@@ -205,7 +205,7 @@
 
   <section>
     <h2>BEAD subsidy intensity, by state</h2>
-    <p style="font-size:13.5px;color:var(--ink-soft);margin-top:-6px">Same $ per GSO-satellite-served-location figure as the table further below (2025 provisional award, not the original 2023 allocation), shown geographically for the 48 contiguous states + DC. Darker shading &#61; more subsidy dollars per underserved location. Every mapped state now has real data (BEAD research was re-run at full 50-state scale &mdash; see methodology). Alaska and Hawaii have full data in the table below but aren't plotted on this map &mdash; a single-projection SVG can't place them without antimeridian/inset handling this map doesn't implement.</p>
+    <p style="font-size:13.5px;color:var(--ink-soft);margin-top:-6px">Same $ per GSO-satellite-served-location figure as the table further below (2025 provisional award, not the original 2023 allocation), shown geographically for all 50 states + DC (Alaska and Hawaii plotted as insets via the map's AlbersUSA projection). Darker shading &#61; more subsidy dollars per underserved location. Every mapped state has real data (BEAD research was re-run at full 50-state scale &mdash; see methodology). Non-state territories (PR, GU, VI, AS, MP) aren't part of this map.</p>
     <div class="panel" id="mapwrap" style="padding:16px">
       <svg id="statemap" viewBox="0 0 960 600" style="width:100%;height:auto;display:block"></svg>
       <div id="maptooltip" style="position:fixed;pointer-events:none;display:none;background:var(--panel);border:1px solid var(--border-hair);border-radius:6px;padding:8px 10px;font-family:var(--mono);font-size:12px;color:var(--ink);box-shadow:0 4px 16px rgba(0,0,0,0.25);z-index:50"></div>
@@ -1202,10 +1202,12 @@ function renderMap(){
 
     const legend = document.getElementById("maplegend");
     const lo = d3.min(values), hi = d3.max(values);
+    const loFeat = priced.find(f => f.properties.bead_usd_per_gso_location === lo);
+    const hiFeat = priced.find(f => f.properties.bead_usd_per_gso_location === hi);
     legend.innerHTML = `
-      <span class="item"><span class="swatch" style="background:${color(lo)}"></span>$${lo.toFixed(2)}/location (least subsidy-intense &mdash; CT)</span>
-      <span class="item"><span class="swatch" style="background:${color(hi)}"></span>$${hi.toFixed(0)}/location (most subsidy-intense on this map &mdash; MT; AK is higher still at ~$784 but isn't plotted, see caption)</span>
-      <span class="item"><span class="swatch" style="background:var(--grid)"></span>excluded from this map's projection (AK, HI &mdash; see caption)</span>
+      <span class="item"><span class="swatch" style="background:${color(lo)}"></span>$${lo.toFixed(2)}/location (least subsidy-intense &mdash; ${loFeat.properties.state_usps})</span>
+      <span class="item"><span class="swatch" style="background:${color(hi)}"></span>$${hi.toFixed(0)}/location (most subsidy-intense &mdash; ${hiFeat.properties.state_usps})</span>
+      <span class="item"><span class="swatch" style="background:var(--grid)"></span>non-state territories not shown (PR, GU, VI, AS, MP)</span>
     `;
   });
 }
