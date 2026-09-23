@@ -67,6 +67,13 @@ RECONCILIATION_FLAG_PCT = 15.0  # abs% difference above which a state gets flagg
 
 
 def load_projects(raw_dir: Path = RAW_DIR) -> pd.DataFrame:
+    # project_type (L=last-mile, M=middle-mile, C/c/l=inconsistent-casing
+    # variants, ~150 blank) is deliberately NOT loaded/filtered on here.
+    # Checked directly 2026-09-23: only 1 middle-mile project exists
+    # nationally ($13.05M, NC), and it's already one of the 56 projects
+    # with no LOCATION.csv rows that the Unknown-bucket handling below
+    # covers -- project_type plays no role in which projects get located,
+    # so there's no separate middle-mile exclusion path to worry about.
     return pd.read_csv(
         raw_dir / "PROJECT_20260827.csv",
         usecols=["state", "project_id", "bead_support"],

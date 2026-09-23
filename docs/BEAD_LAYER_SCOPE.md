@@ -145,15 +145,28 @@ point-density map of funded locations someday, not attempted here, the
 existing map still uses the state-total proxy; (4) NO_BEAD_20260827.csv
 (57.9MB, excluded/ineligible locations with a reason code) is also unused
 -- could show which locations were considered and rejected, not just which
-were funded; (5) noticed in passing while investigating NC: at least one
-BEAD project nationally has `project_type == "M"` (middle-mile, not
-last-mile) and appears to have no matching rows in `LOCATION.csv` --
-middle-mile projects may be silently excluded from
-`build_bead_final_proposal.py`'s per-state totals entirely, since that
-script only counts locations it can find in LOCATION.csv. Not confirmed
-how many states/dollars this affects beyond the one NC project spotted
-($13.05M) -- worth a dedicated check before trusting the granular layer's
-totals as complete for states with real middle-mile BEAD spending.
+were funded.
+
+~~(5) noticed in passing while investigating NC: at least one BEAD project
+nationally has `project_type == "M"` (middle-mile, not last-mile) and
+appears to have no matching rows in LOCATION.csv -- middle-mile projects
+may be silently excluded~~ -- checked directly 2026-09-23 and resolved:
+`PROJECT_20260827.csv`'s `project_type` breaks down as L=5,608 (last-mile),
+NaN=150, C=15, c=26, l=6, and exactly **1** M (middle-mile) project
+nationally -- the $13.05M NC project already spotted. `project_type` isn't
+loaded or filtered on anywhere in `build_bead_final_proposal.py`, so there
+is no type-based exclusion path; the M project is simply one of the 56
+projects nationally ($88.0M combined, matches exactly) with zero
+LOCATION.csv rows, already caught by the existing Unknown-bucket fix from
+the SD/DC investigation above. Checked each project_type's total dollar
+exposure and no-location-count too (C: 15/15 all missing, $2.07M; c: 26/26
+all missing, $19.50 -- both effectively test/placeholder rows given the
+tiny dollar amounts; L: 14/5,608 missing, $72.9M -- the bulk of the $88M;
+l and NaN: 0 missing). Nothing here understates any state's total beyond
+what the Unknown bucket already surfaces. A guard test
+(`test_middle_mile_projects_are_not_excluded`) was added so a future
+change can't quietly reintroduce a project_type filter.
+
 International comparison remains an unscoped stretch goal -- would need
-its own research
-pass before any build, not something to start opportunistically.
+its own research pass before any build, not something to start
+opportunistically.

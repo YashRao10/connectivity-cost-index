@@ -136,6 +136,30 @@ def test_mix_of_located_and_unlocated_projects_in_same_state(projects, locations
     assert al_fiber["bead_support_usd"] == pytest.approx(100_000 + 40_000 * 2 / 3, abs=0.01)
 
 
+def test_middle_mile_projects_are_not_excluded(projects, locations):
+    # Checked directly against the real data 2026-09-23: project_type isn't
+    # loaded/used anywhere in this pipeline, and the one real middle-mile
+    # ("M") project nationally ($13.05M, NC) has no LOCATION.csv rows --
+    # it's already covered by the Unknown-bucket path, not a separate
+    # exclusion. This test guards against a future change accidentally
+    # introducing a project_type filter that would drop a middle-mile
+    # project with real location data, which should be included exactly
+    # like any other project type.
+    extra_projects = pd.concat(
+        [projects, pd.DataFrame({"state": ["NC"], "project_id": ["p_middle_mile"], "bead_support": [13_050_000.0]})],
+        ignore_index=True,
+    )
+    extra_locations = pd.concat(
+        [locations, pd.DataFrame({"project_id": ["p_middle_mile"] * 3, "technology": [50, 50, 50], "state": ["NC"] * 3})],
+        ignore_index=True,
+    )
+    result = aggregate_state_tech_summary(extra_projects, extra_locations)
+    nc_fiber = result[(result.state_usps == "NC") & (result.technology_label == "Fiber")]
+    assert len(nc_fiber) == 1
+    assert nc_fiber.iloc[0]["bead_support_usd"] == pytest.approx(13_050_000.0)
+    assert nc_fiber.iloc[0]["locations_funded"] == 3
+
+
 def test_reconciliation_pct_diff_math_is_correct(projects, locations):
     state_tech = aggregate_state_tech_summary(projects, locations)
     existing_totals = pd.Series({"AL": 350_000.0, "TX": 9_500.0}, name="provisional_award_usd")
