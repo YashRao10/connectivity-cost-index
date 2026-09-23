@@ -83,6 +83,7 @@ def measure_ping():
             capture_output=True,
             text=True,
             timeout=30,
+            check=False,
             creationflags=subprocess.CREATE_NO_WINDOW if is_windows else 0,
         ).stdout
     except subprocess.SubprocessError:
