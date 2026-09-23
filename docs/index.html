@@ -112,6 +112,10 @@
   section:nth-of-type(6) > h2{border-left-color:var(--sig-rose)}
   section:nth-of-type(6) > h2::before{color:var(--sig-rose)}
   .h2-icon{display:inline-block;vertical-align:-3px;margin-left:9px;opacity:.55}
+  .netdiagram text{font-family:var(--mono)}
+  .netdiagram .diagram-label{fill:var(--ink);font-size:13px;font-weight:600}
+  .netdiagram .diagram-sublabel{fill:var(--ink-mute);font-size:10.5px}
+  .netdiagram .diagram-bracket{fill:var(--ink-mute);font-size:10px;letter-spacing:.03em}
 
   .tiles{display:flex;flex-wrap:wrap;gap:10px}
   .tile{flex:1 1 210px;background:var(--panel);border:1px solid var(--line);border-radius:8px;
@@ -194,7 +198,7 @@
   </header>
 
   <section>
-    <h2>At a glance</h2>
+    <h2>At a glance<svg class="h2-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg></h2>
     <div class="tiles">
       <div class="tile"><div class="lbl">Starlink vs. licensed 5G home</div><div class="num">51/51</div>
         <div class="sub">cheaper per Mbps in every state + DC &mdash; margin ranges 2.1&times; (ID) to 25.5&times; (AK)</div></div>
@@ -242,11 +246,69 @@
     </div>
   </section>
   <section>
-    <h2>The question</h2>
+    <h2>The question<svg class="h2-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3v4M16 3v4"/><rect x="6" y="7" width="12" height="7" rx="1.5"/><path d="M12 14v3a3 3 0 0 0 3 3h2"/></svg></h2>
     <p>Satellite broadband carries a well-known reputation for being expensive relative to its speed &mdash; a "tax" paid for coverage in places wired options can't reach. This project tests that claim with public data instead of assuming it: FCC's National Broadband Map (which technologies actually serve which locations, split by GSO vs. LEO satellite) joined against published ISP/carrier pricing. The market layer now covers <strong>all 50 states plus DC</strong> &mdash; every region type, not a sample.</p>
     <p>The finding holds at full scale, though it's more nuanced than the earlier 10-state version suggested. LEO satellite (Starlink) beats legacy GSO satellite everywhere (51 of 51) and beats <strong>Licensed Fixed Wireless</strong> (Verizon 5G Home / T-Mobile Home Internet &mdash; the actual 5G-home-internet product, not a niche one) everywhere too (51 of 51) &mdash; but not always by the same exact 10&times; margin the smaller sample showed. Most states land at exactly 10&times; ($0.196 vs. $2.00), but the gap ranges from a modest 2.1&times; in Idaho ($0.417) up to 25.5&times; in Alaska ($5.00). It does <em>not</em> beat every other technology everywhere, though: DSL in Rhode Island, and unlicensed fixed wireless pricing in Hawaii, Nevada, and Rhode Island, both come in cheaper than LEO satellite on this metric &mdash; real exceptions, not smoothed over. The real story is less "satellite always wins" and more "satellite reliably beats its most direct national competitor (licensed 5G home internet) everywhere, while losing occasionally to cheaper legacy/local options and consistently to wired infrastructure where that exists."</p>
     <p style="font-size:13px;color:var(--ink-mute)">Worth flagging up front, not buried in methodology: Starlink's own cost-per-Mbps is <em>flat</em> at $0.196 in every state (one national price against an FCC technology-level median that barely moves), while Licensed Fixed Wireless is <em>not</em> flat at full scale &mdash; it varies from $0.417 to $5.00 depending on that state's FCC-reported median speed tier for the technology. So the "beats it everywhere" finding is 51 genuinely different comparisons, not one national ratio repeated 51 times &mdash; a meaningfully stronger claim than the original 10-state framing, which happened to sample only states where Licensed Fixed Wireless's speed tier was identical. See methodology for the full caveat.</p>
   </section>
+
+  <section>
+    <h2>How this data is actually measured: networking basics<svg class="h2-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="10" width="4" height="4" rx=".5"/><rect x="10" y="10" width="4" height="4" rx=".5"/><rect x="18" y="10" width="4" height="4" rx=".5"/><path d="M6 12h4M14 12h4" stroke-dasharray="1 2"/></svg></h2>
+    <p style="font-size:13.5px;color:var(--ink-soft);margin-top:-6px">Every number below travels the same basic path, and the protocol carrying it changes what "connection quality" even means. Quick primer before the data.</p>
+    <div class="panel" style="padding:24px 16px 8px">
+      <svg class="netdiagram" viewBox="0 0 900 155" style="width:100%;height:auto;display:block" xmlns="http://www.w3.org/2000/svg">
+        <line x1="90" y1="45" x2="780" y2="45" stroke="var(--line)" stroke-width="2" stroke-dasharray="4 4"/>
+        <g transform="translate(90,45)">
+          <circle r="26" fill="var(--bg)" stroke="var(--sig-cyan)" stroke-width="1.7"/>
+          <path d="M-9 -6h18v9h-18z M-11 5h22" stroke="var(--sig-cyan)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+        <text x="90" y="95" text-anchor="middle" class="diagram-label">Your device</text>
+        <text x="90" y="110" text-anchor="middle" class="diagram-sublabel">laptop, phone, TV</text>
+
+        <g transform="translate(320,45)">
+          <circle r="26" fill="var(--bg)" stroke="var(--sig-violet)" stroke-width="1.7"/>
+          <rect x="-9" y="-2" width="18" height="9" rx="1.5" stroke="var(--sig-violet)" stroke-width="1.5" fill="none"/>
+          <path d="M-5 -2v-5M4 -2v-5" stroke="var(--sig-violet)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        </g>
+        <text x="320" y="95" text-anchor="middle" class="diagram-label">Router</text>
+        <text x="320" y="110" text-anchor="middle" class="diagram-sublabel">Wi-Fi + local network</text>
+
+        <g transform="translate(550,45)">
+          <circle r="26" fill="var(--bg)" stroke="var(--sig-amber)" stroke-width="1.7"/>
+          <rect x="-8" y="-8" width="16" height="16" rx="2" stroke="var(--sig-amber)" stroke-width="1.5" fill="none"/>
+          <circle cx="0" cy="0" r="2" fill="var(--sig-amber)" stroke="none"/>
+        </g>
+        <text x="550" y="95" text-anchor="middle" class="diagram-label">Modem</text>
+        <text x="550" y="110" text-anchor="middle" class="diagram-sublabel">translates the ISP signal</text>
+
+        <g transform="translate(780,45)">
+          <circle r="26" fill="var(--bg)" stroke="var(--sig-lime)" stroke-width="1.7"/>
+          <circle cx="-4" cy="2" r="4.2" fill="none" stroke="var(--sig-lime)" stroke-width="1.4"/>
+          <circle cx="2" cy="-1" r="5.5" fill="none" stroke="var(--sig-lime)" stroke-width="1.4"/>
+          <circle cx="7" cy="2" r="3.8" fill="none" stroke="var(--sig-lime)" stroke-width="1.4"/>
+          <path d="M-7 4h16" stroke="var(--sig-lime)" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+        </g>
+        <text x="780" y="95" text-anchor="middle" class="diagram-label">ISP &amp; internet</text>
+        <text x="780" y="110" text-anchor="middle" class="diagram-sublabel">what this project measures</text>
+
+        <text x="205" y="145" text-anchor="middle" class="diagram-bracket">&larr; your home network &rarr;</text>
+        <text x="665" y="145" text-anchor="middle" class="diagram-bracket">&larr; FCC / Ookla / BEAD data on this page &rarr;</text>
+      </svg>
+    </div>
+    <p style="font-size:12.5px;color:var(--ink-mute);margin-top:8px">This project measures from the modem outward &mdash; ISP pricing, advertised vs. real speeds, subsidy data. Router/Wi-Fi problems (weak signal, old hardware, too many devices) are real but a different problem, and not what any number on this page is testing.</p>
+    <div class="tiles" style="margin-top:20px">
+      <div class="tile" style="flex-basis:280px;--tile-color:var(--sig-cyan)">
+        <span class="lbl">TCP &mdash; reliable delivery</span>
+        <div style="font-size:13px;color:var(--ink-soft);margin-top:8px;line-height:1.5">Confirms every packet arrived, resends anything lost, keeps everything in order. Used for: web pages, file downloads, email. Tradeoff: one lost packet stalls everything behind it until it's resent &mdash; that's the "spinning wheel" moment on a slow connection.</div>
+      </div>
+      <div class="tile" style="flex-basis:280px;--tile-color:var(--sig-amber)">
+        <span class="lbl">UDP &mdash; speed over guarantees</span>
+        <div style="font-size:13px;color:var(--ink-soft);margin-top:8px;line-height:1.5">Sends packets and moves on &mdash; no confirmation, no resending. Used for: video calls, online gaming, live streaming, and most speed-test probes (including Ookla, used in the layer below). Tradeoff: a lost packet is just gone &mdash; a frozen video frame, not a delay.</div>
+      </div>
+    </div>
+    <p style="font-size:13px;color:var(--ink-mute);margin-top:14px">This is why <strong>latency</strong> (round-trip delay, in ms), <strong>jitter</strong> (how much that delay swings from packet to packet), and <strong>packet loss</strong> (% of packets that never arrive) &mdash; all three shown in the personal reliability layer further down &mdash; matter differently depending on the protocol. TCP mostly hides jitter and loss behind retries; you just see a page load slower. UDP doesn't hide it &mdash; that's the frozen call or the game lag spike, and exactly why real-time apps and speed tests use it instead of TCP.</p>
+  </section>
+
   <section>
     <h2>Full comparison table<svg class="h2-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h3"/><rect x="6" y="9" width="4" height="6" rx="1"/><path d="M10 12h2l1.5-3 1.5 3 1.5-3 1.5 3h2"/></svg></h2>
     <p style="font-size:13px;color:var(--ink-mute);margin-top:-6px">Filter by state/technology/price, click a column header to sort.</p>
