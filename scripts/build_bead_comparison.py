@@ -22,6 +22,16 @@ Methodology: GSO Satellite locations_served (from fcc_technology_summary.csv)
 is used as a proxy for "underserved" locations, not a precise BEAD-eligibility
 count -- see docs/BEAD_LAYER_SCOPE.md for the full reasoning and caveats.
 
+Also adds a Starlink-cost cross-reference: how many months of the cheapest
+current Starlink residential plan (sourced from data/pricing_snapshot.csv,
+same "cheapest plan" selection build_cost_comparison.py uses) the per-location
+provisional award figure is worth. This is explicitly NOT a claim that BEAD
+money could or should just buy Starlink subscriptions instead -- BEAD funds
+permanent infrastructure, not a recurring service, and the location-count
+denominator is already a loose proxy (see above). It's a scale sanity-check
+on a number that's otherwise hard to interpret in isolation, nothing more --
+see docs/BEAD_LAYER_SCOPE.md and the site's caveat text for the full framing.
+
 Output: data/bead_allocation_v2.csv
 """
 
@@ -30,6 +40,14 @@ from pathlib import Path
 import pandas as pd
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
+
+
+def load_cheapest_starlink_monthly_usd() -> float:
+    pricing = pd.read_csv(DATA_DIR / "pricing_snapshot.csv")
+    starlink = pricing[
+        (pricing.technology == "leo_satellite") & (pricing.provider == "Starlink")
+    ].dropna(subset=["monthly_price_usd"])
+    return float(starlink["monthly_price_usd"].min())
 
 # (original 2023 allocation, 2025 "Benefit of the Bargain" provisional award),
 # both in USD. Compiled 2026-09 from telecompetitor.com's comprehensive list.
@@ -91,11 +109,13 @@ BEAD_AWARDS_USD = {
 def build_comparison() -> pd.DataFrame:
     fcc = pd.read_csv(DATA_DIR / "fcc_technology_summary.csv")
     gso = fcc[fcc.technology_label == "GSO Satellite"].set_index("state_usps")["locations_served"]
+    starlink_monthly_usd = load_cheapest_starlink_monthly_usd()
 
     rows = []
     for state, (original, provisional) in BEAD_AWARDS_USD.items():
         locations = gso.get(state)
         pct_change = round((provisional - original) / original * 100, 1)
+        usd_per_location = round(provisional / locations, 2) if locations else None
         rows.append(
             {
                 "state_usps": state,
@@ -103,8 +123,11 @@ def build_comparison() -> pd.DataFrame:
                 "provisional_award_usd": provisional,
                 "pct_change_vs_original": pct_change,
                 "gso_satellite_locations": locations,
-                "provisional_usd_per_gso_location": (
-                    round(provisional / locations, 2) if locations else None
+                "provisional_usd_per_gso_location": usd_per_location,
+                "provisional_per_location_months_of_starlink": (
+                    round(usd_per_location / starlink_monthly_usd, 1)
+                    if usd_per_location is not None
+                    else None
                 ),
             }
         )
