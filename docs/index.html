@@ -335,6 +335,17 @@
   </section>
 
   <section>
+    <h2>Where BEAD-funded community institutions actually are</h2>
+    <p style="font-size:13.5px;color:var(--ink-soft);margin-top:-6px">22,675 individual schools, libraries, health clinics, fire/police departments, public housing sites, and government buildings that will get BEAD-funded broadband &mdash; each plotted at its own real address, not a state-level aggregate. Hover a cluster for the breakdown.</p>
+    <div class="panel" id="caimapwrap" style="padding:16px">
+      <canvas id="caimap" width="960" height="600" style="width:100%;height:auto;display:block"></canvas>
+      <div id="caimaptooltip" style="position:fixed;pointer-events:none;display:none;background:var(--panel);border:1px solid var(--border-hair);border-radius:6px;padding:8px 10px;font-family:var(--mono);font-size:12px;color:var(--ink);box-shadow:0 4px 16px rgba(0,0,0,0.25);z-index:50"></div>
+    </div>
+    <div class="legend" id="caimaplegend"></div>
+    <p style="font-size:13px;color:var(--ink-mute);margin-top:10px">Source: the same NTIA Final Proposal data as the granular BEAD layer above, this time at the individual-institution level (CAI_20260827.csv). 22,675 of 25,909 listed CAIs have a usable coordinate (3,036 have no lat/lon or an exact 0,0 placeholder, excluded). American Samoa (23) and Guam (5) aren't plotted &mdash; this map reuses the choropleth's d3.geoAlbersUsa() projection, which only repositions Alaska/Hawaii, not the Pacific territories. <strong>Type-code labels are inferred from each institution's name</strong> (e.g. "S" only ever appears on schools in a sample check), not from an official published codebook &mdash; none exists on broadbandexpanded.com's funding page or bundled with the data. Confident, not independently confirmed against NTIA's own taxonomy. Coordinates rounded to 4 decimal places (~11m) for a smaller download.</p>
+  </section>
+
+  <section>
     <h2>Methodology &amp; caveats</h2>
     <div class="limits">
       <ul>
@@ -1274,12 +1285,115 @@ function renderMap(){
   });
 }
 
+// Canvas's 2D context doesn't resolve CSS custom properties the way SVG
+// presentation attributes do (fill="var(--x)" works in SVG, not on
+// ctx.fillStyle) -- colors must be read out as literal computed values
+// first via getComputedStyle, once, and reused as plain strings.
+function resolveCssVar(name){
+  return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+}
+
+function renderCaiMap(){
+  const canvas = document.getElementById("caimap");
+  const ctx = canvas.getContext("2d");
+  const tooltip = document.getElementById("caimaptooltip");
+  const width = 960, height = 600;
+  const projection = d3.geoAlbersUsa().translate([width/2, height/2]).scale(1200);
+  const path = d3.geoPath().projection(projection).context(ctx);
+
+  const CAI_TYPE_COLOR = {
+    S: resolveCssVar("--sig-cyan"),
+    F: resolveCssVar("--sig-rose"),
+    H: resolveCssVar("--sig-lime"),
+    L: resolveCssVar("--sig-violet"),
+    C: resolveCssVar("--sig-amber"),
+    P: resolveCssVar("--sig-blue"),
+    G: resolveCssVar("--ink-mute")
+  };
+  const panelColor = resolveCssVar("--panel");
+  const borderColor = resolveCssVar("--border-hair");
+
+  Promise.all([
+    fetch("data/state_map.geojson").then(r => r.json()),
+    fetch("data/cai_locations.json").then(r => r.json())
+  ]).then(([geo, cai]) => {
+    ctx.clearRect(0, 0, width, height);
+
+    // State outlines, drawn once as a static backdrop -- no per-state data
+    // here, just geography for orientation.
+    ctx.strokeStyle = borderColor;
+    ctx.fillStyle = panelColor;
+    ctx.lineWidth = 1;
+    geo.features.forEach(f => {
+      ctx.beginPath();
+      path(f);
+      ctx.fill();
+      ctx.stroke();
+    });
+
+    // Bucket screen-space points into an 8px grid for cheap hover
+    // hit-testing -- a brute-force distance check against all ~22K points
+    // on every mousemove would be the simpler code but noticeably laggy.
+    const BUCKET = 8;
+    const buckets = new Map();
+    const plotted = [];
+    cai.points.forEach(([lat, lon, type, state]) => {
+      const xy = projection([lon, lat]);
+      if (!xy) return; // AlbersUSA returns null for coords it can't place
+      const [x, y] = xy;
+      plotted.push({x, y, type, state});
+      const key = `${Math.round(x / BUCKET)},${Math.round(y / BUCKET)}`;
+      if (!buckets.has(key)) buckets.set(key, []);
+      buckets.get(key).push({type, state});
+    });
+
+    ctx.globalAlpha = 0.55;
+    plotted.forEach(p => {
+      ctx.fillStyle = CAI_TYPE_COLOR[p.type] || "var(--ink-mute)";
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, 1.6, 0, 2 * Math.PI);
+      ctx.fill();
+    });
+    ctx.globalAlpha = 1;
+
+    canvas.addEventListener("mousemove", (event) => {
+      const rect = canvas.getBoundingClientRect();
+      const scaleX = width / rect.width, scaleY = height / rect.height;
+      const mx = (event.clientX - rect.left) * scaleX;
+      const my = (event.clientY - rect.top) * scaleY;
+      const key = `${Math.round(mx / BUCKET)},${Math.round(my / BUCKET)}`;
+      const hits = buckets.get(key);
+      if (!hits || !hits.length) { tooltip.style.display = "none"; return; }
+      const byType = {};
+      hits.forEach(h => { byType[h.type] = (byType[h.type] || 0) + 1; });
+      const stateSet = [...new Set(hits.map(h => h.state))];
+      const lines = Object.entries(byType)
+        .map(([t, n]) => `${cai.type_labels[t] || t}: ${n}`)
+        .join("<br>");
+      tooltip.innerHTML = `<strong>${stateSet.join(", ")}</strong> (${hits.length} nearby)<br>${lines}`;
+      tooltip.style.display = "block";
+      tooltip.style.left = (event.clientX + 14) + "px";
+      tooltip.style.top = (event.clientY + 14) + "px";
+    });
+    canvas.addEventListener("mouseleave", () => { tooltip.style.display = "none"; });
+
+    const legend = document.getElementById("caimaplegend");
+    const order = ["S", "F", "H", "L", "C", "P", "G"];
+    legend.innerHTML = order.map(t => `
+      <span class="item"><span class="swatch" style="background:${CAI_TYPE_COLOR[t]}"></span>${cai.type_labels[t]}: ${(cai.summary.type_counts[cai.type_labels[t]] || 0).toLocaleString()}</span>
+    `).join("") + `
+      <span class="item"><span class="swatch" style="background:var(--grid)"></span>${cai.summary.mapped_points.toLocaleString()} plotted (${cai.summary.total_usable_points - cai.summary.mapped_points} more in AS/GU, not shown)</span>
+    `;
+  });
+}
+
 renderRangeChart();
 setupFilterControls();
 renderTable();
 renderOoklaTable();
 renderTimeseriesTable();
 renderBeadTable();
+renderCaiMap();
 renderMap();
 </script>
 </body>
