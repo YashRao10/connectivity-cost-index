@@ -124,10 +124,11 @@
   .tile .num{font-size:25px;font-weight:700;font-variant-numeric:tabular-nums;margin-top:5px;letter-spacing:-0.01em;font-family:var(--sans)}
   .tile .sub{font-size:12px;color:var(--ink-mute);margin-top:3px}
 
-  .table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -2px}
+  .table-scroll{overflow-x:auto;overflow-y:auto;max-height:440px;-webkit-overflow-scrolling:touch;margin:0 -2px}
   table{width:100%;min-width:520px;border-collapse:collapse;font-size:13px}
   th,td{text-align:left;padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:middle;white-space:nowrap}
   th{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-mute);font-weight:500}
+  .table-scroll thead th{position:sticky;top:0;background:var(--bg);box-shadow:0 1px 0 var(--line)}
   #datatable th[data-key]{cursor:pointer;user-select:none;white-space:nowrap}
   #datatable th[data-key]:hover{color:var(--ink)}
   #datatable th[data-key].sorted::after{content:" \25B2"; color:var(--sig-cyan)}
