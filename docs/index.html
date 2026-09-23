@@ -206,21 +206,6 @@
         <div class="sub">real committed dollars, not a proxy &mdash; $701&ndash;1,138/location (satellite) vs. $6,420.70 (fiber), from actual project-level BEAD data</div></div>
     </div>
   </section>
-
-  <section>
-    <h2>The question</h2>
-    <p>Satellite broadband carries a well-known reputation for being expensive relative to its speed &mdash; a "tax" paid for coverage in places wired options can't reach. This project tests that claim with public data instead of assuming it: FCC's National Broadband Map (which technologies actually serve which locations, split by GSO vs. LEO satellite) joined against published ISP/carrier pricing. The market layer now covers <strong>all 50 states plus DC</strong> &mdash; every region type, not a sample.</p>
-    <p>The finding holds at full scale, though it's more nuanced than the earlier 10-state version suggested. LEO satellite (Starlink) beats legacy GSO satellite everywhere (51 of 51) and beats <strong>Licensed Fixed Wireless</strong> (Verizon 5G Home / T-Mobile Home Internet &mdash; the actual 5G-home-internet product, not a niche one) everywhere too (51 of 51) &mdash; but not always by the same exact 10&times; margin the smaller sample showed. Most states land at exactly 10&times; ($0.196 vs. $2.00), but the gap ranges from a modest 2.1&times; in Idaho ($0.417) up to 25.5&times; in Alaska ($5.00). It does <em>not</em> beat every other technology everywhere, though: DSL in Rhode Island, and unlicensed fixed wireless pricing in Hawaii, Nevada, and Rhode Island, both come in cheaper than LEO satellite on this metric &mdash; real exceptions, not smoothed over. The real story is less "satellite always wins" and more "satellite reliably beats its most direct national competitor (licensed 5G home internet) everywhere, while losing occasionally to cheaper legacy/local options and consistently to wired infrastructure where that exists."</p>
-    <p style="font-size:13px;color:var(--ink-mute)">Worth flagging up front, not buried in methodology: Starlink's own cost-per-Mbps is <em>flat</em> at $0.196 in every state (one national price against an FCC technology-level median that barely moves), while Licensed Fixed Wireless is <em>not</em> flat at full scale &mdash; it varies from $0.417 to $5.00 depending on that state's FCC-reported median speed tier for the technology. So the "beats it everywhere" finding is 51 genuinely different comparisons, not one national ratio repeated 51 times &mdash; a meaningfully stronger claim than the original 10-state framing, which happened to sample only states where Licensed Fixed Wireless's speed tier was identical. See methodology for the full caveat.</p>
-  </section>
-
-  <section>
-    <h2>Cost per Mbps, range across all 50 states + DC</h2>
-    <p style="font-size:13.5px;color:var(--ink-soft);margin-top:-6px">Each bar spans the lowest-to-highest <code>monthly price &divide; FCC median advertised download speed</code> seen for that technology nationwide (cheapest published plan per technology). A bar with no visible span means the value is identical everywhere &mdash; true only for LEO Satellite now that the sample covers all 50 states + DC (Licensed Fixed Wireless, flat in the earlier 10-state sample, now shows real variance &mdash; see note above). States with an undefined DSL cost (median speed rounds to 0 Mbps) are excluded from this range; see methodology.</p>
-    <div class="panel" id="rangechart"></div>
-    <div class="legend" id="legend"></div>
-  </section>
-
   <section>
     <h2>BEAD subsidy intensity, by state</h2>
     <p style="font-size:13.5px;color:var(--ink-soft);margin-top:-6px">Same $ per GSO-satellite-served-location figure as the table further below (2025 provisional award, not the original 2023 allocation), shown geographically for all 50 states + DC (Alaska and Hawaii plotted as insets via the map's AlbersUSA projection). Darker shading &#61; more subsidy dollars per underserved location. Every mapped state has real data (BEAD research was re-run at full 50-state scale &mdash; see methodology). Non-state territories (PR, GU, VI, AS, MP) aren't part of this map.</p>
@@ -230,7 +215,36 @@
     </div>
     <div class="legend" id="maplegend"></div>
   </section>
-
+  <section>
+    <h2>Where BEAD-funded community institutions actually are</h2>
+    <p style="font-size:13.5px;color:var(--ink-soft);margin-top:-6px">22,675 individual schools, libraries, health clinics, fire/police departments, public housing sites, and government buildings that will get BEAD-funded broadband &mdash; each plotted at its own real address, not a state-level aggregate. Hover a cluster for the breakdown.</p>
+    <div class="panel" id="caimapwrap" style="padding:16px">
+      <canvas id="caimap" width="960" height="600" style="width:100%;height:auto;display:block"></canvas>
+      <div id="caimaptooltip" style="position:fixed;pointer-events:none;display:none;background:var(--panel);border:1px solid var(--border-hair);border-radius:6px;padding:8px 10px;font-family:var(--mono);font-size:12px;color:var(--ink);box-shadow:0 4px 16px rgba(0,0,0,0.25);z-index:50"></div>
+    </div>
+    <div class="legend" id="caimaplegend"></div>
+    <p style="font-size:13px;color:var(--ink-mute);margin-top:10px">Source: the same NTIA Final Proposal data as the granular BEAD layer above, this time at the individual-institution level (CAI_20260827.csv). 22,675 of 25,909 listed CAIs have a usable coordinate (3,036 have no lat/lon or an exact 0,0 placeholder, excluded). American Samoa (23) and Guam (5) aren't plotted &mdash; this map reuses the choropleth's d3.geoAlbersUsa() projection, which only repositions Alaska/Hawaii, not the Pacific territories. <strong>Type-code labels are inferred from each institution's name</strong> (e.g. "S" only ever appears on schools in a sample check), not from an official published codebook &mdash; none exists on broadbandexpanded.com's funding page or bundled with the data. Confident, not independently confirmed against NTIA's own taxonomy. Coordinates rounded to 4 decimal places (~11m) for a smaller download.</p>
+  </section>
+  <section>
+    <h2>Cost per Mbps, range across all 50 states + DC</h2>
+    <p style="font-size:13.5px;color:var(--ink-soft);margin-top:-6px">Each bar spans the lowest-to-highest <code>monthly price &divide; FCC median advertised download speed</code> seen for that technology nationwide (cheapest published plan per technology). A bar with no visible span means the value is identical everywhere &mdash; true only for LEO Satellite now that the sample covers all 50 states + DC (Licensed Fixed Wireless, flat in the earlier 10-state sample, now shows real variance &mdash; see note above). States with an undefined DSL cost (median speed rounds to 0 Mbps) are excluded from this range; see methodology.</p>
+    <div class="panel" id="rangechart"></div>
+    <div class="legend" id="legend"></div>
+  </section>
+  <section>
+    <h2>Where the other 1.1M eligible locations went</h2>
+    <p style="font-size:13.5px;color:var(--ink-soft);margin-top:-6px">3.78M locations got a funded BEAD project (above). Another 1,097,151 &mdash; 22.5% of everything eligible &mdash; didn't, each with a reason code an Eligible Entity had to justify to NTIA. Source: NTIA's own <code>fp_no_BEAD_locations.csv</code> schema, same compilation as the funded-location data.</p>
+    <div class="panel" id="nobeadchart" style="padding:16px 20px"></div>
+    <div class="callout" style="margin:14px 0">
+      <strong>67.5% were already being helped some other way</strong> &mdash; already privately served (45.6%) or already funded by a different federal/state program (21.9%). Another 22.5% turned out not to be real locations at all (removed from the FCC's own address list). Only <strong>330 locations nationally (0.03%)</strong> were excluded because a state said it couldn't afford to serve them &mdash; the "we gave up" category NTIA sets a deliberately high bar for. Used by just 3 states: CT (168), MN (158), MD (4).
+    </div>
+  </section>
+  <section>
+    <h2>The question</h2>
+    <p>Satellite broadband carries a well-known reputation for being expensive relative to its speed &mdash; a "tax" paid for coverage in places wired options can't reach. This project tests that claim with public data instead of assuming it: FCC's National Broadband Map (which technologies actually serve which locations, split by GSO vs. LEO satellite) joined against published ISP/carrier pricing. The market layer now covers <strong>all 50 states plus DC</strong> &mdash; every region type, not a sample.</p>
+    <p>The finding holds at full scale, though it's more nuanced than the earlier 10-state version suggested. LEO satellite (Starlink) beats legacy GSO satellite everywhere (51 of 51) and beats <strong>Licensed Fixed Wireless</strong> (Verizon 5G Home / T-Mobile Home Internet &mdash; the actual 5G-home-internet product, not a niche one) everywhere too (51 of 51) &mdash; but not always by the same exact 10&times; margin the smaller sample showed. Most states land at exactly 10&times; ($0.196 vs. $2.00), but the gap ranges from a modest 2.1&times; in Idaho ($0.417) up to 25.5&times; in Alaska ($5.00). It does <em>not</em> beat every other technology everywhere, though: DSL in Rhode Island, and unlicensed fixed wireless pricing in Hawaii, Nevada, and Rhode Island, both come in cheaper than LEO satellite on this metric &mdash; real exceptions, not smoothed over. The real story is less "satellite always wins" and more "satellite reliably beats its most direct national competitor (licensed 5G home internet) everywhere, while losing occasionally to cheaper legacy/local options and consistently to wired infrastructure where that exists."</p>
+    <p style="font-size:13px;color:var(--ink-mute)">Worth flagging up front, not buried in methodology: Starlink's own cost-per-Mbps is <em>flat</em> at $0.196 in every state (one national price against an FCC technology-level median that barely moves), while Licensed Fixed Wireless is <em>not</em> flat at full scale &mdash; it varies from $0.417 to $5.00 depending on that state's FCC-reported median speed tier for the technology. So the "beats it everywhere" finding is 51 genuinely different comparisons, not one national ratio repeated 51 times &mdash; a meaningfully stronger claim than the original 10-state framing, which happened to sample only states where Licensed Fixed Wireless's speed tier was identical. See methodology for the full caveat.</p>
+  </section>
   <section>
     <h2>Full comparison table</h2>
     <p style="font-size:13px;color:var(--ink-mute);margin-top:-6px">Filter by state/technology/price, click a column header to sort.</p>
@@ -266,7 +280,6 @@
     </table>
     </div>
   </section>
-
   <section>
     <h2>Real-world speed vs. advertised (Ookla)</h2>
     <p style="font-size:13.5px;color:var(--ink-soft);margin-top:-6px">FCC's numbers above are provider-<em>reported</em> advertised speeds. This section checks them against what people actually measure: median blended speed/latency per state from Ookla's public Speedtest data (Q2 2026), across every technology mix in that state &mdash; not filtered to one technology. Now covers all 50 states + DC, matching the market layer above.</p>
@@ -278,7 +291,6 @@
     </div>
     <p style="font-size:13px;color:var(--ink-mute);margin-top:10px">These are blended medians across every technology serving a state &mdash; not "fiber's real speed" or "satellite's real speed" specifically. A high-fiber-density state's blended fixed median sitting far below fiber's advertised "up to 8000 Mbps" isn't fiber underperforming; it's that the real-world mix, including slower DSL/wireless/satellite lines, pulls the state-wide median down. Mobile is meaningfully slower than fixed everywhere. At full 51-state scale, fixed median download ranges from 148.7 Mbps (AK) to 398.8 Mbps (FL) &mdash; Alaska overtook Montana for the slowest/highest-latency spot once it was added: AK also has the highest mobile latency (61ms), while Vermont now has the lowest mobile test volume. This layer now uses a real Census-shapefile point-in-polygon join per state (upgraded from an earlier bounding-box approximation).</p>
   </section>
-
   <section>
     <h2>Quarter-over-quarter trend (Q1 &rarr; Q2 2026)</h2>
     <p style="font-size:13.5px;color:var(--ink-soft);margin-top:-6px">Now covers all 50 states + DC (102 state/network combinations), matching the layers above &mdash; still only two quarters of history, not enough to call this a confirmed trend, but the picture is more nuanced at full scale than the original 10-state sample suggested. Median download speed <em>declined</em> from Q1 to Q2 2026 in 82 of 102 combinations (80.4%), most sharply for Nebraska mobile (-23.3%) and West Virginia mobile (-15.8%). But 19 combinations actually <em>increased</em> &mdash; Florida wasn't the lone exception it looked like at 10 states; Arizona (fixed +3.2%, mobile +9.6%), DC mobile (+11.0%), and Wyoming mobile (+9.4%) also gained.</p>
@@ -290,7 +302,6 @@
     </div>
     <p style="font-size:13px;color:var(--ink-mute);margin-top:10px">The cause isn't established here &mdash; a majority decline across most states and both network types in a single quarter could reflect real network congestion/usage growth, a shift in who's running speed tests (device/carrier mix), or something in Ookla's own data collection changing between releases. Not attributing this to any specific cause without more quarters of history; flagging it as an observed pattern worth watching, not a conclusion. This will get more reliable automatically as the quarterly GitHub Actions refresh accumulates more history.</p>
   </section>
-
   <section>
     <h2>Where the subsidy money goes: BEAD allocation vs. satellite dependence</h2>
     <p style="font-size:13.5px;color:var(--ink-soft);margin-top:-6px">The federal BEAD program allocated $42.45B across states in 2023. In 2025, NTIA restructured the program ("Benefit of the Bargain"); this layer shows both the original 2023 allocation and the 2025 provisional award for all 50 states + DC. The provisional award for 50 of 51 is individually verified against NTIA's own official per-state "BEAD Final Proposal Overview" PDF (broadbandusa.ntia.gov) &mdash; DC is the one exception, no such PDF has been published for it, so DC keeps an earlier secondary-source estimate, flagged as unverified (see methodology). As a proxy for "underserved" locations, GSO Satellite locations served (from the FCC layer above) stands in &mdash; BEAD's own eligibility rules treat satellite as non-qualifying/lower-tier service in most cases, so places with heavy GSO satellite coverage plausibly correlate with places lacking adequate terrestrial options.</p>
@@ -306,7 +317,6 @@
     <p style="font-size:13px;color:var(--ink-mute);margin-top:10px">The per-location spread is even more dramatic once NTIA-verified: <strong>Alaska's provisional award works out to ~$1,021 per GSO-satellite-served location</strong> vs. <strong>Connecticut's ~$2.21</strong> &mdash; a 462&times; difference (up from the 355&times; spread the earlier, less-accurate secondary-source figures showed, and the 13&times; spread the original 10-state sample showed before that). Some of this is the formula working as intended (BEAD weights toward high-cost rural buildout), but a 462&times; spread is large enough that "does the per-location subsidy track real deployment cost, or mostly track how much each state's award was cut" is still a real, open question &mdash; the granular layer below answers a related question (satellite vs. fiber cost per location, nationally) but not this exact one (why does the same technology's implied subsidy vary 462x by state).</p>
     <p style="font-size:13px;color:var(--ink-mute);margin-top:6px"><strong>Scale sanity-check, not a real cost comparison:</strong> the last column shows how many months of the cheapest current Starlink residential plan ($55/mo) each state's $-per-location figure would buy. Even Alaska's outlier $1,021.06/location &mdash; the highest in the country &mdash; is worth about 18.6 months of a consumer satellite subscription, and most states are under 2 months. This isn't a claim that BEAD money could or should just buy Starlink plans instead &mdash; BEAD funds permanent infrastructure, not a recurring service, and the location-count denominator above is already a loose "underserved" proxy, not a precise buildout-cost basis (see Methodology). What it does show: the per-location dollar figure, on its own, is nowhere near what it would cost to actually connect a household to <em>anything</em>, wired or wireless &mdash; reinforcing that this number tracks the proxy's denominator (how many locations "have satellite coverage," which is nearly all of them) far more than it tracks real deployment economics.</p>
   </section>
-
   <section>
     <h2>What BEAD money actually builds: real per-project technology mix</h2>
     <p style="font-size:13.5px;color:var(--ink-soft);margin-top:-6px">Everything above uses GSO Satellite coverage as a proxy for "underserved locations" because state-total allocation figures don't say what technology the money actually funds. NTIA's BEAD Final Proposal data does: 5,806 real subgrantee projects, each with an actual federal subsidy amount and a list of specific locations with the technology planned for each one. This section replaces the proxy with those real numbers &mdash; project-level dollars, split across technologies by each project's actual location mix (~5.7% of projects fund more than one technology, e.g. mostly fiber with a handful of satellite locations for the hardest-to-reach spots &mdash; the $ figure is allocated proportionally to each technology's share of that project's locations, not assigned whole to one). Source: a third-party compilation of NTIA's own Final Proposal submissions (<a href="https://broadbandexpanded.com/funding/beadfinalproposaldata" style="color:inherit">broadbandexpanded.com</a>, since NTIA has no single bulk download) &mdash; the compiler itself flags this as "not intended to be authoritative." National totals here ($18.47B) now run within 1.8% of the sum of this site's own state-total figures ($18.15B) once those were individually verified against NTIA's official per-state overview PDFs (see the BEAD table above and methodology) &mdash; the two independent sources agree closely at the national level, which is reassuring, though individual states can still diverge (Illinois: $831.2M verified vs. $935.8M in this granular layer &mdash; confirmed not a duplicate-counting or stale-data bug, but a real ~13,200-location technology-mix discrepancy between sources that isn't fully pinned down; see methodology).</p>
@@ -333,27 +343,6 @@
     <p style="font-size:13px;color:var(--ink-mute);margin-top:6px"><strong>Data-completeness fix (2026-09-23):</strong> 56 BEAD projects nationally ($88.0M combined) have zero matching rows in the location-level data &mdash; a scope gap in the source compilation, not something attributable by technology. Dropping them would have silently understated a few states' totals, most severely South Dakota (one $72.8M project with no location rows, which previously zeroed out SD's entire presence in this layer) and DC (one $827K project, previously most of why DC looked incomplete here). Both are now correctly represented, shown in the "Unknown (no location data)" row above rather than vanishing.</p>
     <p style="font-size:13px;color:var(--ink-mute);margin-top:6px"><strong>Reconciliation update (2026-09-23):</strong> the state-total BEAD figures above were individually re-verified against NTIA's own official per-state overview PDFs (50 of 51 states directly confirmed; DC has no such PDF published, flagged unverified) &mdash; this superseded the original secondary-source figures, which checked out unreliable (only 12 of 27 spot-checked states matched NTIA's real numbers within 2%; Hawaii was 3x overstated). Against those now-verified figures, this granular layer's own state totals agree within 15% for 49 of all 51 states + DC. Root cause found for the two exceptions: Rhode Island's and North Carolina's project-level totals here match the <em>old, superseded</em> telecompetitor.com figures to the dollar ($16,137,983 and $408,511,175.10 respectively) &mdash; broadbandexpanded.com's underlying project data for those two states appears to reflect an earlier submission than the one NTIA's current overview PDF shows, not a live-vs-verified mismatch in this layer's own math. Illinois sits just under the flag threshold at +12.6% ($935.8M here vs. $831.2M verified). Ruled out the stale-snapshot pattern that resolved RI/NC and ruled out duplicate/double-counted data (checked directly: no duplicate project IDs, no location shared across projects, every IL project has matching location rows). The real difference is a genuine technology-mix and location-count mismatch against NTIA's own summary &mdash; this project's data shows more Fiber and LEO Satellite locations and fewer Fixed Wireless locations than NTIA's category totals, netting to about 13,200 more locations overall (155,734 vs. NTIA's 142,416&ndash;142,546) &mdash; not a data-quality bug found in either source, but not fully explained either; see docs/BEAD_LAYER_SCOPE.md for the full breakdown. The national technology-level pattern above (fiber vs. satellite cost gap) is far more robust than any single state's number, since it's averaged across thousands of projects rather than one state's total.</p>
   </section>
-
-  <section>
-    <h2>Where BEAD-funded community institutions actually are</h2>
-    <p style="font-size:13.5px;color:var(--ink-soft);margin-top:-6px">22,675 individual schools, libraries, health clinics, fire/police departments, public housing sites, and government buildings that will get BEAD-funded broadband &mdash; each plotted at its own real address, not a state-level aggregate. Hover a cluster for the breakdown.</p>
-    <div class="panel" id="caimapwrap" style="padding:16px">
-      <canvas id="caimap" width="960" height="600" style="width:100%;height:auto;display:block"></canvas>
-      <div id="caimaptooltip" style="position:fixed;pointer-events:none;display:none;background:var(--panel);border:1px solid var(--border-hair);border-radius:6px;padding:8px 10px;font-family:var(--mono);font-size:12px;color:var(--ink);box-shadow:0 4px 16px rgba(0,0,0,0.25);z-index:50"></div>
-    </div>
-    <div class="legend" id="caimaplegend"></div>
-    <p style="font-size:13px;color:var(--ink-mute);margin-top:10px">Source: the same NTIA Final Proposal data as the granular BEAD layer above, this time at the individual-institution level (CAI_20260827.csv). 22,675 of 25,909 listed CAIs have a usable coordinate (3,036 have no lat/lon or an exact 0,0 placeholder, excluded). American Samoa (23) and Guam (5) aren't plotted &mdash; this map reuses the choropleth's d3.geoAlbersUsa() projection, which only repositions Alaska/Hawaii, not the Pacific territories. <strong>Type-code labels are inferred from each institution's name</strong> (e.g. "S" only ever appears on schools in a sample check), not from an official published codebook &mdash; none exists on broadbandexpanded.com's funding page or bundled with the data. Confident, not independently confirmed against NTIA's own taxonomy. Coordinates rounded to 4 decimal places (~11m) for a smaller download.</p>
-  </section>
-
-  <section>
-    <h2>Where the other 1.1M eligible locations went</h2>
-    <p style="font-size:13.5px;color:var(--ink-soft);margin-top:-6px">3.78M locations got a funded BEAD project (above). Another 1,097,151 &mdash; 22.5% of everything eligible &mdash; didn't, each with a reason code an Eligible Entity had to justify to NTIA. Source: NTIA's own <code>fp_no_BEAD_locations.csv</code> schema, same compilation as the funded-location data.</p>
-    <div class="panel" id="nobeadchart" style="padding:16px 20px"></div>
-    <div class="callout" style="margin:14px 0">
-      <strong>67.5% were already being helped some other way</strong> &mdash; already privately served (45.6%) or already funded by a different federal/state program (21.9%). Another 22.5% turned out not to be real locations at all (removed from the FCC's own address list). Only <strong>330 locations nationally (0.03%)</strong> were excluded because a state said it couldn't afford to serve them &mdash; the "we gave up" category NTIA sets a deliberately high bar for. Used by just 3 states: CT (168), MN (158), MD (4).
-    </div>
-  </section>
-
   <section>
     <h2>Methodology &amp; caveats</h2>
     <div class="limits">
@@ -379,7 +368,6 @@
       </ul>
     </div>
   </section>
-
   <section>
     <h2>Personal reliability layer &mdash; in progress</h2>
     <div class="progress-note">
