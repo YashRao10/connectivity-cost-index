@@ -357,7 +357,7 @@
   <section>
     <h2>Personal reliability layer &mdash; in progress</h2>
     <div class="progress-note">
-      A lightweight logger (Cloudflare speed-test endpoints + ping, no external dependencies) is running every 30 minutes on two machines &mdash; a home broadband connection and a separate cellular-capable connection &mdash; logging download/upload throughput, latency, jitter, and packet loss to a local database. Satellite is intentionally out of scope for this layer for now (no satellite hardware access); it stays in the market-layer analysis above. This needs a few weeks of runway before the personal-vs-market overlay is meaningful &mdash; check back for an update once there's enough data to say something real.
+      A lightweight logger (Cloudflare speed-test endpoints + ping, no external dependencies) is running every 30 minutes on two machines, each on its own home broadband connection, logging download/upload throughput, latency, jitter, and packet loss to a local database. The logger also supports labeling a session as a tethered/cellular connection (<code>--label cellular-tether</code>), but no cellular data has actually been collected yet &mdash; both machines are on home Wi-Fi so far. Satellite is intentionally out of scope for this layer for now (no satellite hardware access); it stays in the market-layer analysis above. This needs a few weeks of runway before the personal-vs-market overlay is meaningful &mdash; check back for an update once there's enough data to say something real.
     </div>
   </section>
 
