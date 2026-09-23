@@ -46,11 +46,21 @@ def test_state_without_ntia_falls_back_to_granular(ntia, granular_totals):
     assert row["provisional_award_usd"] == 30_614_250.0
 
 
-def test_dc_skips_granular_despite_having_a_value(ntia, granular_totals):
-    # DC has a granular_totals entry ($169,087.5) but it's in
-    # SKIP_GRANULAR_FALLBACK because it's known-incomplete -- must fall
-    # through to the legacy dict instead.
+def test_state_with_granular_value_uses_it_even_if_small(ntia, granular_totals):
+    # DC has a granular_totals entry -- since build_bead_final_proposal.py's
+    # "Unknown (no location data)" bucket fix (2026-09-23), a small or
+    # partial-looking granular figure is no longer assumed unreliable by
+    # this merge step; it's used as-is. Legacy is purely a last resort for
+    # states with NO granular entry at all.
     result = merge_provisional_awards(["DC"], ntia, granular_totals)
+    row = result.iloc[0]
+    assert row["source"] == "granular_fallback"
+    assert row["provisional_award_usd"] == granular_totals["DC"]
+
+
+def test_state_with_no_granular_or_ntia_entry_uses_legacy_fallback(ntia):
+    empty_granular = pd.Series(dtype=float)
+    result = merge_provisional_awards(["DC"], ntia, empty_granular)
     row = result.iloc[0]
     assert row["source"] == "legacy_unverified"
     assert row["provisional_award_usd"] == LEGACY_FALLBACK_USD["DC"]

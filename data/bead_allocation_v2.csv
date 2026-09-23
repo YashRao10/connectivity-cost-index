@@ -1,6 +1,6 @@
 state_usps,original_allocation_usd,provisional_award_usd,provisional_award_source,pct_change_vs_original,gso_satellite_locations,provisional_usd_per_gso_location,provisional_per_location_months_of_starlink
 CT,144000000,7215750.0,ntia_pdf,-95.0,3271775,2.21,0.0
-DC,100700000,996099.0,legacy_unverified,-99.0,370493,2.69,0.0
+DC,100700000,996099.0,granular_fallback,-99.0,370493,2.69,0.0
 MA,147000000,18835466.0,ntia_pdf,-87.2,5858804,3.21,0.1
 SC,551000000,41358389.0,ntia_pdf,-92.5,6673339,6.2,0.1
 NJ,264000000,62184236.0,ntia_pdf,-76.4,7750029,8.02,0.1

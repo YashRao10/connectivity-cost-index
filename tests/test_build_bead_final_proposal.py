@@ -14,6 +14,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "scripts"))
 from build_bead_final_proposal import (
     RECONCILIATION_FLAG_PCT,
     TECH_CODE_LABELS,
+    UNKNOWN_TECH_LABEL,
     aggregate_state_tech_summary,
     build_reconciliation,
 )
@@ -99,6 +100,40 @@ def test_reconciliation_flags_large_discrepancies(projects, locations):
     assert al_row["flagged"]
     assert not tx_row["flagged"]
     assert abs(al_row["pct_diff"]) >= RECONCILIATION_FLAG_PCT
+
+
+def test_project_with_no_matching_locations_goes_to_unknown_bucket_not_dropped():
+    # Checked directly against the real data 2026-09-23: 56 projects
+    # nationally ($88M combined) have zero rows in LOCATION.csv -- South
+    # Dakota's single largest project ($72.8M) among them, which zeroed out
+    # SD's entire state total before this fix. Must not silently vanish.
+    projects = pd.DataFrame(
+        {"state": ["SD"], "project_id": ["p_no_locations"], "bead_support": [72_816_059.93]}
+    )
+    locations = pd.DataFrame({"project_id": [], "technology": [], "state": []})
+    result = aggregate_state_tech_summary(projects, locations)
+    assert len(result) == 1
+    row = result.iloc[0]
+    assert row["technology_label"] == UNKNOWN_TECH_LABEL
+    assert row["bead_support_usd"] == pytest.approx(72_816_059.93)
+    assert row["locations_funded"] == 0
+    assert pd.isna(row["usd_per_funded_location"])
+
+
+def test_mix_of_located_and_unlocated_projects_in_same_state(projects, locations):
+    # p4 has real locations elsewhere; p5 has none -- both should appear,
+    # p5 as Unknown, without disturbing p1-p3's normal attribution.
+    extra_projects = pd.concat(
+        [projects, pd.DataFrame({"state": ["AL"], "project_id": ["p5"], "bead_support": [5_000.0]})],
+        ignore_index=True,
+    )
+    result = aggregate_state_tech_summary(extra_projects, locations)
+    al_unknown = result[(result.state_usps == "AL") & (result.technology_label == UNKNOWN_TECH_LABEL)]
+    al_fiber = result[(result.state_usps == "AL") & (result.technology_label == "Fiber")].iloc[0]
+    assert len(al_unknown) == 1
+    assert al_unknown.iloc[0]["bead_support_usd"] == pytest.approx(5_000.0)
+    # p1/p2's fiber attribution (tested elsewhere) must be unaffected by p5's presence.
+    assert al_fiber["bead_support_usd"] == pytest.approx(100_000 + 40_000 * 2 / 3, abs=0.01)
 
 
 def test_reconciliation_pct_diff_math_is_correct(projects, locations):

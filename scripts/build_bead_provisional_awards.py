@@ -42,23 +42,25 @@ import pandas as pd
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 RAW_BEAD_DIR = DATA_DIR / "raw" / "bead"
 
-# Last-resort fallback for states with neither an NTIA PDF nor usable
-# granular project data as of this build. As of this build, only DC
-# qualifies: no overview PDF exists for it on broadbandusa.ntia.gov
-# (confirmed independently by both contributing sessions), and DC does have
-# *some* granular rows, but only $169K worth -- implausibly tiny for a
-# jurisdiction with a $100.7M original 2023 allocation, almost certainly an
-# incomplete subset rather than DC's true total. Same telecompetitor.com
-# figure v2 originally used -- kept only because there's nothing more
-# reliable yet, not because it's trusted. Re-check before citing.
+# Last-resort fallback for states with no NTIA PDF as of this build. As of
+# this build, only DC qualifies: no overview PDF exists for it on
+# broadbandusa.ntia.gov (confirmed independently by both contributing
+# sessions). Same telecompetitor.com figure v2 originally used -- kept only
+# because there's nothing more authoritative yet, not because it's trusted
+# on its own. Interesting cross-check found 2026-09-23: once
+# build_bead_final_proposal.py's "Unknown (no location data)" bucket was
+# added (some BEAD projects have no matching LOCATION.csv rows and were
+# previously silently dropped, understating a few states -- DC included),
+# DC's granular total came to exactly $996,099, matching this legacy figure
+# to the dollar. Reassuring, but not independent verification -- the same
+# stale-snapshot pattern explained RI's and NC's granular/legacy exact
+# matches (see docs/BEAD_LAYER_SCOPE.md), so this likely means DC's
+# broadbandexpanded.com data and its old telecompetitor.com figure trace
+# back to the same outdated source, not that $996,099 is confirmed correct
+# against NTIA's real current number. Re-check before citing.
 LEGACY_FALLBACK_USD = {
     "DC": 996_099,
 }
-
-# States where a granular total technically exists but is known to be
-# unreliable (see LEGACY_FALLBACK_USD comments for why) -- skip straight to
-# the legacy fallback for these rather than silently trusting a partial sum.
-SKIP_GRANULAR_FALLBACK = {"DC"}
 
 
 # Contributing sessions independently produced slightly different column
@@ -106,7 +108,7 @@ def merge_provisional_awards(
                     "ntia_updated_date": ntia.loc[state, "ntia_updated_date"],
                 }
             )
-        elif state in granular_totals.index and state not in SKIP_GRANULAR_FALLBACK:
+        elif state in granular_totals.index:
             rows.append(
                 {
                     "state_usps": state,

@@ -82,6 +82,9 @@ def load_locations(raw_dir: Path = RAW_DIR) -> pd.DataFrame:
     )
 
 
+UNKNOWN_TECH_LABEL = "Unknown (no location data)"
+
+
 def aggregate_state_tech_summary(projects: pd.DataFrame, locations: pd.DataFrame) -> pd.DataFrame:
     # Locations per (project, technology) -- this is a direct count, not an
     # estimate, since LOCATION.csv already carries technology per row.
@@ -97,6 +100,24 @@ def aggregate_state_tech_summary(projects: pd.DataFrame, locations: pd.DataFrame
     merged["bead_support_share_usd"] = merged["bead_support"] * merged["location_share"]
     merged["technology_label"] = merged["technology"].map(TECH_CODE_LABELS).fillna("Other")
 
+    # Some projects (checked 2026-09-23: 56 nationally, $88M combined, mostly
+    # South Dakota's single largest project at $72.8M) have zero matching
+    # rows in LOCATION.csv -- a project-vs-location scope gap in the source
+    # compilation, not something this script can attribute by technology or
+    # location count. Dropping them silently would understate (or for a
+    # state like SD, entirely zero out) that state's real BEAD spending, so
+    # they're kept as an explicit "Unknown" bucket rather than vanishing.
+    projects_with_locations = set(loc_counts["project_id"].unique())
+    unattributed = projects[~projects["project_id"].isin(projects_with_locations)].copy()
+    unattributed["technology_label"] = UNKNOWN_TECH_LABEL
+    unattributed["bead_support_share_usd"] = unattributed["bead_support"]
+    unattributed["locations"] = 0
+
+    merged = pd.concat(
+        [merged, unattributed[["state", "project_id", "technology_label", "bead_support_share_usd", "locations"]]],
+        ignore_index=True,
+    )
+
     summary = (
         merged.groupby(["state", "technology_label"], observed=True)
         .agg(
@@ -111,6 +132,7 @@ def aggregate_state_tech_summary(projects: pd.DataFrame, locations: pd.DataFrame
     summary["usd_per_funded_location"] = (
         summary["bead_support_usd"] / summary["locations_funded"]
     ).round(2)
+    summary.loc[summary["technology_label"] == UNKNOWN_TECH_LABEL, "usd_per_funded_location"] = None
     return summary.sort_values(["state_usps", "locations_funded"], ascending=[True, False])
 
 

@@ -6,7 +6,7 @@ AZ,446123359.0,ntia_pdf,11/24/2025
 CA,1415047585.0,ntia_pdf,?
 CO,420604503.0,ntia_pdf,12/01/2025
 CT,7215750.0,ntia_pdf,?
-DC,996099.0,legacy_unverified,
+DC,996099.0,granular_fallback,
 DE,13516741.0,ntia_pdf,11/08/2025
 FL,229662147.0,ntia_pdf,01/06/2026
 GA,304638706.0,ntia_pdf,11/05/2025

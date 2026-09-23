@@ -119,18 +119,41 @@ session): `data/raw/bead/ntia_verification_desktop.csv`,
 ## Recommended next step (as of 2026-09-23)
 
 All three layers are built, live, and NTIA-verified where possible -- see
-status notes above. Open items now: (1) DC's provisional award is still on
-the unverified telecompetitor.com estimate (no NTIA overview PDF exists
-for it) -- re-check periodically in case NTIA publishes one later; (2) the
-granular layer's remaining state-level gaps (RI +52.7%, NC +24.1%, IL
-+12.6% vs. the now-verified figures) aren't explained -- would need
-digging into broadbandexpanded.com's underlying project data for those
-three states specifically; (3) CAI_20260827.csv (community anchor
-institutions, not used in this build) carries real latitude/longitude per
-funded site -- could support an actual point-density map of funded
-locations someday, not attempted here, the existing map still uses the
-state-total proxy; (4) NO_BEAD_20260827.csv (57.9MB, excluded/ineligible
-locations with a reason code) is also unused -- could show which locations
-were considered and rejected, not just which were funded. International
-comparison remains an unscoped stretch goal -- would need its own research
+status notes above. Root-caused 2 of the 3 remaining granular-layer
+reconciliation gaps (2026-09-23 follow-up): RI's and NC's project-level
+totals in the granular layer match the *old, superseded* telecompetitor.com
+figures to the dollar (RI: $16,137,983 exactly; NC: $408,511,175.10 vs.
+telecompetitor's $408,511,175) -- broadbandexpanded.com's underlying
+project data for those two states appears to reflect an earlier submission
+than NTIA's current overview PDF, not a bug in this project's aggregation
+math. Checked directly: `data/raw/bead/PROJECT_20260827.csv` filtered to
+each state, summed `bead_support` raw (no location-join needed to see
+this) -- both totals landed on the old telecompetitor figure exactly.
+Illinois does NOT show this pattern (its raw project sum doesn't match its
+old telecompetitor figure either) and remains genuinely unexplained.
+
+Open items now: (1) DC's provisional award is still on the unverified
+telecompetitor.com estimate (no NTIA overview PDF exists for it) --
+re-check periodically in case NTIA publishes one later; (2) Illinois's
++12.6% gap (granular $935.8M vs. NTIA-verified $831.2M) is still
+unexplained after ruling out the stale-snapshot pattern that resolved
+RI/NC -- would need a different investigation angle (maybe a
+double-counted or duplicated project, not attempted yet); (3)
+CAI_20260827.csv (community anchor institutions, not used in this build)
+carries real latitude/longitude per funded site -- could support an actual
+point-density map of funded locations someday, not attempted here, the
+existing map still uses the state-total proxy; (4) NO_BEAD_20260827.csv
+(57.9MB, excluded/ineligible locations with a reason code) is also unused
+-- could show which locations were considered and rejected, not just which
+were funded; (5) noticed in passing while investigating NC: at least one
+BEAD project nationally has `project_type == "M"` (middle-mile, not
+last-mile) and appears to have no matching rows in `LOCATION.csv` --
+middle-mile projects may be silently excluded from
+`build_bead_final_proposal.py`'s per-state totals entirely, since that
+script only counts locations it can find in LOCATION.csv. Not confirmed
+how many states/dollars this affects beyond the one NC project spotted
+($13.05M) -- worth a dedicated check before trusting the granular layer's
+totals as complete for states with real middle-mile BEAD spending.
+International comparison remains an unscoped stretch goal -- would need
+its own research
 pass before any build, not something to start opportunistically.
