@@ -32,11 +32,13 @@ per individual location directly.
 
 Reconciliation: state-level totals here are checked against
 data/bead_allocation_v2.csv's provisional_award_usd (the state-total figure
-already on the site). They should roughly agree (they're nominally the same
-NTIA program, same restructuring), but don't assume they match state-by-state
--- see build_reconciliation() and the site's caveat text for a documented
-example (Alaska, ~30% higher here) and reasoning about why they can diverge
-(different compilation dates, project approval status, or scope).
+already on the site, itself individually NTIA-verified as of 2026-09-23 --
+see scripts/build_bead_provisional_awards.py). They should roughly agree
+(they're nominally the same NTIA program, same restructuring), but don't
+assume they match state-by-state -- see build_reconciliation() and the
+site's caveat text for documented examples (RI +52.7%, NC +24.1%, DC -83%
+on a tiny base) and reasoning about why they can diverge (different
+compilation dates, project approval status, or scope).
 
 Output:
     data/bead_final_proposal_by_state_tech.csv

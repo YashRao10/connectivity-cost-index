@@ -1,22 +1,19 @@
-"""v2 BEAD/policy layer: implied BEAD dollars per GSO-satellite-served
-location, by state -- now using confirmed post-restructuring "Benefit of
-the Bargain" provisional awards for all 50 states + DC, replacing v1's
-stale June 2023 initial allocation (flagged and callout-ed on the site
-after it was found to overstate actual funding by 50-90% in verified
-spot checks).
+"""v3 BEAD/policy layer: implied BEAD dollars per GSO-satellite-served
+location, by state -- now using per-state provisional awards verified
+against NTIA's own official Final Proposal overview PDFs wherever possible,
+replacing v2's single telecompetitor.com secondary compilation (which
+checked out as unreliable: only 12 of 27 spot-checked states matched NTIA's
+real numbers within 2%, and Hawaii was 3x overstated -- $94.87M vs. the
+real $30.67M). See scripts/build_bead_provisional_awards.py for the full
+sourcing methodology (NTIA-PDF-verified > granular-layer fallback >
+telecompetitor.com legacy fallback, in that priority order) and
+docs/BEAD_LAYER_SCOPE.md for how this was discovered.
 
-Source: NTIA restructured BEAD in 2025 ("Benefit of the Bargain"); both
-the original 2023 allocation and the 2025 provisional award are compiled
-here from a single consistent secondary source (telecompetitor.com's
-"Updated, Comprehensive List: BEAD Benefit of the Bargain Provisional
-Awards"), cross-checked against the handful of states independently
-verified via direct NTIA/state-broadband-office sources during the v1
-caveat fix (NJ, TX, CO all matched within ~1-2%). NTIA's own
-allocation-totals page blocks automated fetches, so this is hand-compiled
-and dated -- re-verify before treating any single figure as exact, and
-note these are PROVISIONAL awards (administrative review ongoing per
-state as of compilation), not necessarily each state's final locked-in
-number.
+The original 2023 June allocation (ORIGINAL_ALLOCATION_USD below) is
+unaffected by this fix -- spot-checked against the same NTIA PDFs and found
+accurate within ~0.1% (a simpler, more stable figure than the post-
+restructuring provisional award), so it's kept as the same hand-compiled
+dict v1/v2 used.
 
 Methodology: GSO Satellite locations_served (from fcc_technology_summary.csv)
 is used as a proxy for "underserved" locations, not a precise BEAD-eligibility
@@ -32,7 +29,9 @@ denominator is already a loose proxy (see above). It's a scale sanity-check
 on a number that's otherwise hard to interpret in isolation, nothing more --
 see docs/BEAD_LAYER_SCOPE.md and the site's caveat text for the full framing.
 
-Output: data/bead_allocation_v2.csv
+Output: data/bead_allocation_v2.csv (filename kept for site/script
+continuity even though the provisional-award sourcing is now v3 --
+renaming would touch every downstream reference for no functional gain).
 """
 
 from pathlib import Path
@@ -49,78 +48,58 @@ def load_cheapest_starlink_monthly_usd() -> float:
     ].dropna(subset=["monthly_price_usd"])
     return float(starlink["monthly_price_usd"].min())
 
-# (original 2023 allocation, 2025 "Benefit of the Bargain" provisional award),
-# both in USD. Compiled 2026-09 from telecompetitor.com's comprehensive list.
-BEAD_AWARDS_USD = {
-    "AL": (1_400_000_000, 530_743_198),
-    "AK": (1_000_000_000, 483_201_643),
-    "AZ": (993_000_000, 512_129_677),
-    "AR": (1_000_000_000, 308_328_089),
-    "CA": (1_900_000_000, 1_574_861_927),
-    "CO": (827_000_000, 397_418_888),
-    "CT": (144_000_000, 7_216_501),
-    "DE": (108_000_000, 13_374_777),
-    "FL": (1_160_000_000, 291_117_656),
-    "GA": (1_310_000_000, 309_602_817),
-    "HI": (149_000_000, 94_869_000),
-    "ID": (583_000_000, 436_151_356),
-    "IL": (1_000_000_000, 990_645_134),
-    "IN": (868_000_000, 486_309_855),
-    "IA": (415_000_000, 221_282_630),
-    "KS": (451_000_000, 252_629_596),
-    "KY": (1_000_000_000, 376_926_543),
-    "LA": (1_360_000_000, 499_079_587),
-    "ME": (272_000_000, 109_412_662),
-    "MD": (268_000_000, 78_106_623),
-    "MA": (147_000_000, 18_654_558),
-    "MI": (1_600_000_000, 919_106_714),
-    "MN": (652_000_000, 377_046_315),
-    "MS": (1_200_000_000, 567_165_372),
-    "MO": (1_740_000_000, 793_326_180),
-    "MT": (629_000_000, 403_758_268),
-    "NE": (405_000_000, 43_844_548),
-    "NV": (417_000_000, 169_749_806),
-    "NH": (197_000_000, 19_305_223),
-    "NJ": (264_000_000, 63_551_464),
-    "NM": (675_000_000, 432_974_698),
-    "NY": (665_000_000, 391_097_989),
-    "NC": (1_530_000_000, 408_511_175),
-    "ND": (130_000_000, 6_770_073),
-    "OH": (794_000_000, 277_114_388),
-    "OK": (797_000_000, 493_318_564),
-    "OR": (689_000_000, 620_728_287),
-    "PA": (1_160_000_000, 793_494_747),
-    "RI": (109_000_000, 16_137_983),
-    "SC": (551_000_000, 41_358_389),
-    "SD": (207_000_000, 72_816_060),
-    "TN": (813_000_000, 203_311_189),
-    "TX": (3_310_000_000, 1_271_233_725),
-    "UT": (317_000_000, 231_292_922),
-    "VT": (229_000_000, 118_993_040),
-    "VA": (1_480_000_000, 613_277_638),
-    "WA": (1_230_000_000, 849_894_572),
-    "DC": (100_700_000, 996_099),
-    "WV": (1_211_000_000, 624_671_277),
-    "WI": (1_060_000_000, 690_445_792),
-    "WY": (348_000_000, 198_442_261),
+
+# June 2023 initial BEAD allocation, in USD. Compiled 2026-09 from
+# telecompetitor.com's comprehensive list; spot-checked against NTIA's own
+# per-state overview PDFs during the 2026-09-22/23 provisional-award
+# investigation and found accurate within ~0.1% (e.g. Alabama: $1,400,000,000
+# here vs. NTIA's own $1,401,221,902) -- unlike the provisional award, this
+# figure did not need replacing.
+ORIGINAL_ALLOCATION_USD = {
+    "AL": 1_400_000_000, "AK": 1_000_000_000, "AZ": 993_000_000, "AR": 1_000_000_000,
+    "CA": 1_900_000_000, "CO": 827_000_000, "CT": 144_000_000, "DE": 108_000_000,
+    "FL": 1_160_000_000, "GA": 1_310_000_000, "HI": 149_000_000, "ID": 583_000_000,
+    "IL": 1_000_000_000, "IN": 868_000_000, "IA": 415_000_000, "KS": 451_000_000,
+    "KY": 1_000_000_000, "LA": 1_360_000_000, "ME": 272_000_000, "MD": 268_000_000,
+    "MA": 147_000_000, "MI": 1_600_000_000, "MN": 652_000_000, "MS": 1_200_000_000,
+    "MO": 1_740_000_000, "MT": 629_000_000, "NE": 405_000_000, "NV": 417_000_000,
+    "NH": 197_000_000, "NJ": 264_000_000, "NM": 675_000_000, "NY": 665_000_000,
+    "NC": 1_530_000_000, "ND": 130_000_000, "OH": 794_000_000, "OK": 797_000_000,
+    "OR": 689_000_000, "PA": 1_160_000_000, "RI": 109_000_000, "SC": 551_000_000,
+    "SD": 207_000_000, "TN": 813_000_000, "TX": 3_310_000_000, "UT": 317_000_000,
+    "VT": 229_000_000, "VA": 1_480_000_000, "WA": 1_230_000_000, "DC": 100_700_000,
+    "WV": 1_211_000_000, "WI": 1_060_000_000, "WY": 348_000_000,
 }
+
+
+def load_provisional_awards() -> pd.DataFrame:
+    path = DATA_DIR / "bead_provisional_awards_v3.csv"
+    if not path.exists():
+        raise FileNotFoundError(
+            f"{path} not found -- run scripts/build_bead_provisional_awards.py first."
+        )
+    return pd.read_csv(path).set_index("state_usps")
 
 
 def build_comparison() -> pd.DataFrame:
     fcc = pd.read_csv(DATA_DIR / "fcc_technology_summary.csv")
     gso = fcc[fcc.technology_label == "GSO Satellite"].set_index("state_usps")["locations_served"]
     starlink_monthly_usd = load_cheapest_starlink_monthly_usd()
+    provisional = load_provisional_awards()
 
     rows = []
-    for state, (original, provisional) in BEAD_AWARDS_USD.items():
+    for state, original in ORIGINAL_ALLOCATION_USD.items():
+        award_row = provisional.loc[state]
+        provisional_usd = award_row["provisional_award_usd"]
         locations = gso.get(state)
-        pct_change = round((provisional - original) / original * 100, 1)
-        usd_per_location = round(provisional / locations, 2) if locations else None
+        pct_change = round((provisional_usd - original) / original * 100, 1)
+        usd_per_location = round(provisional_usd / locations, 2) if locations else None
         rows.append(
             {
                 "state_usps": state,
                 "original_allocation_usd": original,
-                "provisional_award_usd": provisional,
+                "provisional_award_usd": provisional_usd,
+                "provisional_award_source": award_row["source"],
                 "pct_change_vs_original": pct_change,
                 "gso_satellite_locations": locations,
                 "provisional_usd_per_gso_location": usd_per_location,
@@ -138,6 +117,7 @@ if __name__ == "__main__":
     result = build_comparison()
     print(result.to_string(index=False))
     print(f"\nMedian cut vs. original allocation: {result['pct_change_vs_original'].median()}%")
+    print(f"\nProvisional award source breakdown:\n{result['provisional_award_source'].value_counts()}")
     out_path = DATA_DIR / "bead_allocation_v2.csv"
     result.to_csv(out_path, index=False)
     print(f"\nWrote {out_path}")

@@ -5,22 +5,68 @@ spending to the market-layer findings already in this project -- is BEAD
 money going where the FCC data says the actual gaps are, and at what
 implied cost per unserved location?
 
-**Status as of 2026-09-22: both the "simple version" and the granular
-version are built and live.** Simple: `scripts/build_bead_comparison.py` ->
-`data/bead_allocation_v2.csv`, all 50 states + DC, using the 2025 "Benefit
-of the Bargain" provisional awards. Granular: `scripts/build_bead_final_proposal.py`
--> `data/bead_final_proposal_by_state_tech.csv` + `data/bead_final_proposal_reconciliation.csv`,
-using the real 5,806-project BEAD Final Proposal data from
-broadbandexpanded.com -- this directly answers the "are states leaning on
-BEAD to build infrastructure where satellite is already cost-competitive"
-question posed below: yes, satellite is 22.0% of all funded locations at
-$701-1,138/location vs. fiber's $6,420.70/location, a real 5.6x gap. The
-rest of this doc is left as-written from the original planning session for
-context on what was decided and why -- see the live site's two BEAD
-sections and their methodology changelog entries for the current, public
-framing (including the state-level reconciliation caveat: 10 of 50 states'
-totals disagree >=15% between the two sources, not yet resolved to a
-single cause).
+**Status as of 2026-09-23: three layers built and live.** Simple:
+`scripts/build_bead_comparison.py` -> `data/bead_allocation_v2.csv`, all 50
+states + DC. Granular: `scripts/build_bead_final_proposal.py` ->
+`data/bead_final_proposal_by_state_tech.csv`, using the real 5,806-project
+BEAD Final Proposal data from broadbandexpanded.com -- answers the "are
+states leaning on BEAD to build infrastructure where satellite is already
+cost-competitive" question posed below: yes, satellite is 22.0% of all
+funded locations at $701-1,138/location vs. fiber's $6,420.70/location, a
+real 5.6x gap. Verification (new, 2026-09-23): the simple layer's
+provisional-award figures were individually checked against NTIA's own
+official per-state "BEAD Final Proposal Overview" PDFs
+(`scripts/build_bead_provisional_awards.py`) -- see "NTIA verification"
+section below for the full story, since this uncovered a real accuracy
+problem in the original telecompetitor.com-sourced figures, not just a
+reconciliation nuance. The rest of this doc is left as-written from the
+original planning session for context on what was decided and why -- see
+the live site's two BEAD sections and their methodology changelog entries
+for the current, public framing.
+
+## NTIA verification (2026-09-23)
+
+While investigating the granular layer's state-level reconciliation caveat
+(10 of 50 states disagreeing >=15% against the original telecompetitor.com
+figures), found that NTIA itself publishes a per-state "BEAD Final Proposal
+Overview" one-pager PDF -- primary source, not a secondary compilation.
+No bulk download exists; each state's current PDF has to be looked up
+individually:
+
+1. Fetch `https://broadbandusa.ntia.gov/funding-programs/broadband-equity-access-and-deployment-program/awardee/<state-name-lowercase-hyphenated>`
+   (e.g. `.../awardee/alaska`) -- this links to the current PDF.
+2. The PDF path's date-folder drifts per state as proposals get amended
+   (seen: 2025-11 through 2026-08 across different states) -- don't guess
+   it, always resolve via the awardee page.
+3. At least one state (South Dakota) hosts its overview PDF off the NTIA
+   domain entirely, on the state's own site -- the awardee page still
+   linked to the real one.
+4. DC is the one state with no overview PDF published at all, as of this
+   check -- kept on the old telecompetitor.com estimate, flagged
+   unverified on-site.
+5. Extract "Total Deployment Cost" (maps to this project's
+   `provisional_award_usd`) via `pdftotext -layout` or PyMuPDF (`fitz`) --
+   much cheaper than a WebFetch round-trip per state at this scale (51
+   states).
+
+Checked 27 states directly this way (split across two collaborating
+sessions, desktop + MacBook): only 12 of 27 matched the original
+telecompetitor.com figure within 2% -- e.g. Hawaii's real BEAD cost is
+$30.67M, telecompetitor's compilation said $94.87M, a 3x overstatement.
+The granular per-project layer's own state totals, by contrast, matched
+NTIA's real numbers within 2% for 26 of those 27 (the exception, Illinois,
+was still only 12.6% off). All 50 states + DC are now covered:
+`scripts/build_bead_provisional_awards.py` merges individually-verified
+NTIA figures (50 states) with a granular-layer fallback and a legacy
+telecompetitor.com fallback (DC only, last resort) into
+`data/bead_provisional_awards_v3.csv`, which `build_bead_comparison.py`
+now joins against instead of a hardcoded dict. Headline spread changed
+from 355x (CT $2.21 to AK $784.17) to 462x (CT $2.21 to AK $1,021.06) --
+Alaska's real number was *higher* than the old estimate, not lower.
+
+Raw per-state verification data (gitignored, one file per contributing
+session): `data/raw/bead/ntia_verification_desktop.csv`,
+`data/raw/bead/ntia_verification_macbook.csv`.
 
 ## Data sources found
 
@@ -70,18 +116,21 @@ single cause).
   resolved: the market layer scaled to all 50 states + DC on 2026-09-20,
   and the BEAD layer was rebuilt at that scale the same day.
 
-## Recommended next step (as of 2026-09-22)
+## Recommended next step (as of 2026-09-23)
 
-Both versions are built and live -- see status note at the top of this
-doc. Open items now: (1) reconciling the 10 flagged states where the
-granular project-level totals and the state-total figures disagree >=15%
--- would need a primary NTIA source per flagged state to resolve, not
-attempted yet; (2) CAI_20260827.csv (community anchor institutions, not
-used in this build) carries real latitude/longitude per funded site --
-could support an actual point-density map of funded locations someday,
-not attempted here, the existing map still uses the state-total proxy;
-(3) NO_BEAD_20260827.csv (57.9MB, excluded/ineligible locations with a
-reason code) is also unused -- could show which locations were considered
-and rejected, not just which were funded. International comparison
-remains an unscoped stretch goal -- would need its own research pass
-before any build, not something to start opportunistically.
+All three layers are built, live, and NTIA-verified where possible -- see
+status notes above. Open items now: (1) DC's provisional award is still on
+the unverified telecompetitor.com estimate (no NTIA overview PDF exists
+for it) -- re-check periodically in case NTIA publishes one later; (2) the
+granular layer's remaining state-level gaps (RI +52.7%, NC +24.1%, IL
++12.6% vs. the now-verified figures) aren't explained -- would need
+digging into broadbandexpanded.com's underlying project data for those
+three states specifically; (3) CAI_20260827.csv (community anchor
+institutions, not used in this build) carries real latitude/longitude per
+funded site -- could support an actual point-density map of funded
+locations someday, not attempted here, the existing map still uses the
+state-total proxy; (4) NO_BEAD_20260827.csv (57.9MB, excluded/ineligible
+locations with a reason code) is also unused -- could show which locations
+were considered and rejected, not just which were funded. International
+comparison remains an unscoped stretch goal -- would need its own research
+pass before any build, not something to start opportunistically.

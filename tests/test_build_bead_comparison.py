@@ -1,5 +1,5 @@
-"""Unit tests for the BEAD allocation join logic (v2: original + provisional
-award, all 50 states + DC)."""
+"""Unit tests for the BEAD allocation join logic (v3: original allocation +
+NTIA-verified provisional award, all 50 states + DC)."""
 
 import sys
 from pathlib import Path
@@ -7,29 +7,38 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "scripts"))
 
 from build_bead_comparison import (
-    BEAD_AWARDS_USD,
+    ORIGINAL_ALLOCATION_USD,
     build_comparison,
     load_cheapest_starlink_monthly_usd,
 )
 
 
-def test_bead_award_amounts_are_positive():
-    for original, provisional in BEAD_AWARDS_USD.values():
+def test_original_allocation_amounts_are_positive():
+    for original in ORIGINAL_ALLOCATION_USD.values():
         assert original > 0
-        assert provisional > 0
 
 
-def test_bead_allocation_keys_are_two_letter_state_codes():
-    assert all(len(k) == 2 and k.isupper() for k in BEAD_AWARDS_USD)
+def test_original_allocation_keys_are_two_letter_state_codes():
+    assert all(len(k) == 2 and k.isupper() for k in ORIGINAL_ALLOCATION_USD)
 
 
-def test_bead_covers_all_50_states_plus_dc():
-    assert len(BEAD_AWARDS_USD) == 51
+def test_original_allocation_covers_all_50_states_plus_dc():
+    assert len(ORIGINAL_ALLOCATION_USD) == 51
 
 
 def test_build_comparison_covers_every_configured_state():
     result = build_comparison()
-    assert set(result["state_usps"]) == set(BEAD_AWARDS_USD.keys())
+    assert set(result["state_usps"]) == set(ORIGINAL_ALLOCATION_USD.keys())
+
+
+def test_provisional_award_source_is_tracked_and_mostly_ntia_verified():
+    result = build_comparison()
+    assert set(result["provisional_award_source"]).issubset(
+        {"ntia_pdf", "granular_fallback", "legacy_unverified"}
+    )
+    # As of the 2026-09-23 verification effort, 50 of 51 states have a
+    # directly-verified NTIA figure -- only DC lacks a published overview PDF.
+    assert (result["provisional_award_source"] == "ntia_pdf").sum() >= 50
 
 
 def test_per_location_math_is_correct():
