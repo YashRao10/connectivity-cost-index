@@ -5,14 +5,22 @@ spending to the market-layer findings already in this project -- is BEAD
 money going where the FCC data says the actual gaps are, and at what
 implied cost per unserved location?
 
-**Status as of 2026-09-22: the "simple version" described below is built
-and live** (`scripts/build_bead_comparison.py` -> `data/bead_allocation_v2.csv`,
-all 50 states + DC, using the 2025 "Benefit of the Bargain" provisional
-awards). The rest of this doc is left as-written from the original
-planning session for context on what was decided and why -- see the live
-site's BEAD section and its methodology changelog entry for the current,
-public framing (including the still-open "does the per-location subsidy
-track real deployment cost" caveat).
+**Status as of 2026-09-22: both the "simple version" and the granular
+version are built and live.** Simple: `scripts/build_bead_comparison.py` ->
+`data/bead_allocation_v2.csv`, all 50 states + DC, using the 2025 "Benefit
+of the Bargain" provisional awards. Granular: `scripts/build_bead_final_proposal.py`
+-> `data/bead_final_proposal_by_state_tech.csv` + `data/bead_final_proposal_reconciliation.csv`,
+using the real 5,806-project BEAD Final Proposal data from
+broadbandexpanded.com -- this directly answers the "are states leaning on
+BEAD to build infrastructure where satellite is already cost-competitive"
+question posed below: yes, satellite is 22.0% of all funded locations at
+$701-1,138/location vs. fiber's $6,420.70/location, a real 5.6x gap. The
+rest of this doc is left as-written from the original planning session for
+context on what was decided and why -- see the live site's two BEAD
+sections and their methodology changelog entries for the current, public
+framing (including the state-level reconciliation caveat: 10 of 50 states'
+totals disagree >=15% between the two sources, not yet resolved to a
+single cause).
 
 ## Data sources found
 
@@ -49,11 +57,12 @@ track real deployment cost" caveat).
 
 ## Not yet resolved / needs a decision before building
 
-- Whether to pull the granular Final Proposal data (project-level) or start
-  with just the simple state-allocation-total join -- the simple version is
-  a day of work, the granular version is comparable in size to the FCC
-  fixed-broadband pull and would need the same memory-safety treatment
-  (usecols/dtypes/no full-frame copy) that load_fcc_broadband.py needed.
+- ~~Whether to pull the granular Final Proposal data~~ -- resolved
+  2026-09-22: pulled it, built the full state/technology layer. Turned out
+  to be a single 22.5MB bulk ZIP (not per-state manual downloads like the
+  FCC pull), covering all 50 states + DC + 3 territories. Did need the
+  same memory-safety treatment as expected (LOCATION.csv is 194MB/3.79M
+  rows; loaded with usecols/dtype, no chunking needed at that size).
 - International comparison (Canada/UK/EU) was floated as a stretch goal --
   not scoped at all yet; different regulatory bodies, different data
   formats per country, likely a separate research pass before any build.
@@ -63,11 +72,16 @@ track real deployment cost" caveat).
 
 ## Recommended next step (as of 2026-09-22)
 
-The simple version is built and live -- see status note at the top of
-this doc. Still undecided: whether the granular Final Proposal
-(project/subgrantee/location level) pull is worth the extra build cost
-now that the simple version's headline finding (the 355x per-location
-spread, CT $2.21 vs. AK $784.17) is out and already flagged on-site as
-an open question rather than a settled conclusion. International
-comparison remains an unscoped stretch goal -- would need its own
-research pass before any build, not something to start opportunistically.
+Both versions are built and live -- see status note at the top of this
+doc. Open items now: (1) reconciling the 10 flagged states where the
+granular project-level totals and the state-total figures disagree >=15%
+-- would need a primary NTIA source per flagged state to resolve, not
+attempted yet; (2) CAI_20260827.csv (community anchor institutions, not
+used in this build) carries real latitude/longitude per funded site --
+could support an actual point-density map of funded locations someday,
+not attempted here, the existing map still uses the state-total proxy;
+(3) NO_BEAD_20260827.csv (57.9MB, excluded/ineligible locations with a
+reason code) is also unused -- could show which locations were considered
+and rejected, not just which were funded. International comparison
+remains an unscoped stretch goal -- would need its own research pass
+before any build, not something to start opportunistically.
