@@ -17,6 +17,7 @@ from build_bead_final_proposal import (
     UNKNOWN_TECH_LABEL,
     aggregate_state_tech_summary,
     build_reconciliation,
+    count_cross_project_location_duplicates,
 )
 
 
@@ -158,6 +159,25 @@ def test_middle_mile_projects_are_not_excluded(projects, locations):
     assert len(nc_fiber) == 1
     assert nc_fiber.iloc[0]["bead_support_usd"] == pytest.approx(13_050_000.0)
     assert nc_fiber.iloc[0]["locations_funded"] == 3
+
+
+def test_count_cross_project_location_duplicates_finds_none_when_clean():
+    clean = pd.DataFrame({"project_id": ["p1", "p2", "p3"], "location_id": ["L1", "L2", "L3"]})
+    assert count_cross_project_location_duplicates(clean) == 0
+
+
+def test_count_cross_project_location_duplicates_catches_double_counting():
+    # Added 2026-09-23 while investigating Illinois's reconciliation gap --
+    # confirmed the real 2026-08-27 data snapshot has no such duplicates,
+    # but a future data refresh might, and it would silently double-count
+    # both dollars and locations for the affected BSL if unnoticed.
+    dupey = pd.DataFrame(
+        {
+            "project_id": ["p1", "p2", "p3"],
+            "location_id": ["L1", "L1", "L2"],  # L1 claimed by both p1 and p2
+        }
+    )
+    assert count_cross_project_location_duplicates(dupey) == 1
 
 
 def test_reconciliation_pct_diff_math_is_correct(projects, locations):

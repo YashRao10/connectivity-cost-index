@@ -89,6 +89,26 @@ def load_locations(raw_dir: Path = RAW_DIR) -> pd.DataFrame:
     )
 
 
+def count_cross_project_location_duplicates(locations_with_id: pd.DataFrame) -> int:
+    """Data-quality guard, not part of the normal build: counts location_ids
+    that appear under more than one project_id, which would silently
+    double-count both dollars and location counts for that BSL. Checked
+    clean against the 2026-08-27 snapshot (0 found) while investigating
+    Illinois's unexplained reconciliation gap -- not proven to hold for
+    future data refreshes, so this is here to catch it if it ever stops
+    being true. Takes a DataFrame with project_id/location_id columns
+    (not a file path) so it's testable against synthetic fixtures."""
+    dupe_counts = locations_with_id.groupby("location_id")["project_id"].nunique()
+    return int((dupe_counts > 1).sum())
+
+
+def load_locations_with_id(raw_dir: Path = RAW_DIR) -> pd.DataFrame:
+    return pd.read_csv(
+        raw_dir / "LOCATION_20260827.csv",
+        usecols=["project_id", "location_id"],
+    )
+
+
 UNKNOWN_TECH_LABEL = "Unknown (no location data)"
 
 
@@ -162,6 +182,10 @@ def build_reconciliation(state_tech: pd.DataFrame, existing_totals: pd.Series) -
 
 
 if __name__ == "__main__":
+    n_dupes = count_cross_project_location_duplicates(load_locations_with_id())
+    if n_dupes:
+        print(f"WARNING: {n_dupes} location_ids appear under more than one project_id "
+              "-- this would double-count dollars/locations for those BSLs.")
     state_tech = aggregate_state_tech_summary(load_projects(), load_locations())
     out_path = DATA_DIR / "bead_final_proposal_by_state_tech.csv"
     state_tech.to_csv(out_path, index=False)

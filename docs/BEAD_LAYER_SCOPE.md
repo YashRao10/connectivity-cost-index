@@ -130,15 +130,52 @@ math. Checked directly: `data/raw/bead/PROJECT_20260827.csv` filtered to
 each state, summed `bead_support` raw (no location-join needed to see
 this) -- both totals landed on the old telecompetitor figure exactly.
 Illinois does NOT show this pattern (its raw project sum doesn't match its
-old telecompetitor figure either) and remains genuinely unexplained.
+old telecompetitor figure either).
+
+**Illinois follow-up (2026-09-23):** ruled out the two most likely bugs,
+found a real but different-shaped discrepancy. Re-confirmed IL's NTIA
+figure is current, not stale -- refetched the PDF (it now lives under a
+`2026-08` date-folder path, moved since the original check, but the
+document itself still reads "Updated 11/24/2025" with the same
+$831,161,724 Total Deployment Cost, so nothing changed upstream). Checked
+for duplicate/double-counted data directly: 0 duplicate `project_id`s, 0
+`location_id`s appearing under more than one project, 0 IL projects
+missing from LOCATION.csv (so no Unknown-bucket contribution either) --
+all $935,758,035.68 of IL's granular total is tied to 232 real projects
+covering 155,734 *unique* locations, no double-counting found anywhere.
+
+The real gap: IL's own PDF reports 142,546 "Eligible Broadband
+Serviceable Locations" against a technology mix of Fiber 97,122 (68.1%),
+Fixed Wireless (all types combined) 33,610 (23.6%), LEO Satellite 11,490
+(8.1%), Hybrid Fiber-Coax 194 (0.2%). This project's granular location
+counts for IL are Fiber 107,678, LEO 24,224, Fixed Wireless (Licensed +
+LBR + Unlicensed combined) 23,352, Cable 480 -- fiber and LEO both come in
+notably *higher* than NTIA's category totals, fixed wireless notably
+*lower*, netting to 155,734 total vs. NTIA's 142,416-142,546, an excess of
+~13,200 locations that roughly tracks (but doesn't cleanly reconcile
+against) the $104.6M dollar gap. This isn't a duplicate-counting or
+stale-data bug -- it looks like a genuine scope or technology-classification
+difference between broadbandexpanded.com's project-level location lists
+and NTIA's own "eligible locations" summary count, but the exact mechanism
+(some other state's projects showing the opposite pattern, technology
+code mapping, or a real scope difference in which locations a funded
+project is allowed to include beyond the strict BEAD-eligible set) isn't
+pinned down. Would need either a location-level join against NTIA's own
+BSL eligibility list (not present in this dataset) or the same close-read
+applied to a few other flagged states to see if this pattern generalizes,
+neither attempted here.
 
 Open items now: (1) DC's provisional award is still on the unverified
 telecompetitor.com estimate (no NTIA overview PDF exists for it) --
 re-check periodically in case NTIA publishes one later; (2) Illinois's
-+12.6% gap (granular $935.8M vs. NTIA-verified $831.2M) is still
-unexplained after ruling out the stale-snapshot pattern that resolved
-RI/NC -- would need a different investigation angle (maybe a
-double-counted or duplicated project, not attempted yet); (3)
++12.6% gap (granular $935.8M vs. NTIA-verified $831.2M) is confirmed NOT a
+duplicate-counting or stale-snapshot bug (see the 2026-09-23 follow-up
+above), but the real cause -- a ~13,200-location, technology-mix-shaped
+discrepancy between this project's location counts and NTIA's own
+category totals -- is still not pinned down; would need a location-level
+join against NTIA's eligibility data (not available here) or a check of
+whether other flagged states show the same fiber/LEO-up,
+fixed-wireless-down pattern; (3)
 CAI_20260827.csv (community anchor institutions, not used in this build)
 carries real latitude/longitude per funded site -- could support an actual
 point-density map of funded locations someday, not attempted here, the
