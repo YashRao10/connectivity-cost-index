@@ -5,6 +5,15 @@ spending to the market-layer findings already in this project -- is BEAD
 money going where the FCC data says the actual gaps are, and at what
 implied cost per unserved location?
 
+**Status as of 2026-09-22: the "simple version" described below is built
+and live** (`scripts/build_bead_comparison.py` -> `data/bead_allocation_v2.csv`,
+all 50 states + DC, using the 2025 "Benefit of the Bargain" provisional
+awards). The rest of this doc is left as-written from the original
+planning session for context on what was decided and why -- see the live
+site's BEAD section and its methodology changelog entry for the current,
+public framing (including the still-open "does the per-location subsidy
+track real deployment cost" caveat).
+
 ## Data sources found
 
 1. **NTIA official state allocation totals** --
@@ -48,14 +57,17 @@ implied cost per unserved location?
 - International comparison (Canada/UK/EU) was floated as a stretch goal --
   not scoped at all yet; different regulatory bodies, different data
   formats per country, likely a separate research pass before any build.
-- This layer only makes sense once the state sample is bigger than 3 (the
-  scaling work is happening in parallel on the desktop side) -- a
-  3-state BEAD comparison isn't enough states to say anything about
-  allocation patterns.
+- ~~This layer only makes sense once the state sample is bigger than 3~~ --
+  resolved: the market layer scaled to all 50 states + DC on 2026-09-20,
+  and the BEAD layer was rebuilt at that scale the same day.
 
-## Recommended next step
+## Recommended next step (as of 2026-09-22)
 
-Start with the simple version: state-allocation-total join against the
-existing FCC summary once the state list is bigger (waiting on the
-scaling work), rather than committing to the granular Final Proposal
-pull before knowing if the simple version is even interesting.
+The simple version is built and live -- see status note at the top of
+this doc. Still undecided: whether the granular Final Proposal
+(project/subgrantee/location level) pull is worth the extra build cost
+now that the simple version's headline finding (the 355x per-location
+spread, CT $2.21 vs. AK $784.17) is out and already flagged on-site as
+an open question rather than a settled conclusion. International
+comparison remains an unscoped stretch goal -- would need its own
+research pass before any build, not something to start opportunistically.
