@@ -175,14 +175,26 @@ discrepancy between this project's location counts and NTIA's own
 category totals -- is still not pinned down; would need a location-level
 join against NTIA's eligibility data (not available here) or a check of
 whether other flagged states show the same fiber/LEO-up,
-fixed-wireless-down pattern; (3)
-CAI_20260827.csv (community anchor institutions, not used in this build)
-carries real latitude/longitude per funded site -- could support an actual
-point-density map of funded locations someday, not attempted here, the
-existing map still uses the state-total proxy; (4) NO_BEAD_20260827.csv
-(57.9MB, excluded/ineligible locations with a reason code) is also unused
--- could show which locations were considered and rejected, not just which
-were funded.
+fixed-wireless-down pattern.
+
+~~(3) CAI_20260827.csv (community anchor institutions) carries real
+latitude/longitude per funded site -- could support an actual point-density
+map of funded locations~~ -- done 2026-09-23 (`scripts/build_cai_locations.py`,
+canvas point-density map, 22,675 plotted institutions, spatial-index
+clustering on hover). Type-code labels (S/F/H/L/C/P/G) are inferred from
+entity-name patterns, not an official codebook -- none found.
+
+~~(4) NO_BEAD_20260827.csv (excluded/ineligible locations with a reason
+code) is unused -- could show which locations were considered and
+rejected, not just which were funded~~ -- done 2026-09-23
+(`scripts/build_bead_no_bead_summary.py`). Reason codes decoded from NTIA's
+own "BEAD Final Proposal Guidance v1.2" PDF (primary source, pages 41-44),
+not guessed from the numeric codes alone. Headline: of 1,097,151 excluded
+locations nationally, 67.5% were already being served some other way
+(private service or another federal/state program), 22.5% turned out not
+to be real locations (removed from the FCC Fabric), and only 330 (0.03%,
+used by 3 states) were excluded because an Eligible Entity said it
+couldn't afford to serve them.
 
 ~~(5) noticed in passing while investigating NC: at least one BEAD project
 nationally has `project_type == "M"` (middle-mile, not last-mile) and

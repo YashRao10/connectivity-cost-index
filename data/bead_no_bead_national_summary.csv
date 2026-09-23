@@ -1,0 +1,8 @@
+reason,reason_label,location_count,pct_of_total
+5,Already served by non-subsidized (private) service,500119,45.6
+3,Removed from the FCC Fabric (not a real serviceable location),246673,22.5
+4,Already served by another program (BIP/CAFII/CPF/EACAM/RDOF/RECONNECT/SLFRF/TBCP),240325,21.9
+6,Other -- connectable within 10 business days on request,59477,5.4
+1,Location shouldn't have a connection (demolished/uninhabitable/outbuilding/mobile),40515,3.7
+2,"Doesn't need service (land, CAI without demand, enterprise, gov't property)",9712,0.9
+7,Eligible Entity financially incapable of serving it,330,0.0

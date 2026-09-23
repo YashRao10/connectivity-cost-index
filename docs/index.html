@@ -346,6 +346,15 @@
   </section>
 
   <section>
+    <h2>Where the other 1.1M eligible locations went</h2>
+    <p style="font-size:13.5px;color:var(--ink-soft);margin-top:-6px">3.78M locations got a funded BEAD project (above). Another 1,097,151 &mdash; 22.5% of everything eligible &mdash; didn't, each with a reason code an Eligible Entity had to justify to NTIA. Source: NTIA's own <code>fp_no_BEAD_locations.csv</code> schema, same compilation as the funded-location data.</p>
+    <div class="panel" id="nobeadchart" style="padding:16px 20px"></div>
+    <div class="callout" style="margin:14px 0">
+      <strong>67.5% were already being helped some other way</strong> &mdash; already privately served (45.6%) or already funded by a different federal/state program (21.9%). Another 22.5% turned out not to be real locations at all (removed from the FCC's own address list). Only <strong>330 locations nationally (0.03%)</strong> were excluded because a state said it couldn't afford to serve them &mdash; the "we gave up" category NTIA sets a deliberately high bar for. Used by just 3 states: CT (168), MN (158), MD (4).
+    </div>
+  </section>
+
+  <section>
     <h2>Methodology &amp; caveats</h2>
     <div class="limits">
       <ul>
@@ -1387,6 +1396,26 @@ function renderCaiMap(){
   });
 }
 
+const NO_BEAD_ROWS = [
+  {label:"Already served — private service", pct:45.6, count:500119, color:"var(--sig-lime)"},
+  {label:"Removed from FCC Fabric (not real)", pct:22.5, count:246673, color:"var(--sig-cyan)"},
+  {label:"Already served — another program", pct:21.9, count:240325, color:"var(--sig-blue)"},
+  {label:"Connectable on request (10 days)", pct:5.4, count:59477, color:"var(--sig-violet)"},
+  {label:"Shouldn't have a connection", pct:3.7, count:40515, color:"var(--sig-amber)"},
+  {label:"Doesn't need service", pct:0.9, count:9712, color:"var(--sig-amber)"},
+  {label:"Financially incapable", pct:0.03, count:330, color:"var(--sig-rose)"},
+];
+
+function renderNoBeadChart(){
+  const container = document.getElementById("nobeadchart");
+  const max = Math.max(...NO_BEAD_ROWS.map(r => r.pct));
+  container.innerHTML = NO_BEAD_ROWS.map(r => `<div class="barrow" style="grid-template-columns:210px 1fr 100px">
+    <span>${r.label}</span>
+    <span class="track"><span style="left:0%;width:${Math.max(1.2,(r.pct/max)*100)}%;background:${r.color}"></span></span>
+    <span class="val">${r.pct}% (${r.count.toLocaleString()})</span>
+  </div>`).join("");
+}
+
 renderRangeChart();
 setupFilterControls();
 renderTable();
@@ -1394,6 +1423,7 @@ renderOoklaTable();
 renderTimeseriesTable();
 renderBeadTable();
 renderCaiMap();
+renderNoBeadChart();
 renderMap();
 </script>
 </body>

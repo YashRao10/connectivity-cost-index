@@ -1,0 +1,253 @@
+state_usps,reason,reason_label,location_count,underserved_share
+AK,5,Already served by non-subsidized (private) service,5413,0.463
+AK,3,Removed from the FCC Fabric (not a real serviceable location),4653,0.158
+AK,4,Already served by another program (BIP/CAFII/CPF/EACAM/RDOF/RECONNECT/SLFRF/TBCP),1581,0.123
+AK,1,Location shouldn't have a connection (demolished/uninhabitable/outbuilding/mobile),564,0.096
+AK,2,"Doesn't need service (land, CAI without demand, enterprise, gov't property)",332,0.042
+AK,6,Other -- connectable within 10 business days on request,248,0.919
+AL,4,Already served by another program (BIP/CAFII/CPF/EACAM/RDOF/RECONNECT/SLFRF/TBCP),23575,0.335
+AL,5,Already served by non-subsidized (private) service,7716,0.298
+AL,3,Removed from the FCC Fabric (not a real serviceable location),6833,0.124
+AL,1,Location shouldn't have a connection (demolished/uninhabitable/outbuilding/mobile),1434,0.141
+AS,3,Removed from the FCC Fabric (not a real serviceable location),699,1.0
+AS,6,Other -- connectable within 10 business days on request,16,1.0
+AZ,5,Already served by non-subsidized (private) service,15328,0.809
+AZ,3,Removed from the FCC Fabric (not a real serviceable location),5050,0.24
+AZ,4,Already served by another program (BIP/CAFII/CPF/EACAM/RDOF/RECONNECT/SLFRF/TBCP),2930,0.187
+AZ,6,Other -- connectable within 10 business days on request,584,0.599
+AR,3,Removed from the FCC Fabric (not a real serviceable location),4500,0.182
+AR,4,Already served by another program (BIP/CAFII/CPF/EACAM/RDOF/RECONNECT/SLFRF/TBCP),10,0.5
+AR,2,"Doesn't need service (land, CAI without demand, enterprise, gov't property)",2,0.5
+AR,1,Location shouldn't have a connection (demolished/uninhabitable/outbuilding/mobile),1,0.0
+AR,5,Already served by non-subsidized (private) service,1,1.0
+CA,5,Already served by non-subsidized (private) service,65299,0.45
+CA,4,Already served by another program (BIP/CAFII/CPF/EACAM/RDOF/RECONNECT/SLFRF/TBCP),23086,0.485
+CA,3,Removed from the FCC Fabric (not a real serviceable location),14884,0.342
+CA,2,"Doesn't need service (land, CAI without demand, enterprise, gov't property)",158,0.601
+CA,1,Location shouldn't have a connection (demolished/uninhabitable/outbuilding/mobile),109,0.138
+CA,6,Other -- connectable within 10 business days on request,51,0.373
+CO,5,Already served by non-subsidized (private) service,45259,0.372
+CO,3,Removed from the FCC Fabric (not a real serviceable location),9435,0.35
+CO,4,Already served by another program (BIP/CAFII/CPF/EACAM/RDOF/RECONNECT/SLFRF/TBCP),4367,0.445
+CO,2,"Doesn't need service (land, CAI without demand, enterprise, gov't property)",3356,0.386
+CO,6,Other -- connectable within 10 business days on request,2310,0.261
+CO,1,Location shouldn't have a connection (demolished/uninhabitable/outbuilding/mobile),2250,0.305
+CT,4,Already served by another program (BIP/CAFII/CPF/EACAM/RDOF/RECONNECT/SLFRF/TBCP),4293,0.178
+CT,1,Location shouldn't have a connection (demolished/uninhabitable/outbuilding/mobile),966,0.115
+CT,3,Removed from the FCC Fabric (not a real serviceable location),597,0.074
+CT,5,Already served by non-subsidized (private) service,308,0.12
+CT,2,"Doesn't need service (land, CAI without demand, enterprise, gov't property)",196,0.128
+CT,7,Eligible Entity financially incapable of serving it,168,0.292
+DC,3,Removed from the FCC Fabric (not a real serviceable location),24,0.042
+DC,5,Already served by non-subsidized (private) service,18,0.111
+DE,1,Location shouldn't have a connection (demolished/uninhabitable/outbuilding/mobile),527,0.892
+DE,3,Removed from the FCC Fabric (not a real serviceable location),367,0.711
+DE,4,Already served by another program (BIP/CAFII/CPF/EACAM/RDOF/RECONNECT/SLFRF/TBCP),82,0.976
+DE,5,Already served by non-subsidized (private) service,11,0.091
+FL,5,Already served by non-subsidized (private) service,47646,0.592
+FL,4,Already served by another program (BIP/CAFII/CPF/EACAM/RDOF/RECONNECT/SLFRF/TBCP),23136,0.355
+FL,3,Removed from the FCC Fabric (not a real serviceable location),8189,0.161
+FL,6,Other -- connectable within 10 business days on request,5723,0.492
+GU,5,Already served by non-subsidized (private) service,6685,0.996
+GU,3,Removed from the FCC Fabric (not a real serviceable location),1609,0.968
+HI,3,Removed from the FCC Fabric (not a real serviceable location),560,0.036
+HI,5,Already served by non-subsidized (private) service,105,0.019
+HI,4,Already served by another program (BIP/CAFII/CPF/EACAM/RDOF/RECONNECT/SLFRF/TBCP),93,0.161
+HI,1,Location shouldn't have a connection (demolished/uninhabitable/outbuilding/mobile),32,0.031
+HI,2,"Doesn't need service (land, CAI without demand, enterprise, gov't property)",14,0.0
+ID,3,Removed from the FCC Fabric (not a real serviceable location),4085,0.311
+ID,4,Already served by another program (BIP/CAFII/CPF/EACAM/RDOF/RECONNECT/SLFRF/TBCP),2286,0.698
+ID,1,Location shouldn't have a connection (demolished/uninhabitable/outbuilding/mobile),581,0.141
+ID,5,Already served by non-subsidized (private) service,485,0.621
+ID,2,"Doesn't need service (land, CAI without demand, enterprise, gov't property)",269,0.115
+IL,3,Removed from the FCC Fabric (not a real serviceable location),8575,0.276
+IL,5,Already served by non-subsidized (private) service,4263,0.402
+IL,4,Already served by another program (BIP/CAFII/CPF/EACAM/RDOF/RECONNECT/SLFRF/TBCP),3273,0.382
+IL,1,Location shouldn't have a connection (demolished/uninhabitable/outbuilding/mobile),92,0.0
+IN,5,Already served by non-subsidized (private) service,11030,0.3
+IN,3,Removed from the FCC Fabric (not a real serviceable location),10542,0.152
+IN,6,Other -- connectable within 10 business days on request,1260,0.254
+IN,4,Already served by another program (BIP/CAFII/CPF/EACAM/RDOF/RECONNECT/SLFRF/TBCP),465,0.265
+IN,1,Location shouldn't have a connection (demolished/uninhabitable/outbuilding/mobile),29,0.069
+IN,2,"Doesn't need service (land, CAI without demand, enterprise, gov't property)",6,0.0
+IA,5,Already served by non-subsidized (private) service,6351,0.607
+IA,6,Other -- connectable within 10 business days on request,4751,0.599
+IA,1,Location shouldn't have a connection (demolished/uninhabitable/outbuilding/mobile),819,0.409
+IA,3,Removed from the FCC Fabric (not a real serviceable location),795,0.434
+IA,4,Already served by another program (BIP/CAFII/CPF/EACAM/RDOF/RECONNECT/SLFRF/TBCP),539,0.72
+KS,5,Already served by non-subsidized (private) service,13721,0.507
+KS,1,Location shouldn't have a connection (demolished/uninhabitable/outbuilding/mobile),7614,0.335
+KS,3,Removed from the FCC Fabric (not a real serviceable location),3094,0.272
+KS,4,Already served by another program (BIP/CAFII/CPF/EACAM/RDOF/RECONNECT/SLFRF/TBCP),1214,0.465
+KS,6,Other -- connectable within 10 business days on request,67,0.179
+KS,2,"Doesn't need service (land, CAI without demand, enterprise, gov't property)",33,0.485
+KY,5,Already served by non-subsidized (private) service,20165,0.728
+KY,6,Other -- connectable within 10 business days on request,2728,0.18
+KY,4,Already served by another program (BIP/CAFII/CPF/EACAM/RDOF/RECONNECT/SLFRF/TBCP),2023,0.149
+KY,3,Removed from the FCC Fabric (not a real serviceable location),1253,0.334
+KY,1,Location shouldn't have a connection (demolished/uninhabitable/outbuilding/mobile),41,0.073
+KY,2,"Doesn't need service (land, CAI without demand, enterprise, gov't property)",1,0.0
+LA,3,Removed from the FCC Fabric (not a real serviceable location),11561,0.105
+LA,4,Already served by another program (BIP/CAFII/CPF/EACAM/RDOF/RECONNECT/SLFRF/TBCP),507,0.11
+LA,5,Already served by non-subsidized (private) service,267,0.202
+LA,6,Other -- connectable within 10 business days on request,85,0.365
+MA,4,Already served by another program (BIP/CAFII/CPF/EACAM/RDOF/RECONNECT/SLFRF/TBCP),3682,0.157
+MA,3,Removed from the FCC Fabric (not a real serviceable location),2276,0.097
+MA,1,Location shouldn't have a connection (demolished/uninhabitable/outbuilding/mobile),1267,0.171
+MA,5,Already served by non-subsidized (private) service,1103,0.141
+MA,2,"Doesn't need service (land, CAI without demand, enterprise, gov't property)",281,0.214
+MA,6,Other -- connectable within 10 business days on request,184,0.337
+MD,4,Already served by another program (BIP/CAFII/CPF/EACAM/RDOF/RECONNECT/SLFRF/TBCP),4900,0.45
+MD,5,Already served by non-subsidized (private) service,4130,0.345
+MD,1,Location shouldn't have a connection (demolished/uninhabitable/outbuilding/mobile),871,0.172
+MD,6,Other -- connectable within 10 business days on request,755,0.401
+MD,3,Removed from the FCC Fabric (not a real serviceable location),292,0.209
+MD,2,"Doesn't need service (land, CAI without demand, enterprise, gov't property)",126,0.135
+MD,7,Eligible Entity financially incapable of serving it,4,0.5
+ME,5,Already served by non-subsidized (private) service,2558,0.529
+ME,3,Removed from the FCC Fabric (not a real serviceable location),2500,0.471
+ME,4,Already served by another program (BIP/CAFII/CPF/EACAM/RDOF/RECONNECT/SLFRF/TBCP),1938,0.243
+MI,3,Removed from the FCC Fabric (not a real serviceable location),19684,0.154
+MI,5,Already served by non-subsidized (private) service,12945,0.308
+MI,1,Location shouldn't have a connection (demolished/uninhabitable/outbuilding/mobile),8610,0.144
+MI,2,"Doesn't need service (land, CAI without demand, enterprise, gov't property)",3724,0.233
+MI,4,Already served by another program (BIP/CAFII/CPF/EACAM/RDOF/RECONNECT/SLFRF/TBCP),3033,0.147
+MI,6,Other -- connectable within 10 business days on request,206,0.485
+MN,4,Already served by another program (BIP/CAFII/CPF/EACAM/RDOF/RECONNECT/SLFRF/TBCP),10110,0.594
+MN,3,Removed from the FCC Fabric (not a real serviceable location),3202,0.269
+MN,5,Already served by non-subsidized (private) service,1956,0.478
+MN,7,Eligible Entity financially incapable of serving it,158,0.038
+MN,1,Location shouldn't have a connection (demolished/uninhabitable/outbuilding/mobile),38,0.132
+MN,6,Other -- connectable within 10 business days on request,20,0.9
+MS,4,Already served by another program (BIP/CAFII/CPF/EACAM/RDOF/RECONNECT/SLFRF/TBCP),12788,0.174
+MS,6,Other -- connectable within 10 business days on request,12643,0.11
+MS,3,Removed from the FCC Fabric (not a real serviceable location),5275,0.095
+MS,1,Location shouldn't have a connection (demolished/uninhabitable/outbuilding/mobile),57,0.316
+MT,3,Removed from the FCC Fabric (not a real serviceable location),4669,0.155
+MT,4,Already served by another program (BIP/CAFII/CPF/EACAM/RDOF/RECONNECT/SLFRF/TBCP),2265,0.312
+MT,5,Already served by non-subsidized (private) service,1780,0.488
+MT,1,Location shouldn't have a connection (demolished/uninhabitable/outbuilding/mobile),96,0.573
+NH,5,Already served by non-subsidized (private) service,2563,0.426
+NH,3,Removed from the FCC Fabric (not a real serviceable location),1393,0.151
+NH,4,Already served by another program (BIP/CAFII/CPF/EACAM/RDOF/RECONNECT/SLFRF/TBCP),320,0.572
+NH,1,Location shouldn't have a connection (demolished/uninhabitable/outbuilding/mobile),92,0.065
+NH,2,"Doesn't need service (land, CAI without demand, enterprise, gov't property)",22,0.227
+NH,6,Other -- connectable within 10 business days on request,2,1.0
+NJ,4,Already served by another program (BIP/CAFII/CPF/EACAM/RDOF/RECONNECT/SLFRF/TBCP),3740,0.369
+NJ,3,Removed from the FCC Fabric (not a real serviceable location),1530,0.149
+NJ,5,Already served by non-subsidized (private) service,873,0.554
+NM,4,Already served by another program (BIP/CAFII/CPF/EACAM/RDOF/RECONNECT/SLFRF/TBCP),7301,0.183
+NM,3,Removed from the FCC Fabric (not a real serviceable location),3458,0.505
+NM,6,Other -- connectable within 10 business days on request,388,0.521
+NM,1,Location shouldn't have a connection (demolished/uninhabitable/outbuilding/mobile),21,0.0
+NV,4,Already served by another program (BIP/CAFII/CPF/EACAM/RDOF/RECONNECT/SLFRF/TBCP),19454,0.146
+NV,3,Removed from the FCC Fabric (not a real serviceable location),7078,0.092
+NV,6,Other -- connectable within 10 business days on request,703,0.107
+NV,5,Already served by non-subsidized (private) service,461,0.785
+NV,2,"Doesn't need service (land, CAI without demand, enterprise, gov't property)",46,0.043
+NV,1,Location shouldn't have a connection (demolished/uninhabitable/outbuilding/mobile),6,1.0
+MP,3,Removed from the FCC Fabric (not a real serviceable location),1154,0.955
+MP,1,Location shouldn't have a connection (demolished/uninhabitable/outbuilding/mobile),61,0.492
+NY,4,Already served by another program (BIP/CAFII/CPF/EACAM/RDOF/RECONNECT/SLFRF/TBCP),7123,0.097
+NY,6,Other -- connectable within 10 business days on request,5014,0.193
+NY,3,Removed from the FCC Fabric (not a real serviceable location),4079,0.06
+NY,5,Already served by non-subsidized (private) service,2299,0.132
+NY,1,Location shouldn't have a connection (demolished/uninhabitable/outbuilding/mobile),660,0.065
+NY,2,"Doesn't need service (land, CAI without demand, enterprise, gov't property)",402,0.047
+OH,5,Already served by non-subsidized (private) service,40055,0.754
+OH,6,Other -- connectable within 10 business days on request,6247,0.512
+OH,3,Removed from the FCC Fabric (not a real serviceable location),4990,0.309
+OH,4,Already served by another program (BIP/CAFII/CPF/EACAM/RDOF/RECONNECT/SLFRF/TBCP),286,0.301
+OK,3,Removed from the FCC Fabric (not a real serviceable location),2867,0.415
+OK,6,Other -- connectable within 10 business days on request,809,0.661
+OK,4,Already served by another program (BIP/CAFII/CPF/EACAM/RDOF/RECONNECT/SLFRF/TBCP),435,0.4
+OR,4,Already served by another program (BIP/CAFII/CPF/EACAM/RDOF/RECONNECT/SLFRF/TBCP),13842,0.397
+OR,3,Removed from the FCC Fabric (not a real serviceable location),10785,0.27
+OR,5,Already served by non-subsidized (private) service,835,0.467
+OR,1,Location shouldn't have a connection (demolished/uninhabitable/outbuilding/mobile),54,0.426
+RI,4,Already served by another program (BIP/CAFII/CPF/EACAM/RDOF/RECONNECT/SLFRF/TBCP),4226,0.913
+RI,1,Location shouldn't have a connection (demolished/uninhabitable/outbuilding/mobile),226,0.947
+RI,2,"Doesn't need service (land, CAI without demand, enterprise, gov't property)",47,0.681
+RI,3,Removed from the FCC Fabric (not a real serviceable location),38,0.711
+SC,4,Already served by another program (BIP/CAFII/CPF/EACAM/RDOF/RECONNECT/SLFRF/TBCP),6660,0.493
+SC,5,Already served by non-subsidized (private) service,3371,0.419
+SC,3,Removed from the FCC Fabric (not a real serviceable location),1835,0.195
+SC,1,Location shouldn't have a connection (demolished/uninhabitable/outbuilding/mobile),225,0.098
+SC,6,Other -- connectable within 10 business days on request,129,0.047
+SC,2,"Doesn't need service (land, CAI without demand, enterprise, gov't property)",37,0.243
+TN,4,Already served by another program (BIP/CAFII/CPF/EACAM/RDOF/RECONNECT/SLFRF/TBCP),2847,0.275
+TN,3,Removed from the FCC Fabric (not a real serviceable location),1741,0.133
+TN,5,Already served by non-subsidized (private) service,1700,0.326
+TN,6,Other -- connectable within 10 business days on request,1057,0.273
+TN,1,Location shouldn't have a connection (demolished/uninhabitable/outbuilding/mobile),147,0.054
+TN,2,"Doesn't need service (land, CAI without demand, enterprise, gov't property)",60,0.0
+TX,6,Other -- connectable within 10 business days on request,3824,0.242
+TX,3,Removed from the FCC Fabric (not a real serviceable location),3149,0.213
+TX,5,Already served by non-subsidized (private) service,1149,0.158
+TX,4,Already served by another program (BIP/CAFII/CPF/EACAM/RDOF/RECONNECT/SLFRF/TBCP),362,0.083
+VA,5,Already served by non-subsidized (private) service,20804,0.223
+VA,3,Removed from the FCC Fabric (not a real serviceable location),9562,0.092
+VA,4,Already served by another program (BIP/CAFII/CPF/EACAM/RDOF/RECONNECT/SLFRF/TBCP),4195,0.138
+VA,6,Other -- connectable within 10 business days on request,3937,0.155
+VA,1,Location shouldn't have a connection (demolished/uninhabitable/outbuilding/mobile),397,0.055
+VT,4,Already served by another program (BIP/CAFII/CPF/EACAM/RDOF/RECONNECT/SLFRF/TBCP),5127,0.458
+VT,3,Removed from the FCC Fabric (not a real serviceable location),1228,0.402
+VT,5,Already served by non-subsidized (private) service,352,0.554
+VT,1,Location shouldn't have a connection (demolished/uninhabitable/outbuilding/mobile),165,0.2
+VT,2,"Doesn't need service (land, CAI without demand, enterprise, gov't property)",40,0.125
+WA,5,Already served by non-subsidized (private) service,32424,0.537
+WA,4,Already served by another program (BIP/CAFII/CPF/EACAM/RDOF/RECONNECT/SLFRF/TBCP),8909,0.313
+WA,3,Removed from the FCC Fabric (not a real serviceable location),8799,0.155
+WA,1,Location shouldn't have a connection (demolished/uninhabitable/outbuilding/mobile),4268,0.141
+WA,6,Other -- connectable within 10 business days on request,2714,0.164
+WA,2,"Doesn't need service (land, CAI without demand, enterprise, gov't property)",109,0.092
+WI,5,Already served by non-subsidized (private) service,16990,0.619
+WI,3,Removed from the FCC Fabric (not a real serviceable location),7558,0.418
+WI,4,Already served by another program (BIP/CAFII/CPF/EACAM/RDOF/RECONNECT/SLFRF/TBCP),6236,0.427
+WI,6,Other -- connectable within 10 business days on request,963,0.333
+WI,1,Location shouldn't have a connection (demolished/uninhabitable/outbuilding/mobile),5,0.4
+WI,2,"Doesn't need service (land, CAI without demand, enterprise, gov't property)",2,0.0
+GA,5,Already served by non-subsidized (private) service,33865,0.584
+GA,3,Removed from the FCC Fabric (not a real serviceable location),9655,0.292
+GA,4,Already served by another program (BIP/CAFII/CPF/EACAM/RDOF/RECONNECT/SLFRF/TBCP),1116,0.493
+GA,6,Other -- connectable within 10 business days on request,558,0.421
+GA,1,Location shouldn't have a connection (demolished/uninhabitable/outbuilding/mobile),161,0.168
+GA,2,"Doesn't need service (land, CAI without demand, enterprise, gov't property)",63,0.762
+MO,4,Already served by another program (BIP/CAFII/CPF/EACAM/RDOF/RECONNECT/SLFRF/TBCP),1141,0.412
+NE,5,Already served by non-subsidized (private) service,13594,0.449
+NE,3,Removed from the FCC Fabric (not a real serviceable location),1757,0.411
+NE,4,Already served by another program (BIP/CAFII/CPF/EACAM/RDOF/RECONNECT/SLFRF/TBCP),256,0.633
+WY,3,Removed from the FCC Fabric (not a real serviceable location),5379,0.137
+WY,4,Already served by another program (BIP/CAFII/CPF/EACAM/RDOF/RECONNECT/SLFRF/TBCP),2357,0.384
+WY,5,Already served by non-subsidized (private) service,767,0.214
+WY,1,Location shouldn't have a connection (demolished/uninhabitable/outbuilding/mobile),529,0.117
+NC,5,Already served by non-subsidized (private) service,9952,0.364
+NC,1,Location shouldn't have a connection (demolished/uninhabitable/outbuilding/mobile),352,0.386
+NC,4,Already served by another program (BIP/CAFII/CPF/EACAM/RDOF/RECONNECT/SLFRF/TBCP),318,0.89
+ND,4,Already served by another program (BIP/CAFII/CPF/EACAM/RDOF/RECONNECT/SLFRF/TBCP),467,0.317
+ND,5,Already served by non-subsidized (private) service,354,0.271
+ND,1,Location shouldn't have a connection (demolished/uninhabitable/outbuilding/mobile),223,0.229
+ND,3,Removed from the FCC Fabric (not a real serviceable location),202,0.109
+ND,6,Other -- connectable within 10 business days on request,178,0.326
+ND,2,"Doesn't need service (land, CAI without demand, enterprise, gov't property)",67,0.0
+PA,5,Already served by non-subsidized (private) service,21581,0.294
+PA,3,Removed from the FCC Fabric (not a real serviceable location),6063,0.095
+PA,4,Already served by another program (BIP/CAFII/CPF/EACAM/RDOF/RECONNECT/SLFRF/TBCP),2331,0.324
+SD,1,Location shouldn't have a connection (demolished/uninhabitable/outbuilding/mobile),1863,0.168
+SD,4,Already served by another program (BIP/CAFII/CPF/EACAM/RDOF/RECONNECT/SLFRF/TBCP),218,0.179
+SD,2,"Doesn't need service (land, CAI without demand, enterprise, gov't property)",151,0.623
+SD,3,Removed from the FCC Fabric (not a real serviceable location),102,0.069
+SD,6,Other -- connectable within 10 business days on request,62,0.065
+SD,5,Already served by non-subsidized (private) service,52,0.442
+UT,5,Already served by non-subsidized (private) service,6309,0.579
+UT,3,Removed from the FCC Fabric (not a real serviceable location),3242,0.222
+UT,4,Already served by another program (BIP/CAFII/CPF/EACAM/RDOF/RECONNECT/SLFRF/TBCP),2436,0.206
+UT,6,Other -- connectable within 10 business days on request,1065,0.238
+UT,1,Location shouldn't have a connection (demolished/uninhabitable/outbuilding/mobile),295,0.2
+UT,2,"Doesn't need service (land, CAI without demand, enterprise, gov't property)",3,0.0
+WV,5,Already served by non-subsidized (private) service,15226,0.272
+WV,3,Removed from the FCC Fabric (not a real serviceable location),13826,0.102
+WV,4,Already served by another program (BIP/CAFII/CPF/EACAM/RDOF/RECONNECT/SLFRF/TBCP),6446,0.178
+WV,1,Location shouldn't have a connection (demolished/uninhabitable/outbuilding/mobile),4767,0.067
+WV,6,Other -- connectable within 10 business days on request,196,0.112
+WV,2,"Doesn't need service (land, CAI without demand, enterprise, gov't property)",165,0.048
