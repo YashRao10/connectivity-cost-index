@@ -147,6 +147,21 @@
        border-radius:8px;padding:14px 18px;font-size:13.5px;color:var(--ink-soft);line-height:1.6}
   .callout strong{color:var(--ink)}
   @media(min-width:940px){.techcard.technote.wide{grid-column:span 2}}
+  .lookup-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:14px}
+  .lookup-head h3{margin:0;font-size:28px;font-weight:700;letter-spacing:-0.01em;line-height:1}
+  .lookup-head select{font-family:var(--sans);font-size:14px;background:var(--bg);color:var(--ink);
+       border:1px solid var(--line);border-radius:6px;padding:7px 10px;min-width:200px}
+  .ladder{margin-top:16px}
+  .ladder .rung{display:grid;grid-template-columns:minmax(150px,210px) 1fr 92px;align-items:center;gap:10px;
+       padding:8px 0;border-bottom:1px dashed var(--line);font-size:13px}
+  .ladder .rung:last-child{border-bottom:0}
+  .ladder .who{display:flex;align-items:flex-start;gap:4px;min-width:0}
+  .ladder .who svg{margin-top:2px}
+  .ladder .who small{display:block;font-family:var(--mono);font-size:10.5px;color:var(--ink-mute)}
+  .ladder .val{font-family:var(--mono);font-size:12.5px;text-align:right;font-variant-numeric:tabular-nums}
+  .ladder .track{background:var(--grid);border-radius:20px;height:8px;overflow:hidden}
+  .ladder .track > span{display:block;height:100%;border-radius:20px}
+  @media(max-width:560px){.ladder .rung{grid-template-columns:1fr 80px}.ladder .track{grid-column:1 / -1;order:3}}
   .tech-inline-icon{display:inline-block;vertical-align:-3px;margin-right:6px}
 
   .tiles{display:flex;flex-wrap:wrap;gap:10px}
@@ -224,7 +239,7 @@
       <p class="kicker"><span class="dot"></span>live market + reliability data</p>
       <h1>Connectivity Cost Index</h1>
       <p class="tag">Is satellite internet's pricing premium justified by its performance, or is it a connectivity tax paid for coverage rather than speed?</p>
-      <span class="status">v3.9 &middot; market, real-world, and BEAD policy layers: all 50 states + DC, NTIA-verified provisional awards, CAI point-density map, funded + excluded-location breakdowns, technology explainer</span>
+      <span class="status">v4.0 &middot; market, real-world, and BEAD policy layers: all 50 states + DC, NTIA-verified provisional awards, CAI point-density map, funded + excluded-location breakdowns, technology explainer, state lookup</span>
       <span class="baseline-note">Cost-per-Mbps computed against FCC's real reported median speeds per technology per state, not marketing "up to" figures. Personal reliability layer is currently collecting data (see &sect; personal reliability layer, below).</span>
     </div>
   </header>
@@ -242,6 +257,20 @@
         <div class="sub">RI, HI, NV: DSL or unlicensed fixed wireless edge out LEO satellite</div></div>
       <div class="tile"><div class="lbl">BEAD $ per funded location, satellite vs. fiber</div><div class="num">5.6&times;</div>
         <div class="sub">real committed dollars, not a proxy: $701&ndash;1,138/location (satellite) vs. $6,420.70 (fiber), from actual project-level BEAD data</div></div>
+    </div>
+  </section>
+  <section id="lookup">
+    <h2>Look up a state<svg class="h2-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></h2>
+    <p style="font-size:13.5px;color:var(--ink-soft);margin-top:-6px">Every layer on this page, for one state. Pick one below or click a state on the BEAD map. The link updates, so you can share a specific state.</p>
+    <div class="panel">
+      <div class="lookup-head">
+        <div><div class="lbl">State</div><h3 id="lookupName"></h3></div>
+        <select id="lookupSelect" aria-label="Choose a state"></select>
+      </div>
+      <div class="tiles" id="lookupTiles"></div>
+      <div class="lbl" style="margin-top:22px">Every technology priced here, cheapest per Mbps first <span style="text-transform:none;letter-spacing:0">(bar length on a log scale)</span></div>
+      <div class="ladder" id="lookupLadder"></div>
+      <p style="font-size:12.5px;color:var(--ink-mute);margin:12px 0 0">Prices are one cheapest published plan per technology, used nationally (the provider in parentheses is where that price came from, not necessarily a company selling in this state). Speeds are this state's own FCC-reported median for the technology, which is what makes each state's numbers different.</p>
     </div>
   </section>
   <section>
@@ -409,7 +438,7 @@
       <thead><tr>
         <th data-key="state" data-type="str">State</th>
         <th data-key="tech" data-type="str">Technology</th>
-        <th data-key="provider" data-type="str">Provider</th>
+        <th data-key="provider" data-type="str">Price source (national plan)</th>
         <th data-key="price" data-type="num">Monthly ($)</th>
         <th data-key="mbps" data-type="num">FCC median down (Mbps)</th>
         <th data-key="cpm" data-type="num">$/Mbps</th>
@@ -1196,6 +1225,73 @@ function renderBeadMix(){
     </aside>`;
 }
 
+const STATE_NAME = {AL:"Alabama",AK:"Alaska",AZ:"Arizona",AR:"Arkansas",CA:"California",CO:"Colorado",CT:"Connecticut",DE:"Delaware",DC:"District of Columbia",FL:"Florida",GA:"Georgia",HI:"Hawaii",ID:"Idaho",IL:"Illinois",IN:"Indiana",IA:"Iowa",KS:"Kansas",KY:"Kentucky",LA:"Louisiana",ME:"Maine",MD:"Maryland",MA:"Massachusetts",MI:"Michigan",MN:"Minnesota",MS:"Mississippi",MO:"Missouri",MT:"Montana",NE:"Nebraska",NV:"Nevada",NH:"New Hampshire",NJ:"New Jersey",NM:"New Mexico",NY:"New York",NC:"North Carolina",ND:"North Dakota",OH:"Ohio",OK:"Oklahoma",OR:"Oregon",PA:"Pennsylvania",RI:"Rhode Island",SC:"South Carolina",SD:"South Dakota",TN:"Tennessee",TX:"Texas",UT:"Utah",VT:"Vermont",VA:"Virginia",WA:"Washington",WV:"West Virginia",WI:"Wisconsin",WY:"Wyoming"};
+
+function renderLookup(st){
+  const rows = ROWS.filter(r => r.state === st);
+  const fixed = OOKLA_ROWS.find(r => r.state === st && r.net === "Fixed");
+  const trend = TIMESERIES_ROWS.find(r => r.state === st && r.net === "Fixed");
+  const bead = BEAD_ROWS.find(r => r.state === st);
+  const priced = rows.filter(r => r.cpm !== null).sort((a,b) => a.cpm - b.cpm);
+  const cheapest = priced[0];
+  const leo = rows.find(r => r.tech === "LEO Satellite");
+  const lfw = rows.find(r => r.tech === "Licensed Fixed Wireless");
+  const fmtCpm = n => n >= 1 ? `$${n.toFixed(2)}` : `$${n.toFixed(3)}`;
+  const fmtM = n => n >= 1e9 ? `$${(n/1e9).toFixed(2)}B` : `$${(n/1e6).toFixed(1)}M`;
+
+  document.getElementById("lookupName").textContent = STATE_NAME[st] || st;
+  const tiles = [];
+  if (cheapest) tiles.push(`<div class="tile" style="--tile-color:${TECH_COLOR[cheapest.tech]}"><div class="lbl">Cheapest per Mbps</div>
+    <div class="num" style="color:${TECH_COLOR[cheapest.tech]}">${techIcon(cheapest.tech, 20)}<span style="color:var(--ink)">${fmtCpm(cheapest.cpm)}</span></div>
+    <div class="sub">${cheapest.tech}: $${cheapest.price}/mo national plan price against this state's FCC median of ${cheapest.mbps.toLocaleString()} Mbps</div></div>`);
+  if (leo && lfw && leo.cpm && lfw.cpm) tiles.push(`<div class="tile" style="--tile-color:var(--sig-violet)"><div class="lbl">Starlink vs. 5G home internet</div>
+    <div class="num">${(lfw.cpm / leo.cpm).toFixed(1)}&times;</div>
+    <div class="sub">Starlink is this many times cheaper per Mbps (${fmtCpm(leo.cpm)} vs. ${fmtCpm(lfw.cpm)})</div></div>`);
+  if (fixed) tiles.push(`<div class="tile" style="--tile-color:var(--sig-lime)"><div class="lbl">Real-world fixed speed (Ookla)</div>
+    <div class="num">${fixed.down} Mbps</div>
+    <div class="sub">${fixed.lat} ms median latency${trend ? `, ${trend.pct > 0 ? "+" : ""}${trend.pct.toFixed(1)}% vs. Q1 2026` : ""}. Blended across every technology in the state.</div></div>`);
+  if (bead) tiles.push(`<div class="tile" style="--tile-color:var(--sig-rose)"><div class="lbl">BEAD award (2025)</div>
+    <div class="num">${fmtM(bead.prov)}</div>
+    <div class="sub">${bead.pct.toFixed(1)}% vs. the original 2023 allocation of ${fmtM(bead.orig)}; $${bead.perloc.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})} per GSO-served location</div></div>`);
+  document.getElementById("lookupTiles").innerHTML = tiles.join("");
+
+  const lo = Math.log10(0.004), hi = Math.log10(6);
+  const width = v => Math.max(3, 100 * (Math.log10(v) - lo) / (hi - lo));
+  const unpriced = rows.filter(r => r.cpm === null);
+  document.getElementById("lookupLadder").innerHTML = priced.map(r => {
+    const c = MINOR_TECH.has(r.tech) ? "var(--ink-mute)" : TECH_COLOR[r.tech];
+    return `<div class="rung">
+      <div class="who" style="color:${c}">${techIcon(r.tech, 16)}<span style="color:var(--ink)">${r.tech}<small>$${r.price}/mo (${r.provider.startsWith("National average") ? "national average" : r.provider}) &middot; FCC median ${r.mbps.toLocaleString()} Mbps</small></span></div>
+      <div class="track"><span style="width:${width(r.cpm).toFixed(1)}%;background:${c}"></span></div>
+      <div class="val">${fmtCpm(r.cpm)}/Mbps</div>
+    </div>`;
+  }).join("") + unpriced.map(r => `<div class="rung">
+      <div class="who" style="color:var(--ink-mute)">${techIcon(r.tech, 16)}<span style="color:var(--ink)">${r.tech}<small>${r.price === null ? `available (FCC median ${r.mbps.toLocaleString()} Mbps), no published plan priced` : "FCC median rounds to 0 Mbps"}</small></span></div>
+      <div class="track"></div><div class="val">${r.price === null ? "n/a" : "undefined"}</div></div>`).join("");
+}
+
+function setupLookup(){
+  const sel = document.getElementById("lookupSelect");
+  const states = [...new Set(ROWS.map(r => r.state))].sort((a,b) => (STATE_NAME[a]||a).localeCompare(STATE_NAME[b]||b));
+  sel.innerHTML = states.map(st => `<option value="${st}">${STATE_NAME[st] || st}</option>`).join("");
+  const fromHash = (location.hash.match(/state=([A-Z]{2})/) || [])[1];
+  const initial = states.includes(fromHash) ? fromHash : "TX";
+  sel.value = initial;
+  renderLookup(initial);
+  sel.addEventListener("change", () => {
+    renderLookup(sel.value);
+    history.replaceState(null, "", `#state=${sel.value}`);
+  });
+}
+
+function selectLookupState(st){
+  const sel = document.getElementById("lookupSelect");
+  if (![...sel.options].some(o => o.value === st)) return;
+  sel.value = st;
+  sel.dispatchEvent(new Event("change"));
+  document.getElementById("lookup").scrollIntoView({behavior: "smooth", block: "start"});
+}
+
 function renderRangeChart(){
   const container = document.getElementById("rangechart");
   const byTech = {};
@@ -1536,7 +1632,8 @@ function renderMap(){
         tooltip.style.left = (event.clientX + 14) + "px";
         tooltip.style.top = (event.clientY + 14) + "px";
       })
-      .on("mouseleave", () => { tooltip.style.display = "none"; });
+      .on("mouseleave", () => { tooltip.style.display = "none"; })
+      .on("click", (event, d) => { tooltip.style.display = "none"; selectLookupState(d.properties.state_usps); });
 
     const legend = document.getElementById("maplegend");
     const lo = d3.min(values), hi = d3.max(values);
@@ -1675,6 +1772,7 @@ function renderNoBeadChart(){
 renderRangeChart();
 renderTechCards();
 renderBeadMix();
+setupLookup();
 setupFilterControls();
 renderTable();
 renderOoklaTable();
