@@ -162,6 +162,15 @@
   .ladder .track{background:var(--grid);border-radius:20px;height:8px;overflow:hidden}
   .ladder .track > span{display:block;height:100%;border-radius:20px}
   @media(max-width:560px){.ladder .rung{grid-template-columns:1fr 80px}.ladder .track{grid-column:1 / -1;order:3}}
+  .chart text{font-family:var(--mono);font-size:10px;fill:var(--ink-mute)}
+  .chart .axis-title{font-size:10.5px;fill:var(--ink-soft)}
+  .chart .gridline{stroke:var(--grid);stroke-width:1}
+  .chart .baseline{stroke:var(--baseline);stroke-width:1}
+  .chart .dlabel{fill:var(--ink);font-size:10.5px;font-weight:500}
+  .chartscroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .chartscroll > svg{min-width:640px;width:100%;height:auto;display:block}
+  #charttip{position:fixed;pointer-events:none;display:none;background:var(--panel);border:1px solid var(--border-hair);border-radius:6px;
+       padding:8px 10px;font-family:var(--mono);font-size:12px;color:var(--ink);box-shadow:0 4px 16px rgba(0,0,0,0.25);z-index:50;line-height:1.5}
   .tech-inline-icon{display:inline-block;vertical-align:-3px;margin-right:6px}
 
   .tiles{display:flex;flex-wrap:wrap;gap:10px}
@@ -232,6 +241,7 @@
 </head>
 <body>
 <div class="wrap">
+<div id="charttip"></div>
 
   <header>
     <div class="ping" aria-hidden="true"><span></span><span></span><span></span></div>
@@ -451,6 +461,10 @@
   </section>
   <section>
     <h2>Real-world speed vs. advertised (Ookla)<svg class="h2-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17a8 8 0 1 1 16 0"/><path d="M12 17l4-5"/><circle cx="12" cy="17" r="1" fill="currentColor" stroke="none"/></svg></h2>
+    <div class="panel" style="padding:14px 12px 8px">
+      <div class="chartscroll"><svg class="chart" id="ooklascatter" viewBox="0 0 960 400" role="img" aria-label="Scatter plot of median download speed against latency for each state, fixed broadband and mobile"></svg></div>
+      <div class="legend" style="margin:6px 8px 4px"><span class="item"><span class="swatch" style="background:var(--sig-cyan)"></span>Fixed broadband (51)</span><span class="item"><span class="swatch" style="background:var(--sig-violet)"></span>Mobile (51)</span><span class="item" style="color:var(--ink-mute)">Each dot is one state. Down and to the right is better. Hover for details.</span></div>
+    </div>
     <p style="font-size:13.5px;color:var(--ink-soft);margin-top:-6px">FCC's numbers above are provider-<em>reported</em> advertised speeds. This section checks them against what people actually measure: median blended speed/latency per state from Ookla's public Speedtest data (Q2 2026), across every technology mix in that state, not filtered to one technology. Now covers all 50 states + DC, matching the market layer above.</p>
     <div class="table-scroll">
     <table id="ooklatable">
@@ -462,6 +476,10 @@
   </section>
   <section>
     <h2>Quarter-over-quarter trend (Q1 &rarr; Q2 2026)<svg class="h2-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></h2>
+    <div class="panel" style="padding:14px 12px 8px">
+      <div class="chartscroll"><svg class="chart" id="trendchart" viewBox="0 0 960 380" role="img" aria-label="Change in median download speed from Q1 to Q2 2026 for each state, fixed and mobile, sorted"></svg></div>
+      <div class="legend" style="margin:6px 8px 4px"><span class="item"><span class="swatch" style="background:var(--sig-rose)"></span>Slower in Q2</span><span class="item"><span class="swatch" style="background:var(--sig-blue)"></span>Faster in Q2</span><span class="item" style="color:var(--ink-mute)">One column per state, sorted. Hover for details.</span></div>
+    </div>
     <p style="font-size:13.5px;color:var(--ink-soft);margin-top:-6px">Now covers all 50 states + DC (102 state/network combinations), matching the layers above. There are still only two quarters of history, which isn't enough to call this a confirmed trend, but the picture is more nuanced at full scale than the original 10-state sample suggested. Median download speed <em>declined</em> from Q1 to Q2 2026 in 82 of 102 combinations (80.4%), most sharply for Nebraska mobile (-23.3%) and West Virginia mobile (-15.8%). But 19 combinations actually <em>increased</em>: Florida wasn't the lone exception it looked like at 10 states; Arizona (fixed +3.2%, mobile +9.6%), DC mobile (+11.0%), and Wyoming mobile (+9.4%) also gained.</p>
     <div class="table-scroll">
     <table id="timeseriestable">
@@ -473,6 +491,10 @@
   </section>
   <section>
     <h2>Where the subsidy money goes: BEAD allocation vs. satellite dependence<svg class="h2-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6"/><path d="M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6"/></svg></h2>
+    <div class="panel" style="padding:14px 12px 8px">
+      <div class="chartscroll"><svg class="chart" id="beadcutchart" viewBox="0 0 960 300" role="img" aria-label="Percent change from the 2023 BEAD allocation to the 2025 provisional award, every state cut, sorted"></svg></div>
+      <div class="legend" style="margin:6px 8px 4px"><span class="item" style="color:var(--ink-mute)">Change from the 2023 allocation to the 2025 award, one column per state. Every state was cut. Hover for dollar amounts.</span></div>
+    </div>
     <p style="font-size:13.5px;color:var(--ink-soft);margin-top:-6px">The federal BEAD program allocated $42.45B across states in 2023. In 2025, NTIA restructured the program ("Benefit of the Bargain"); this layer shows both the original 2023 allocation and the 2025 provisional award for all 50 states + DC. The provisional award for 50 of 51 is individually verified against NTIA's own official per-state "BEAD Final Proposal Overview" PDF (broadbandusa.ntia.gov). DC is the one exception, since no such PDF has been published for it, so DC keeps an earlier secondary-source estimate, flagged as unverified (see methodology). As a proxy for "underserved" locations, GSO Satellite locations served (from the FCC layer above) stands in. BEAD's own eligibility rules treat satellite as non-qualifying/lower-tier service in most cases, so places with heavy GSO satellite coverage plausibly correlate with places lacking adequate terrestrial options.</p>
     <div class="callout" style="margin:14px 0">
       <strong>The restructuring cut funding nationally, not just in the handful of states first checked.</strong> Median cut across all 50 states + DC: <strong>&minus;62.0%</strong> vs. the original 2023 allocation. The range is wide: Oregon (&minus;14.7%), Illinois (&minus;16.9%), and California (&minus;25.5%) came through relatively unscathed; DC (&minus;99.0%), North Dakota (&minus;95.3%), and Connecticut (&minus;95.0%) were cut nearly to zero. This is confirmed structural, not a data artifact. See methodology for sourcing.
@@ -1292,6 +1314,110 @@ function selectLookupState(st){
   document.getElementById("lookup").scrollIntoView({behavior: "smooth", block: "start"});
 }
 
+// --- Lead charts for the Ookla, trend, and BEAD-allocation sections ---
+const charttip = document.getElementById("charttip");
+function showTip(event, html){
+  charttip.innerHTML = html;
+  charttip.style.display = "block";
+  const x = Math.min(event.clientX + 14, window.innerWidth - charttip.offsetWidth - 8);
+  charttip.style.left = x + "px";
+  charttip.style.top = (event.clientY + 14) + "px";
+}
+function hideTip(){ charttip.style.display = "none"; }
+const stName = st => (typeof STATE_NAME !== "undefined" && STATE_NAME[st]) || st;
+
+function renderOoklaScatter(){
+  const svg = d3.select("#ooklascatter");
+  const W = 960, H = 400, m = {t:18, r:24, b:44, l:52};
+  const x = d3.scaleLinear().domain([0, 420]).range([m.l, W - m.r]);
+  const y = d3.scaleLinear().domain([0, 70]).range([H - m.b, m.t]);
+  svg.append("g").selectAll("line").data(y.ticks(7)).join("line").attr("class","gridline")
+    .attr("x1", m.l).attr("x2", W - m.r).attr("y1", d => y(d)).attr("y2", d => y(d));
+  svg.append("g").selectAll("text").data(y.ticks(7)).join("text")
+    .attr("x", m.l - 8).attr("y", d => y(d) + 3).attr("text-anchor","end").text(d => d);
+  svg.append("g").selectAll("text").data(x.ticks(7)).join("text")
+    .attr("x", d => x(d)).attr("y", H - m.b + 16).attr("text-anchor","middle").text(d => d);
+  svg.append("line").attr("class","baseline").attr("x1", m.l).attr("x2", W - m.r).attr("y1", y(0)).attr("y2", y(0));
+  svg.append("text").attr("class","axis-title").attr("x", W - m.r).attr("y", H - 6).attr("text-anchor","end").text("median download (Mbps) →");
+  svg.append("text").attr("class","axis-title").attr("x", m.l).attr("y", m.t - 6).text("median latency (ms), lower is better");
+  const color = {Fixed:"var(--sig-cyan)", Mobile:"var(--sig-violet)"};
+  svg.append("g").selectAll("circle").data(OOKLA_ROWS).join("circle")
+    .attr("cx", d => x(d.down)).attr("cy", d => y(d.lat)).attr("r", 5)
+    .style("fill", d => color[d.net]).style("stroke", "var(--panel)").style("stroke-width", 1.5).style("cursor","pointer")
+    .on("mousemove", (e, d) => showTip(e, `<strong>${stName(d.state)}</strong> &middot; ${d.net}<br>${d.down} Mbps down / ${d.up} up<br>${d.lat} ms latency<br>${d.tests.toLocaleString()} tests`))
+    .on("mouseleave", hideTip);
+  // Direct labels only for the extremes a reader would ask about.
+  const pick = (net, f) => OOKLA_ROWS.filter(r => r.net === net).reduce((a, b) => f(a, b) ? a : b);
+  const labels = [
+    pick("Fixed", (a,b) => a.down > b.down), pick("Fixed", (a,b) => a.down < b.down),
+    pick("Mobile", (a,b) => a.down > b.down), pick("Mobile", (a,b) => a.down < b.down),
+    pick("Fixed", (a,b) => a.lat < b.lat),
+  ];
+  svg.append("g").selectAll("text").data([...new Set(labels)]).join("text").attr("class","dlabel")
+    .attr("x", d => x(d.down) + 8).attr("y", d => y(d.lat) - 7).text(d => `${d.state} ${d.net.toLowerCase()}`);
+}
+
+function sortedColumns(svgSel, rows, opts){
+  // rows: [{state, value, tip}], one column per state, sorted ascending by value.
+  const svg = d3.select(svgSel);
+  const W = 960, H = opts.height, m = {t:opts.top ?? 16, r:12, b:34, l:44};
+  const data = [...rows].sort((a,b) => a.value - b.value);
+  const x = d3.scaleBand().domain(data.map(d => d.state)).range([m.l, W - m.r]).paddingInner(0.18);
+  const y = d3.scaleLinear().domain(opts.domain).range([H - m.b, m.t]);
+  const g = svg.append("g").attr("transform", `translate(0,${opts.offsetY || 0})`);
+  g.append("g").selectAll("line").data(opts.ticks).join("line").attr("class","gridline")
+    .attr("x1", m.l).attr("x2", W - m.r).attr("y1", d => y(d)).attr("y2", d => y(d));
+  g.append("g").selectAll("text").data(opts.ticks).join("text")
+    .attr("x", m.l - 6).attr("y", d => y(d) + 3).attr("text-anchor","end").text(d => `${d > 0 ? "+" : ""}${d}%`);
+  const r = 2;
+  g.append("g").selectAll("path").data(data).join("path")
+    .attr("d", d => {
+      const x0 = x(d.state), w = x.bandwidth(), y0 = y(0), y1 = y(d.value);
+      const top = Math.min(y0, y1), h = Math.max(1, Math.abs(y1 - y0));
+      return d.value >= 0
+        ? `M${x0},${top+h}V${top+r}Q${x0},${top} ${x0+r},${top}H${x0+w-r}Q${x0+w},${top} ${x0+w},${top+r}V${top+h}Z`
+        : `M${x0},${top}V${top+h-r}Q${x0},${top+h} ${x0+r},${top+h}H${x0+w-r}Q${x0+w},${top+h} ${x0+w},${top+h-r}V${top}Z`;
+    })
+    .style("fill", d => opts.color(d.value));
+  g.append("line").attr("class","baseline").attr("x1", m.l).attr("x2", W - m.r).attr("y1", y(0)).attr("y2", y(0));
+  g.append("g").selectAll("text").data(data).join("text")
+    .attr("x", d => x(d.state) + x.bandwidth()/2).attr("y", H - m.b + 14).attr("text-anchor","middle")
+    .style("font-size","8.5px").text(d => d.state);
+  if (opts.title) g.append("text").attr("class","axis-title").attr("x", m.l).attr("y", m.t - 4).text(opts.title);
+  if (opts.refLine) {
+    g.append("line").attr("x1", m.l).attr("x2", W - m.r).attr("y1", y(opts.refLine.value)).attr("y2", y(opts.refLine.value))
+      .style("stroke","var(--ink-soft)").style("stroke-dasharray","4 3");
+    g.append("text").attr("class","dlabel").attr("x", W - m.r).attr("y", y(opts.refLine.value) - 5).attr("text-anchor","end").text(opts.refLine.label);
+  }
+  // Full-height invisible hit targets, wider than the marks.
+  g.append("g").selectAll("rect").data(data).join("rect")
+    .attr("x", d => x(d.state) - 1).attr("width", x.step()).attr("y", m.t).attr("height", H - m.b - m.t)
+    .style("fill","transparent").style("cursor","pointer")
+    .on("mousemove", (e, d) => showTip(e, d.tip)).on("mouseleave", hideTip);
+}
+
+function renderTrendChart(){
+  const color = v => v < 0 ? "var(--sig-rose)" : v > 0 ? "var(--sig-blue)" : "var(--baseline)";
+  ["Fixed", "Mobile"].forEach((net, i) => {
+    const rows = TIMESERIES_ROWS.filter(r => r.net === net).map(r => ({state:r.state, value:r.pct,
+      tip:`<strong>${stName(r.state)}</strong> &middot; ${net}<br>Q1 ${r.q1} Mbps &rarr; Q2 ${r.q2} Mbps<br>${r.pct > 0 ? "+" : ""}${r.pct.toFixed(1)}%`}));
+    const up = rows.filter(r => r.value > 0).length, down = rows.filter(r => r.value < 0).length;
+    const flat = rows.length - up - down;
+    sortedColumns("#trendchart", rows, {height:190, offsetY:i*190, top:22, domain:[-25, 12], ticks:[-20,-10,0,10], color,
+      title:`${net === "Fixed" ? "Fixed broadband" : "Mobile"}: ${down} slower, ${up} faster${flat ? `, ${flat} unchanged` : ""}`});
+  });
+}
+
+function renderBeadCutChart(){
+  const pcts = BEAD_ROWS.map(r => r.pct).sort((a,b) => a-b);
+  const median = pcts.length % 2 ? pcts[(pcts.length-1)/2] : (pcts[pcts.length/2-1] + pcts[pcts.length/2]) / 2;
+  const fmtM = n => n >= 1e9 ? `$${(n/1e9).toFixed(2)}B` : `$${(n/1e6).toFixed(1)}M`;
+  const rows = BEAD_ROWS.map(r => ({state:r.state, value:r.pct,
+    tip:`<strong>${stName(r.state)}</strong><br>2023: ${fmtM(r.orig)}<br>2025: ${fmtM(r.prov)}<br>${r.pct.toFixed(1)}%`}));
+  sortedColumns("#beadcutchart", rows, {height:300, top:14, domain:[-100, 0], ticks:[-100,-75,-50,-25,0],
+    color: () => "var(--sig-rose)", refLine:{value:median, label:`median cut ${median.toFixed(1)}%`}});
+}
+
 function renderRangeChart(){
   const container = document.getElementById("rangechart");
   const byTech = {};
@@ -1773,6 +1899,9 @@ renderRangeChart();
 renderTechCards();
 renderBeadMix();
 setupLookup();
+renderOoklaScatter();
+renderTrendChart();
+renderBeadCutChart();
 setupFilterControls();
 renderTable();
 renderOoklaTable();
