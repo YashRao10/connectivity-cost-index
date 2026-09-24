@@ -191,6 +191,18 @@
   .techstrip span{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;color:rgba(255,255,255,.7);
        border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04);border-radius:20px;padding:4px 10px 4px 7px}
   .techstrip svg{margin:0}
+  .verdicts{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-bottom:18px}
+  .verdict{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+  .verdict .tag{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10.5px;font-weight:700;
+       text-transform:uppercase;letter-spacing:.06em;color:var(--vc)}
+  .verdict .tag i{display:grid;place-items:center;width:18px;height:18px;border-radius:50%;font-style:normal;
+       background:color-mix(in srgb, var(--vc) 15%, transparent)}
+  .verdict h3{margin:0;font-size:15px;line-height:1.3}
+  .verdict .v{font-family:var(--mono);font-size:22px;font-weight:700;font-variant-numeric:tabular-nums}
+  .verdict p{margin:0;font-size:12.5px;color:var(--ink-mute);line-height:1.5}
+  .pipe text{font-family:var(--mono)}
+  .pipe .pl{fill:var(--ink);font-size:12.5px;font-weight:600}
+  .pipe .ps{fill:var(--ink-mute);font-size:10.5px}
   .tech-inline-icon{display:inline-block;vertical-align:-3px;margin-right:6px}
 
   .tiles{display:flex;flex-wrap:wrap;gap:10px}
@@ -339,6 +351,21 @@
   </section>
   <section>
     <h2>The question<svg class="h2-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3v4M16 3v4"/><rect x="6" y="7" width="12" height="7" rx="1.5"/><path d="M12 14v3a3 3 0 0 0 3 3h2"/></svg></h2>
+    <div class="lbl" style="margin-bottom:10px">The short answer, in four results</div>
+    <div class="verdicts">
+      <div class="verdict" style="--vc:var(--good)"><span class="tag"><i><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></i>Satellite wins</span>
+        <h3>Beats 5G home internet in every state</h3><div class="v">51/51</div>
+        <p>Starlink vs. Verizon 5G Home / T-Mobile Home Internet on cost per Mbps. Margin runs 2.1&times; (ID) to 25.5&times; (AK).</p></div>
+      <div class="verdict" style="--vc:var(--good)"><span class="tag"><i><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></i>Satellite wins</span>
+        <h3>Low orbit beats old high-orbit satellite</h3><div class="v">51/51</div>
+        <p>Starlink undercuts Viasat/HughesNet-style GSO service on cost per Mbps everywhere, before even counting latency.</p></div>
+      <div class="verdict" style="--vc:var(--bad)"><span class="tag"><i><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></i>Satellite loses</span>
+        <h3>Wired internet wins wherever it exists</h3><div class="v">$0.006&ndash;0.053</div>
+        <p>Fiber's cost per Mbps range, vs. Starlink's flat $0.196. Cable lands in the same low range.</p></div>
+      <div class="verdict" style="--vc:var(--bad)"><span class="tag"><i><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></i>Satellite loses</span>
+        <h3>A few local options come in cheaper</h3><div class="v">3 states</div>
+        <p>DSL in Rhode Island, and unlicensed fixed wireless in Hawaii, Nevada, and Rhode Island.</p></div>
+    </div>
     <p>Satellite broadband carries a well-known reputation for being expensive relative to its speed, a "tax" paid for coverage in places wired options can't reach. This project tests that claim with public data instead of assuming it: FCC's National Broadband Map (which technologies actually serve which locations, split by GSO vs. LEO satellite) joined against published ISP/carrier pricing. The market layer now covers <strong>all 50 states plus DC</strong>, every region type, not a sample.</p>
     <p>The finding holds at full scale, though it's more nuanced than the earlier 10-state version suggested. LEO satellite (Starlink) beats legacy GSO satellite everywhere (51 of 51) and beats <strong>Licensed Fixed Wireless</strong> (Verizon 5G Home / T-Mobile Home Internet, the actual 5G-home-internet product, not a niche one) everywhere too (51 of 51), but not always by the same exact 10&times; margin the smaller sample showed. Most states land at exactly 10&times; ($0.196 vs. $2.00), but the gap ranges from a modest 2.1&times; in Idaho ($0.417) up to 25.5&times; in Alaska ($5.00). It does <em>not</em> beat every other technology everywhere, though: DSL in Rhode Island, and unlicensed fixed wireless pricing in Hawaii, Nevada, and Rhode Island, both come in cheaper than LEO satellite on this metric. These are real exceptions, not smoothed over. The real story is less "satellite always wins" and more "satellite reliably beats its most direct national competitor (licensed 5G home internet) everywhere, while losing occasionally to cheaper legacy/local options and consistently to wired infrastructure where that exists."</p>
     <p style="font-size:13px;color:var(--ink-mute)">Worth saying up front: Starlink's own cost-per-Mbps is <em>flat</em> at $0.196 in every state (one national price against an FCC technology-level median that barely moves), while Licensed Fixed Wireless is <em>not</em> flat at full scale: it varies from $0.417 to $5.00 depending on that state's FCC-reported median speed tier for the technology. So the "beats it everywhere" finding is 51 genuinely different comparisons, not one national ratio repeated 51 times. That's a meaningfully stronger claim than the original 10-state framing, which happened to sample only states where Licensed Fixed Wireless's speed tier was identical. See methodology for the full caveat.</p>
@@ -602,8 +629,54 @@
   </section>
   <section>
     <h2>Personal reliability layer (in progress)<svg class="h2-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="13" width="18" height="7" rx="1.5"/><path d="M8 13V8M16 13V8"/><circle cx="7" cy="16.5" r=".9" fill="currentColor" stroke="none"/><circle cx="10.5" cy="16.5" r=".9" fill="currentColor" stroke="none"/></svg></h2>
+    <p style="font-size:13.5px;color:var(--ink-soft);margin-top:-6px">The one layer on this page that's measured first-hand instead of pulled from a public dataset. Here's how a sample gets made.</p>
+    <div class="panel" style="padding:18px 12px 10px">
+      <div class="chartscroll"><svg class="pipe" viewBox="0 0 960 142" role="img" aria-label="Logger pipeline: two home machines run a test every 30 minutes against Cloudflare and 1.1.1.1, results go to a private local database, and a summary will be published here">
+        <line x1="95" y1="52" x2="865" y2="52" stroke="var(--line)" stroke-width="2" stroke-dasharray="4 4"/>
+        <g transform="translate(95,52)"><circle r="28" fill="var(--bg)" stroke="var(--sig-cyan)" stroke-width="1.7"/>
+          <path d="M-10 -7h20v12h-20z M-13 8h26" stroke="var(--sig-cyan)" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
+        <text x="95" y="102" text-anchor="middle" class="pl">2 home machines</text>
+        <text x="95" y="118" text-anchor="middle" class="ps">macOS launchd +</text>
+        <text x="95" y="132" text-anchor="middle" class="ps">Windows Task Scheduler</text>
+
+        <g transform="translate(288,52)"><circle r="28" fill="var(--bg)" stroke="var(--sig-violet)" stroke-width="1.7"/>
+          <circle r="11" stroke="var(--sig-violet)" stroke-width="1.6" fill="none"/><path d="M0 -6v6l4 3" stroke="var(--sig-violet)" stroke-width="1.6" fill="none" stroke-linecap="round"/></g>
+        <text x="288" y="102" text-anchor="middle" class="pl">Every 30 minutes</text>
+        <text x="288" y="118" text-anchor="middle" class="ps">~48 samples per</text>
+        <text x="288" y="132" text-anchor="middle" class="ps">machine per day</text>
+
+        <g transform="translate(481,52)"><circle r="28" fill="var(--bg)" stroke="var(--sig-amber)" stroke-width="1.7"/>
+          <path d="M-8 -9v14M-12 1l4 4 4-4M8 9V-5M4 -1l4-4 4 4" stroke="var(--sig-amber)" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
+        <text x="481" y="102" text-anchor="middle" class="pl">Speed + ping test</text>
+        <text x="481" y="118" text-anchor="middle" class="ps">10 MB down, 5 MB up (Cloudflare)</text>
+        <text x="481" y="132" text-anchor="middle" class="ps">10 pings to 1.1.1.1</text>
+
+        <g transform="translate(674,52)"><circle r="28" fill="var(--bg)" stroke="var(--sig-lime)" stroke-width="1.7"/>
+          <ellipse cx="0" cy="-7" rx="10" ry="3.5" stroke="var(--sig-lime)" stroke-width="1.6" fill="none"/>
+          <path d="M-10 -7v14c0 2 4.5 3.5 10 3.5s10-1.5 10-3.5V-7M-10 0c0 2 4.5 3.5 10 3.5S10 2 10 0" stroke="var(--sig-lime)" stroke-width="1.6" fill="none"/></g>
+        <text x="674" y="102" text-anchor="middle" class="pl">Private local database</text>
+        <text x="674" y="118" text-anchor="middle" class="ps">SQLite on each machine,</text>
+        <text x="674" y="132" text-anchor="middle" class="ps">raw rows never published</text>
+
+        <g transform="translate(865,52)"><circle r="28" fill="var(--bg)" stroke="var(--ink-mute)" stroke-width="1.7" stroke-dasharray="3 3"/>
+          <path d="M-9 6l6-6 4 4 8-9" stroke="var(--ink-mute)" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
+        <text x="865" y="102" text-anchor="middle" class="pl">This page</text>
+        <text x="865" y="118" text-anchor="middle" class="ps">summary stats only,</text>
+        <text x="865" y="132" text-anchor="middle" class="ps">once there's enough data</text>
+      </svg></div>
+    </div>
+    <div class="tiles" style="margin:12px 0 14px">
+      <div class="tile" style="--tile-color:var(--sig-cyan)"><div class="lbl">Download / upload</div><div class="num" style="font-size:18px">Mbps</div>
+        <div class="sub">Time to pull 10 MB from and push 5 MB to Cloudflare's speed-test servers.</div></div>
+      <div class="tile" style="--tile-color:var(--sig-violet)"><div class="lbl">Latency</div><div class="num" style="font-size:18px">ms</div>
+        <div class="sub">Average round trip across 10 pings to Cloudflare's 1.1.1.1.</div></div>
+      <div class="tile" style="--tile-color:var(--sig-amber)"><div class="lbl">Jitter</div><div class="num" style="font-size:18px">ms</div>
+        <div class="sub">How much those 10 round trips swing: the standard deviation of the ping times.</div></div>
+      <div class="tile" style="--tile-color:var(--sig-rose)"><div class="lbl">Packet loss</div><div class="num" style="font-size:18px">%</div>
+        <div class="sub">Share of the 10 pings that never came back.</div></div>
+    </div>
     <div class="progress-note">
-      A lightweight logger (Cloudflare speed-test endpoints + ping, no external dependencies) is running every 30 minutes on two machines, each on its own home broadband connection, logging download/upload throughput, latency, jitter, and packet loss to a local database. The logger also supports labeling a session as a tethered/cellular connection (<code>--label cellular-tether</code>), but no cellular data has actually been collected yet. Both machines are on home Wi-Fi so far. Satellite is intentionally out of scope for this layer for now (no satellite hardware access); it stays in the market-layer analysis above. This needs a few weeks of runway before the personal-vs-market overlay is meaningful. Check back for an update once there's enough data to say something real.
+      A lightweight logger (Cloudflare speed-test endpoints + ping, no separate speed-test app needed) is running every 30 minutes on two machines, each on its own home broadband connection, logging download/upload throughput, latency, jitter, and packet loss to a local database. The logger also supports labeling a session as a tethered/cellular connection (<code>--label cellular-tether</code>), but no cellular data has actually been collected yet. Both machines are on home Wi-Fi so far. Satellite is intentionally out of scope for this layer for now (no satellite hardware access); it stays in the market-layer analysis above. This needs a few weeks of runway before the personal-vs-market overlay is meaningful. Check back for an update once there's enough data to say something real.
     </div>
   </section>
 
