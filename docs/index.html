@@ -203,6 +203,13 @@
   .pipe text{font-family:var(--mono)}
   .pipe .pl{fill:var(--ink);font-size:12.5px;font-weight:600}
   .pipe .ps{fill:var(--ink-mute);font-size:10.5px}
+  .caitypes{display:grid;grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:10px;margin-top:12px}
+  .caitype{background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--cc);border-radius:8px;padding:12px;display:flex;flex-direction:column;gap:4px}
+  .caitype .ti{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;color:var(--cc);margin-bottom:4px;
+       background:color-mix(in srgb, var(--cc) 14%, transparent)}
+  .caitype .n{font-family:var(--mono);font-size:19px;font-weight:700;font-variant-numeric:tabular-nums}
+  .caitype .l{font-size:12px;color:var(--ink-soft);line-height:1.3;min-height:31px}
+  .caitype .pct{font-family:var(--mono);font-size:10.5px;color:var(--ink-mute)}
   .tech-inline-icon{display:inline-block;vertical-align:-3px;margin-right:6px}
 
   .tiles{display:flex;flex-wrap:wrap;gap:10px}
@@ -333,7 +340,8 @@
       <div id="caimaptooltip" style="position:fixed;pointer-events:none;display:none;background:var(--panel);border:1px solid var(--border-hair);border-radius:6px;padding:8px 10px;font-family:var(--mono);font-size:12px;color:var(--ink);box-shadow:0 4px 16px rgba(0,0,0,0.25);z-index:50"></div>
     </div>
     <div class="legend" id="caimaplegend"></div>
-    <p style="font-size:13px;color:var(--ink-mute);margin-top:10px">Source: the same NTIA Final Proposal data as the granular BEAD layer above, this time at the individual-institution level (CAI_20260827.csv). 22,675 of 25,909 listed CAIs have a usable coordinate (3,036 have no lat/lon or an exact 0,0 placeholder, excluded). American Samoa (23) and Guam (5) aren't plotted. This map reuses the choropleth's d3.geoAlbersUsa() projection, which only repositions Alaska/Hawaii, not the Pacific territories. <strong>Type-code labels are inferred from each institution's name</strong> (e.g. "S" only ever appears on schools in a sample check), not from an official published codebook. None exists on broadbandexpanded.com's funding page or bundled with the data. Confident, not independently confirmed against NTIA's own taxonomy. Coordinates rounded to 4 decimal places (~11m) for a smaller download.</p>
+    <p id="caicoverage" style="font-size:12.5px;color:var(--ink-mute);margin-top:10px"></p>
+    <p style="font-size:13px;color:var(--ink-mute);margin-top:10px">Source: the same NTIA Final Proposal data as the granular BEAD layer above, this time at the individual-institution level (CAI_20260827.csv). 22,675 of 25,909 listed CAIs have a usable coordinate (3,036 have no lat/lon or an exact 0,0 placeholder, excluded). American Samoa (23) and Guam (175) aren't plotted. This map reuses the choropleth's d3.geoAlbersUsa() projection, which only repositions Alaska/Hawaii, not the Pacific territories. <strong>Type-code labels are inferred from each institution's name</strong> (e.g. "S" only ever appears on schools in a sample check), not from an official published codebook. None exists on broadbandexpanded.com's funding page or bundled with the data. Confident, not independently confirmed against NTIA's own taxonomy. Coordinates rounded to 4 decimal places (~11m) for a smaller download.</p>
   </section>
   <section>
     <h2>Cost per Mbps, range across all 50 states + DC<svg class="h2-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M4 18v-3"/><path d="M11 18v-7"/><path d="M18 18V6"/></svg></h2>
@@ -1984,11 +1992,30 @@ function renderCaiMap(){
 
     const legend = document.getElementById("caimaplegend");
     const order = ["S", "F", "H", "L", "C", "P", "G"];
-    legend.innerHTML = order.map(t => `
-      <span class="item"><span class="swatch" style="background:${CAI_TYPE_COLOR[t]}"></span>${cai.type_labels[t]}: ${(cai.summary.type_counts[cai.type_labels[t]] || 0).toLocaleString()}</span>
-    `).join("") + `
-      <span class="item"><span class="swatch" style="background:var(--grid)"></span>${cai.summary.mapped_points.toLocaleString()} plotted (${cai.summary.total_usable_points - cai.summary.mapped_points} more in AS/GU, not shown)</span>
-    `;
+    const CAI_ICON = {
+      S: '<path d="M3 21h18M5 21V11l7-5 7 5v10"/><path d="M12 6V2.5l3 1.2-3 1.2"/><path d="M10 21v-4h4v4"/>',
+      F: '<path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/>',
+      H: '<rect x="4" y="4" width="16" height="16" rx="3"/><path d="M12 8v8M8 12h8"/>',
+      L: '<path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5A2.5 2.5 0 0 0 6.5 23H20v-5"/>',
+      C: '<circle cx="8" cy="8" r="3"/><circle cx="16.5" cy="9" r="2.5"/><path d="M2.5 20a5.5 5.5 0 0 1 11 0M13 20a4 4 0 0 1 8.5-1"/>',
+      P: '<path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-5h4v5"/>',
+      G: '<path d="M3 21h18M4 9h16M12 3l8 6H4z"/><path d="M6 9v9M10 9v9M14 9v9M18 9v9"/>',
+    };
+    const total = order.reduce((a, t) => a + (cai.summary.type_counts[cai.type_labels[t]] || 0), 0);
+    const maxN = Math.max(...order.map(t => cai.summary.type_counts[cai.type_labels[t]] || 0));
+    legend.className = "caitypes";
+    legend.innerHTML = order.map(t => {
+      const n = cai.summary.type_counts[cai.type_labels[t]] || 0;
+      return `<div class="caitype" style="--cc:${CAI_TYPE_COLOR[t]}">
+        <span class="ti"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${CAI_ICON[t]}</svg></span>
+        <div class="n">${n.toLocaleString()}</div>
+        <div class="l">${cai.type_labels[t]}</div>
+        <div class="costtrack" aria-hidden="true"><span style="width:${(100 * n / maxN).toFixed(1)}%;background:var(--cc)"></span></div>
+        <div class="pct">${(100 * n / total).toFixed(1)}%</div>
+      </div>`;
+    }).join("");
+    const states = cai.summary.states_covered.filter(st => !["AS", "GU"].includes(st));
+    document.getElementById("caicoverage").innerHTML = `${cai.summary.mapped_points.toLocaleString()} plotted. ${cai.summary.total_usable_points - cai.summary.mapped_points} more in American Samoa and Guam aren't shown. The source data has institution records for <strong>${states.length - (states.includes("DC") ? 1 : 0)} states${states.includes("DC") ? " + DC" : ""}</strong>; the other states have none in this compilation, which may be a gap in the source rather than a sign they funded no institutions.`;
   });
 }
 
