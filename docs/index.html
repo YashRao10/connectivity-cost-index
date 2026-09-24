@@ -70,7 +70,7 @@
   strong{font-weight:700}
 
   header{background:radial-gradient(ellipse 900px 500px at 15% -20%, color-mix(in srgb, var(--sig-cyan) 30%, #050a10) 0%, #050a10 60%);
-       margin:0 -20px 40px;padding:50px 20px 36px;color:#fff;position:relative;overflow:hidden}
+       margin:0 -20px 0;padding:50px 20px 36px;color:#fff;position:relative;overflow:hidden}
   .ping{position:absolute;right:-60px;top:-60px;width:280px;height:280px;pointer-events:none}
   .ping span{position:absolute;inset:0;border:1.5px solid color-mix(in srgb, var(--sig-cyan) 70%, transparent);
        border-radius:50%;opacity:0;animation:ping-out 4.5s cubic-bezier(.2,.6,.3,1) infinite}
@@ -210,6 +210,20 @@
   .caitype .n{font-family:var(--mono);font-size:19px;font-weight:700;font-variant-numeric:tabular-nums}
   .caitype .l{font-size:12px;color:var(--ink-soft);line-height:1.3;min-height:31px}
   .caitype .pct{font-family:var(--mono);font-size:10.5px;color:var(--ink-mute)}
+  .secnav{position:sticky;top:0;z-index:40;margin:0 -20px 36px;padding:8px 20px;
+       background:color-mix(in srgb, var(--bg) 88%, transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+       border-bottom:1px solid var(--line)}
+  .secnav ul{display:flex;gap:6px;overflow-x:auto;list-style:none;margin:0;padding:0;scrollbar-width:none}
+  .secnav ul::-webkit-scrollbar{display:none}
+  .secnav a{display:inline-flex;align-items:center;gap:6px;white-space:nowrap;font-family:var(--mono);font-size:11px;
+       color:var(--ink-soft);border:1px solid var(--line);border-radius:20px;padding:5px 11px 5px 9px;background:var(--panel);text-decoration:none}
+  .secnav a svg{opacity:.7}
+  .secnav a:hover{color:var(--ink);border-color:var(--ink-mute)}
+  .secnav a.active{color:var(--ink);border-color:var(--sig-cyan);background:color-mix(in srgb, var(--sig-cyan) 12%, var(--panel))}
+  .secnav a.active svg{opacity:1;color:var(--sig-cyan)}
+  section{scroll-margin-top:58px}
+  .locator{width:170px;height:auto;flex:none}
+  .locator path{stroke:var(--panel);stroke-width:.8}
   .tech-inline-icon{display:inline-block;vertical-align:-3px;margin-right:6px}
 
   .tiles{display:flex;flex-wrap:wrap;gap:10px}
@@ -293,6 +307,7 @@
       <span class="baseline-note">Cost-per-Mbps computed against FCC's real reported median speeds per technology per state, not marketing "up to" figures. Personal reliability layer is currently collecting data (see &sect; personal reliability layer, below).</span>
     </div>
   </header>
+  <nav class="secnav" aria-label="Page sections"><ul id="secnavlist"></ul></nav>
 
   <section>
     <h2>At a glance<svg class="h2-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg></h2>
@@ -314,7 +329,8 @@
     <p style="font-size:13.5px;color:var(--ink-soft);margin-top:-6px">Every layer on this page, for one state. Pick one below or click a state on the BEAD map. The link updates, so you can share a specific state.</p>
     <div class="panel">
       <div class="lookup-head">
-        <div><div class="lbl">State</div><h3 id="lookupName"></h3></div>
+        <div style="display:flex;align-items:center;gap:16px"><svg class="locator" id="lookupLocator" viewBox="0 0 960 600" aria-hidden="true"></svg>
+          <div><div class="lbl">State</div><h3 id="lookupName"></h3></div></div>
         <select id="lookupSelect" aria-label="Choose a state"></select>
       </div>
       <div class="tiles" id="lookupTiles"></div>
@@ -1377,6 +1393,7 @@ function renderLookup(st){
   const fmtM = n => n >= 1e9 ? `$${(n/1e9).toFixed(2)}B` : `$${(n/1e6).toFixed(1)}M`;
 
   document.getElementById("lookupName").textContent = STATE_NAME[st] || st;
+  renderLocator(st);
   const tiles = [];
   if (cheapest) tiles.push(`<div class="tile" style="--tile-color:${TECH_COLOR[cheapest.tech]}"><div class="lbl">Cheapest per Mbps</div>
     <div class="num" style="color:${TECH_COLOR[cheapest.tech]}">${techIcon(cheapest.tech, 20)}<span style="color:var(--ink)">${fmtCpm(cheapest.cpm)}</span></div>
@@ -1541,6 +1558,67 @@ function setupMethodToggle(){
     cards().forEach(c => { c.open = open; });
     btn.textContent = open ? "Collapse all" : "Expand all";
   });
+}
+
+// Sticky section nav, built from each section's own h2 (text + icon).
+const NAV_LABELS = [
+  ["At a glance","Overview"], ["Look up a state","State lookup"], ["BEAD subsidy intensity","BEAD map"],
+  ["Where BEAD-funded community","Institutions"], ["Cost per Mbps","Cost range"], ["Where the other 1.1M","Unfunded"],
+  ["The question","The question"], ["How this data is actually measured","Networking 101"],
+  ["How each network actually reaches you","Technologies"], ["Full comparison table","Full table"],
+  ["Real-world speed","Real speeds"], ["Quarter-over-quarter","Trend"], ["Where the subsidy money goes","BEAD cuts"],
+  ["What BEAD money actually builds","BEAD tech mix"], ["Methodology","Methodology"], ["Personal reliability","Reliability"],
+];
+function setupSectionNav(){
+  const list = document.getElementById("secnavlist");
+  const links = [];
+  document.querySelectorAll(".wrap > section").forEach(sec => {
+    const h2 = sec.querySelector(":scope > h2");
+    if (!h2) return;
+    const text = h2.textContent.trim();
+    const match = NAV_LABELS.find(([prefix]) => text.startsWith(prefix));
+    const label = match ? match[1] : text;
+    if (!sec.id) sec.id = label.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+    const icon = h2.querySelector("svg");
+    const iconHtml = icon ? icon.outerHTML.replace('class="h2-icon"', "").replace(/width="15" height="15"/, 'width="12" height="12"') : "";
+    const li = document.createElement("li");
+    li.innerHTML = `<a href="#${sec.id}">${iconHtml}${label}</a>`;
+    list.appendChild(li);
+    links.push([sec, li.firstElementChild]);
+  });
+  // The state lookup owns the #state=XX hash, so nav clicks scroll without touching it.
+  list.addEventListener("click", e => {
+    const a = e.target.closest("a");
+    if (!a) return;
+    e.preventDefault();
+    document.getElementById(a.getAttribute("href").slice(1)).scrollIntoView({behavior: "smooth"});
+  });
+  const setActive = link => {
+    links.forEach(([, a]) => a.classList.toggle("active", a === link));
+    list.scrollTo({left: link.offsetLeft - list.clientWidth / 2 + link.offsetWidth / 2, behavior: "smooth"});
+  };
+  let current = null;
+  const onScroll = () => {
+    const y = 90;
+    let best = links[0];
+    for (const pair of links) if (pair[0].offsetParent && pair[0].getBoundingClientRect().top <= y) best = pair;
+    if (best && best[1] !== current) { current = best[1]; setActive(current); }
+  };
+  window.addEventListener("scroll", onScroll, {passive: true});
+  onScroll();
+}
+
+let LOCATOR_GEO = null;
+function renderLocator(st){
+  const draw = geo => {
+    const svg = d3.select("#lookupLocator");
+    const path = d3.geoPath().projection(d3.geoAlbersUsa().translate([480, 300]).scale(1200));
+    svg.selectAll("path").data(geo.features).join("path").attr("d", path)
+      .style("fill", d => d.properties.state_usps === st ? "var(--sig-cyan)" : "var(--grid)")
+      .style("stroke", d => d.properties.state_usps === st ? "var(--sig-cyan)" : null);
+  };
+  if (LOCATOR_GEO) return draw(LOCATOR_GEO);
+  fetch("data/state_map.geojson").then(r => r.json()).then(geo => { LOCATOR_GEO = geo; draw(geo); });
 }
 
 function renderRangeChart(){
@@ -2049,6 +2127,7 @@ renderOoklaScatter();
 renderTrendChart();
 renderBeadCutChart();
 setupMethodToggle();
+setupSectionNav();
 setupFilterControls();
 renderTable();
 renderOoklaTable();
