@@ -25,7 +25,7 @@ The live site (`docs/index.html`) also has filtering/sorting on the full technol
 
 ## Status
 
-Actively developed, v3.8. Market, real-world, and policy layers all at full 50-states-+-DC coverage; personal layer collecting data; interactivity (filter/sort + choropleth map + CAI point-density map) shipped. Started as a 10-state pilot in one region-spread sample (West Coast, Sun Belt, Midwest, Mountain West, Northeast/major-metro) and scaled to full national coverage. See the site's methodology section for how several early findings got corrected or sharpened once the sample grew, including a same-day BEAD accuracy overhaul (2026-09-23) that replaced a secondary-source dataset checked out unreliable with primary NTIA-verified figures.
+Actively developed, v3.9. Market, real-world, and policy layers all at full 50-states-+-DC coverage; personal layer collecting data; interactivity (filter/sort + choropleth map + CAI point-density map) shipped, plus a plain-language explainer of how each of the seven technologies physically works (with a to-scale orbit diagram and latency-physics floors). Started as a 10-state pilot in one region-spread sample (West Coast, Sun Belt, Midwest, Mountain West, Northeast/major-metro) and scaled to full national coverage. See the site's methodology section for how several early findings got corrected or sharpened once the sample grew, including a same-day BEAD accuracy overhaul (2026-09-23) that replaced a secondary-source dataset checked out unreliable with primary NTIA-verified figures.
 
 ## License
 

@@ -117,6 +117,27 @@
   .netdiagram .diagram-sublabel{fill:var(--ink-mute);font-size:10.5px}
   .netdiagram .diagram-bracket{fill:var(--ink-mute);font-size:10px;letter-spacing:.03em}
 
+  .orbit text{font-family:var(--mono)}
+  .orbit .o-label{fill:var(--ink);font-size:12.5px;font-weight:600}
+  .orbit .o-sub{fill:var(--ink-mute);font-size:10.5px}
+  .orbit .o-tick{fill:var(--ink-mute);font-size:9.5px}
+  .techgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:12px;margin-top:18px}
+  .techcard{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:16px;
+       display:flex;flex-direction:column;gap:10px;border-top:3px solid var(--tc)}
+  .techcard .th{display:flex;align-items:center;gap:11px}
+  .techcard .ti{flex:none;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;
+       color:var(--tc);background:color-mix(in srgb, var(--tc) 12%, transparent);border:1px solid color-mix(in srgb, var(--tc) 45%, transparent)}
+  .techcard h3{margin:0;font-size:15px;font-weight:700;line-height:1.2}
+  .techcard .medium{font-family:var(--mono);font-size:10.5px;color:var(--ink-mute);text-transform:uppercase;letter-spacing:.05em}
+  .techcard p{margin:0;font-size:13px;color:var(--ink-soft);line-height:1.5}
+  .techcard .tradeoff{font-size:12.5px;color:var(--ink-mute)}
+  .techcard .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:auto;padding-top:10px;border-top:1px dashed var(--line)}
+  .techcard .stats div{display:flex;flex-direction:column;gap:1px}
+  .techcard .stats b{font-family:var(--mono);font-size:13px;font-variant-numeric:tabular-nums;color:var(--ink)}
+  .techcard .stats span{font-family:var(--mono);font-size:9.5px;color:var(--ink-mute);text-transform:uppercase;letter-spacing:.04em}
+  .techcard.technote{background:transparent;border-style:dashed;justify-content:center}
+  .tech-inline-icon{display:inline-block;vertical-align:-3px;margin-right:6px}
+
   .tiles{display:flex;flex-wrap:wrap;gap:10px}
   .tile{flex:1 1 210px;background:var(--panel);border:1px solid var(--line);border-radius:8px;
        padding:14px 16px;position:relative;overflow:hidden}
@@ -192,7 +213,7 @@
       <p class="kicker"><span class="dot"></span>live market + reliability data</p>
       <h1>Connectivity Cost Index</h1>
       <p class="tag">Is satellite internet's pricing premium justified by its performance, or is it a connectivity tax paid for coverage rather than speed?</p>
-      <span class="status">v3.8 &middot; market, real-world, and BEAD policy layers: all 50 states + DC, NTIA-verified provisional awards, CAI point-density map, funded + excluded-location breakdowns</span>
+      <span class="status">v3.9 &middot; market, real-world, and BEAD policy layers: all 50 states + DC, NTIA-verified provisional awards, CAI point-density map, funded + excluded-location breakdowns, technology explainer</span>
       <span class="baseline-note">Cost-per-Mbps computed against FCC's real reported median speeds per technology per state, not marketing "up to" figures. Personal reliability layer is currently collecting data (see &sect; personal reliability layer, below).</span>
     </div>
   </header>
@@ -222,7 +243,7 @@
     <div class="legend" id="maplegend"></div>
   </section>
   <section>
-    <h2>Where BEAD-funded community institutions actually are</h2>
+    <h2>Where BEAD-funded community institutions actually are<svg class="h2-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V10l7-5 7 5v11"/><path d="M10 21v-5h4v5"/></svg></h2>
     <p style="font-size:13.5px;color:var(--ink-soft);margin-top:-6px">22,675 individual schools, libraries, health clinics, fire/police departments, public housing sites, and government buildings that will get BEAD-funded broadband, each plotted at its own real address, not a state-level aggregate. Hover a cluster for the breakdown.</p>
     <div class="panel" id="caimapwrap" style="padding:16px">
       <canvas id="caimap" width="960" height="600" style="width:100%;height:auto;display:block"></canvas>
@@ -238,7 +259,7 @@
     <div class="legend" id="legend"></div>
   </section>
   <section>
-    <h2>Where the other 1.1M eligible locations went</h2>
+    <h2>Where the other 1.1M eligible locations went<svg class="h2-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21v-8M12 13L6 5M12 13l6-8"/><path d="M6 5h3M6 5v3M18 5h-3M18 5v3"/></svg></h2>
     <p style="font-size:13.5px;color:var(--ink-soft);margin-top:-6px">3.78M locations got a funded BEAD project (above). Another 1,097,151 (22.5% of everything eligible) didn't, each with a reason code an Eligible Entity had to justify to NTIA. Source: NTIA's own <code>fp_no_BEAD_locations.csv</code> schema, same compilation as the funded-location data.</p>
     <div class="panel" id="nobeadchart" style="padding:16px 20px"></div>
     <div class="callout" style="margin:14px 0">
@@ -311,6 +332,49 @@
   </section>
 
   <section>
+    <h2>How each network actually reaches you<svg class="h2-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(-25 12 12)"/></svg></h2>
+    <p style="font-size:13.5px;color:var(--ink-soft);margin-top:-6px">Seven technologies show up in the data on this page. They move bits in physically different ways, and that explains most of the price, speed, and latency gaps before any market effect kicks in. Start with the biggest one: how far a satellite signal has to travel.</p>
+    <div class="panel" style="padding:18px 16px 10px;overflow-x:auto">
+      <svg class="orbit" viewBox="0 0 900 215" style="width:100%;min-width:620px;height:auto;display:block" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Orbit altitudes drawn to scale: low-earth-orbit satellites at about 550 km sit almost on Earth's surface, while geostationary satellites are 35,786 km away.">
+        <circle cx="-79" cy="105" r="139" fill="color-mix(in srgb, var(--sig-cyan) 10%, var(--panel))" stroke="var(--baseline)" stroke-width="1.5"/>
+        <circle cx="-79" cy="105" r="151" fill="none" stroke="var(--sig-violet)" stroke-width="1.3" stroke-dasharray="3 3"/>
+        <circle cx="-79" cy="105" r="919" fill="none" stroke="var(--sig-rose)" stroke-width="1.3" stroke-dasharray="3 3"/>
+        <line x1="60" y1="105" x2="834" y2="105" stroke="var(--ink-mute)" stroke-width="1" stroke-dasharray="1 4"/>
+        <g stroke="var(--line)" stroke-width="1">
+          <line x1="278" y1="160" x2="278" y2="168"/><line x1="496" y1="160" x2="496" y2="168"/><line x1="714" y1="160" x2="714" y2="168"/>
+          <line x1="60" y1="164" x2="840" y2="164"/>
+        </g>
+        <text x="278" y="182" text-anchor="middle" class="o-tick">10,000 km</text>
+        <text x="496" y="182" text-anchor="middle" class="o-tick">20,000 km</text>
+        <text x="714" y="182" text-anchor="middle" class="o-tick">30,000 km</text>
+        <text x="14" y="109" class="o-sub">Earth</text>
+        <circle cx="72" cy="105" r="4" fill="var(--sig-violet)"/>
+        <path d="M74 101L128 48" stroke="var(--sig-violet)" stroke-width="1"/>
+        <text x="134" y="40" class="o-label">LEO satellite (Starlink) &middot; ~550 km</text>
+        <text x="134" y="55" class="o-sub">so close it barely leaves the surface at this scale</text>
+        <g transform="translate(840,105)" stroke="var(--sig-rose)" stroke-width="1.5" fill="var(--panel)">
+          <rect x="-4" y="-4" width="8" height="8" rx="1"/>
+          <rect x="-4" y="-17" width="8" height="10"/>
+          <rect x="-4" y="7" width="8" height="10"/>
+        </g>
+        <text x="828" y="66" text-anchor="end" class="o-label">GSO satellite (Viasat, HughesNet) &middot; 35,786 km</text>
+        <text x="828" y="81" text-anchor="end" class="o-sub">parked over the equator, matching Earth's rotation</text>
+        <text x="450" y="206" text-anchor="middle" class="o-sub">Drawn to scale, 1 px &asymp; 46 km. Earth's radius (6,371 km) shown for reference.</text>
+      </svg>
+    </div>
+    <div class="tiles" style="margin-top:12px">
+      <div class="tile" style="--tile-color:var(--sig-rose)"><div class="lbl">GSO satellite latency floor</div><div class="num">~477 ms</div>
+        <div class="sub">Physics alone. Your request goes up to the satellite and down to a gateway, and the reply makes the same trip back: 4 &times; 35,786 km at the speed of light. Real connections add processing on top.</div></div>
+      <div class="tile" style="--tile-color:var(--sig-violet)"><div class="lbl">LEO satellite latency floor</div><div class="num">~7 ms</div>
+        <div class="sub">Same four legs at ~550 km, with the satellite straight overhead. Real-world numbers run higher (satellites are rarely directly above you, and traffic still routes through a ground gateway), but the starting point is about 65&times; lower.</div></div>
+      <div class="tile" style="--tile-color:var(--sig-cyan)"><div class="lbl">Fiber latency floor</div><div class="num">~1 ms / 100 km</div>
+        <div class="sub">Light in glass moves at roughly two-thirds of its vacuum speed. For wired networks the distance that matters is how far away the server is, not how high up anything is.</div></div>
+    </div>
+    <p style="font-size:13.5px;color:var(--ink-soft);margin-top:26px">The seven technologies, side by side. Numbers come from the same national data used everywhere else on this page: the FCC-reported median download speed and cheapest-plan cost per Mbps (each the median across all 50 states + DC), plus the real BEAD subsidy committed per funded location.</p>
+    <div class="techgrid" id="techcards"></div>
+  </section>
+
+  <section>
     <h2>Full comparison table<svg class="h2-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h3"/><rect x="6" y="9" width="4" height="6" rx="1"/><path d="M10 12h2l1.5-3 1.5 3 1.5-3 1.5 3h2"/></svg></h2>
     <p style="font-size:13px;color:var(--ink-mute);margin-top:-6px">Filter by state/technology/price, click a column header to sort.</p>
     <div class="filterbar" id="filterbar">
@@ -346,7 +410,7 @@
     </div>
   </section>
   <section>
-    <h2>Real-world speed vs. advertised (Ookla)</h2>
+    <h2>Real-world speed vs. advertised (Ookla)<svg class="h2-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17a8 8 0 1 1 16 0"/><path d="M12 17l4-5"/><circle cx="12" cy="17" r="1" fill="currentColor" stroke="none"/></svg></h2>
     <p style="font-size:13.5px;color:var(--ink-soft);margin-top:-6px">FCC's numbers above are provider-<em>reported</em> advertised speeds. This section checks them against what people actually measure: median blended speed/latency per state from Ookla's public Speedtest data (Q2 2026), across every technology mix in that state, not filtered to one technology. Now covers all 50 states + DC, matching the market layer above.</p>
     <div class="table-scroll">
     <table id="ooklatable">
@@ -357,7 +421,7 @@
     <p style="font-size:13px;color:var(--ink-mute);margin-top:10px">These are blended medians across every technology serving a state, not "fiber's real speed" or "satellite's real speed" specifically. A high-fiber-density state's blended fixed median sitting far below fiber's advertised "up to 8000 Mbps" isn't fiber underperforming; it's that the real-world mix, including slower DSL/wireless/satellite lines, pulls the state-wide median down. Mobile is meaningfully slower than fixed everywhere. At full 51-state scale, fixed median download ranges from 148.7 Mbps (AK) to 398.8 Mbps (FL). Alaska overtook Montana for the slowest/highest-latency spot once it was added: AK also has the highest mobile latency (61ms), while Vermont now has the lowest mobile test volume. This layer now uses a real Census-shapefile point-in-polygon join per state (upgraded from an earlier bounding-box approximation).</p>
   </section>
   <section>
-    <h2>Quarter-over-quarter trend (Q1 &rarr; Q2 2026)</h2>
+    <h2>Quarter-over-quarter trend (Q1 &rarr; Q2 2026)<svg class="h2-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></h2>
     <p style="font-size:13.5px;color:var(--ink-soft);margin-top:-6px">Now covers all 50 states + DC (102 state/network combinations), matching the layers above. There are still only two quarters of history, which isn't enough to call this a confirmed trend, but the picture is more nuanced at full scale than the original 10-state sample suggested. Median download speed <em>declined</em> from Q1 to Q2 2026 in 82 of 102 combinations (80.4%), most sharply for Nebraska mobile (-23.3%) and West Virginia mobile (-15.8%). But 19 combinations actually <em>increased</em>: Florida wasn't the lone exception it looked like at 10 states; Arizona (fixed +3.2%, mobile +9.6%), DC mobile (+11.0%), and Wyoming mobile (+9.4%) also gained.</p>
     <div class="table-scroll">
     <table id="timeseriestable">
@@ -368,7 +432,7 @@
     <p style="font-size:13px;color:var(--ink-mute);margin-top:10px">The cause isn't established here. A majority decline across most states and both network types in a single quarter could reflect real network congestion/usage growth, a shift in who's running speed tests (device/carrier mix), or something in Ookla's own data collection changing between releases. Not attributing this to any specific cause without more quarters of history; flagging it as an observed pattern worth watching, not a conclusion. This will get more reliable automatically as the quarterly GitHub Actions refresh accumulates more history.</p>
   </section>
   <section>
-    <h2>Where the subsidy money goes: BEAD allocation vs. satellite dependence</h2>
+    <h2>Where the subsidy money goes: BEAD allocation vs. satellite dependence<svg class="h2-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6"/><path d="M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6"/></svg></h2>
     <p style="font-size:13.5px;color:var(--ink-soft);margin-top:-6px">The federal BEAD program allocated $42.45B across states in 2023. In 2025, NTIA restructured the program ("Benefit of the Bargain"); this layer shows both the original 2023 allocation and the 2025 provisional award for all 50 states + DC. The provisional award for 50 of 51 is individually verified against NTIA's own official per-state "BEAD Final Proposal Overview" PDF (broadbandusa.ntia.gov). DC is the one exception, since no such PDF has been published for it, so DC keeps an earlier secondary-source estimate, flagged as unverified (see methodology). As a proxy for "underserved" locations, GSO Satellite locations served (from the FCC layer above) stands in. BEAD's own eligibility rules treat satellite as non-qualifying/lower-tier service in most cases, so places with heavy GSO satellite coverage plausibly correlate with places lacking adequate terrestrial options.</p>
     <div class="callout" style="margin:14px 0">
       <strong>The restructuring cut funding nationally, not just in the handful of states first checked.</strong> Median cut across all 50 states + DC: <strong>&minus;62.0%</strong> vs. the original 2023 allocation. The range is wide: Oregon (&minus;14.7%), Illinois (&minus;16.9%), and California (&minus;25.5%) came through relatively unscathed; DC (&minus;99.0%), North Dakota (&minus;95.3%), and Connecticut (&minus;95.0%) were cut nearly to zero. This is confirmed structural, not a data artifact. See methodology for sourcing.
@@ -383,7 +447,7 @@
     <p style="font-size:13px;color:var(--ink-mute);margin-top:6px"><strong>Scale sanity-check, not a real cost comparison:</strong> the last column shows how many months of the cheapest current Starlink residential plan ($55/mo) each state's $-per-location figure would buy. Even Alaska's outlier $1,021.06/location, the highest in the country, is worth about 18.6 months of a consumer satellite subscription, and most states are under 2 months. This isn't a claim that BEAD money could or should just buy Starlink plans instead. BEAD funds permanent infrastructure, not a recurring service, and the location-count denominator above is already a loose "underserved" proxy, not a precise buildout-cost basis (see Methodology). What it does show: the per-location dollar figure, on its own, is nowhere near what it would cost to actually connect a household to <em>anything</em>, wired or wireless, reinforcing that this number tracks the proxy's denominator (how many locations "have satellite coverage," which is nearly all of them) far more than it tracks real deployment economics.</p>
   </section>
   <section>
-    <h2>What BEAD money actually builds: real per-project technology mix</h2>
+    <h2>What BEAD money actually builds: real per-project technology mix<svg class="h2-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/></svg></h2>
     <p style="font-size:13.5px;color:var(--ink-soft);margin-top:-6px">Everything above uses GSO Satellite coverage as a proxy for "underserved locations" because state-total allocation figures don't say what technology the money actually funds. NTIA's BEAD Final Proposal data does: 5,806 real subgrantee projects, each with an actual federal subsidy amount and a list of specific locations with the technology planned for each one. This section replaces the proxy with those real numbers: project-level dollars, split across technologies by each project's actual location mix (~5.7% of projects fund more than one technology, e.g. mostly fiber with a handful of satellite locations for the hardest-to-reach spots; the $ figure is allocated proportionally to each technology's share of that project's locations, not assigned whole to one). Source: a third-party compilation of NTIA's own Final Proposal submissions (<a href="https://broadbandexpanded.com/funding/beadfinalproposaldata" style="color:inherit">broadbandexpanded.com</a>, since NTIA has no single bulk download). The compiler itself flags this as "not intended to be authoritative." National totals here ($18.47B) now run within 1.8% of the sum of this site's own state-total figures ($18.15B) once those were individually verified against NTIA's official per-state overview PDFs (see the BEAD table above and methodology). The two independent sources agree closely at the national level, which is reassuring, though individual states can still diverge (Illinois: $831.2M verified vs. $935.8M in this granular layer; confirmed not a duplicate-counting or stale-data bug, but a real ~13,200-location technology-mix discrepancy between sources that isn't fully pinned down; see methodology).</p>
     <div class="callout" style="margin:14px 0">
       <strong>This answers the question the original proxy couldn't:</strong> satellite (GSO + LEO combined) accounts for 22.0% of all BEAD-funded locations nationally (833,094 of 3,780,117) at a real committed cost of $701&ndash;$1,138 per location, vs. $6,420.70 per location for fiber (63.3% of funded locations). That's a genuine <strong>5.6&times;</strong> gap in actual dollars, not a proxy estimate. BEAD is leaning on satellite at real scale, not just where fiber is geographically impossible, and largely via Starlink specifically (Space Exploration Technologies Corp/SpaceX subgrantee entries outnumber Amazon Kuiper's roughly 7:1 in LEO-funded project locations in this dataset; Kuiper is present too, not hypothetical).
@@ -409,7 +473,7 @@
     <p style="font-size:13px;color:var(--ink-mute);margin-top:6px"><strong>Reconciliation update (2026-09-23):</strong> the state-total BEAD figures above were individually re-verified against NTIA's own official per-state overview PDFs (50 of 51 states directly confirmed; DC has no such PDF published, flagged unverified). This superseded the original secondary-source figures, which checked out unreliable (only 12 of 27 spot-checked states matched NTIA's real numbers within 2%; Hawaii was 3x overstated). Against those now-verified figures, this granular layer's own state totals agree within 15% for 49 of all 51 states + DC. Root cause found for the two exceptions: Rhode Island's and North Carolina's project-level totals here match the <em>old, superseded</em> telecompetitor.com figures to the dollar ($16,137,983 and $408,511,175.10 respectively); broadbandexpanded.com's underlying project data for those two states appears to reflect an earlier submission than the one NTIA's current overview PDF shows, not a live-vs-verified mismatch in this layer's own math. Illinois sits just under the flag threshold at +12.6% ($935.8M here vs. $831.2M verified). Ruled out the stale-snapshot pattern that resolved RI/NC and ruled out duplicate/double-counted data (checked directly: no duplicate project IDs, no location shared across projects, every IL project has matching location rows). The real difference is a genuine technology-mix and location-count mismatch against NTIA's own summary: this project's data shows more Fiber and LEO Satellite locations and fewer Fixed Wireless locations than NTIA's category totals, netting to about 13,200 more locations overall (155,734 vs. NTIA's 142,416&ndash;142,546), not a data-quality bug found in either source, but not fully explained either; see docs/BEAD_LAYER_SCOPE.md for the full breakdown. The national technology-level pattern above (fiber vs. satellite cost gap) is far more robust than any single state's number, since it's averaged across thousands of projects rather than one state's total.</p>
   </section>
   <section>
-    <h2>Methodology &amp; caveats</h2>
+    <h2>Methodology &amp; caveats<svg class="h2-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg></h2>
     <div class="limits">
       <ul>
         <li><strong>Ookla regional figures now use a real state-boundary join (fixed from v1.2).</strong> Originally filtered by a lon/lat bounding box, which could pick up border slivers from neighboring states. Now does a true point-in-polygon join against US Census cartographic boundary shapefiles (via geopandas). Numbers shifted slightly once border noise was excluded (e.g. NC's fixed-tile count dropped from ~124K to ~73K tiles, median down speed nudged up).</li>
@@ -993,6 +1057,82 @@ const OOKLA_ROWS = [
   {state:"WY", net:"Mobile", down:119.2, up:11.8, lat:43, tests:2976},
 ];
 
+// Small monoline icons, one per technology, drawn on a 24x24 grid and
+// colored with currentColor so they pick up each technology's TECH_COLOR.
+const TECH_ICON = {
+  "Fiber": '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/>',
+  "Cable": '<rect x="8" y="7" width="8" height="10" rx="1.5"/><path d="M12 7V3M10 17v4h4v-4M8 11h8"/>',
+  "DSL (Copper)": '<rect x="5" y="4" width="14" height="16" rx="2"/><rect x="9" y="10" width="6" height="5" rx=".5"/><path d="M10.5 10V8.5M13.5 10V8.5"/>',
+  "Licensed Fixed Wireless": '<path d="M12 10v11M8 21l4-11 4 11"/><circle cx="12" cy="8" r="1.4"/><path d="M8.5 4.5a5 5 0 0 0 0 7M15.5 4.5a5 5 0 0 1 0 7"/>',
+  "Unlicensed Fixed Wireless": '<path d="M4.5 10a10.5 10.5 0 0 1 15 0M7.8 13.3a6 6 0 0 1 8.4 0"/><circle cx="12" cy="17" r="1.3"/>',
+  "LEO Satellite": '<path d="M9 12l3-3 3 3-3 3z"/><path d="M4 7l3-3 4 4-3 3z"/><path d="M13 16l3-3 4 4-3 3z"/><path d="M3.5 14.5a6 6 0 0 0 6 6"/>',
+  "GSO Satellite": '<path d="M5 6a10 10 0 0 0 13 13z"/><path d="M11.5 12.5L17 7"/><circle cx="18" cy="6" r="1.2"/><path d="M8 17l-2 4h6"/>',
+};
+function techIcon(tech, size){
+  const body = TECH_ICON[tech];
+  if (!body) return "";
+  return `<svg class="tech-inline-icon" viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${body}</svg>`;
+}
+
+// Plain-language "how it physically works" copy for the technology cards.
+// bead = real $ per funded location from the granular BEAD table below
+// (null where no funded location uses that technology).
+const TECH_INFO = [
+  {tech:"Fiber", medium:"Light through glass", bead:6420.70,
+   how:"Lasers send pulses of light down a hair-thin glass strand that runs all the way to the home. Almost no signal loss over distance, and the same line can be upgraded later by swapping the equipment at each end.",
+   tradeoff:"The fastest and cheapest per Mbps, but the most expensive to build: every home needs a physical line trenched or strung to it."},
+  {tech:"Cable", medium:"Radio frequencies over coax", bead:5126.12,
+   how:"The same coaxial copper that carried cable TV, running the DOCSIS standard. Homes on a street share one neighborhood node, and fiber usually runs most of the way before the last copper stretch.",
+   tradeoff:"Fast downloads, but capacity is shared with neighbors and uploads are typically a small fraction of download speed."},
+  {tech:"DSL (Copper)", medium:"Old phone-line copper", bead:null,
+   how:"Data rides on higher frequencies over the twisted copper pair originally laid for landline phones, from a telephone exchange or roadside cabinet.",
+   tradeoff:"Speed drops the farther you live from the equipment. The median state reports just 10 Mbps, the slowest here, which makes it the costliest per Mbps."},
+  {tech:"Licensed Fixed Wireless", medium:"5G/LTE radio from a tower", bead:3978.11,
+   how:"A receiver in a window or on the roof talks to a nearby cell tower on spectrum the carrier licenses. This is Verizon 5G Home and T-Mobile Home Internet.",
+   tradeoff:"Quick to roll out since the towers already exist, but home customers share that tower's capacity with phones in the area."},
+  {tech:"Unlicensed Fixed Wireless", medium:"Shared public radio bands", bead:2668.29,
+   how:"Point-to-point radio links, often run by small regional providers, from a tower or other tall structure to an antenna on the house. It uses license-free bands, the same kind Wi-Fi uses.",
+   tradeoff:"Cheap to deploy in rural areas, but usually needs clear line of sight, and anyone can transmit on those bands, so interference is possible."},
+  {tech:"LEO Satellite", medium:"Low-orbit constellation", bead:1138.41,
+   how:"A dish on the roof tracks thousands of satellites about 550 km up as they pass overhead. They hand traffic to ground gateways (and increasingly to each other by laser).",
+   tradeoff:"Works almost anywhere with a view of the sky and has low latency for a satellite, but capacity is shared across everyone under the same patch of sky."},
+  {tech:"GSO Satellite", medium:"One satellite, 35,786 km up", bead:701.09,
+   how:"A fixed dish points at a single satellite that orbits in step with Earth's rotation, so it appears parked in one spot over the equator.",
+   tradeoff:"Covers huge areas with a few satellites, but that distance puts a hard floor of roughly half a second on every round trip."},
+];
+
+const TECH_NOTE = "DSL has no BEAD figure because not one funded location in the project-level data uses it, which fits a program meant to move places off legacy copper. \"Median\" means the middle state. LEO's numbers really are the same in every state, but the others vary a lot, so check the range chart above or the full table below for any one state.";
+
+function renderTechCards(){
+  const median = arr => {
+    const v = [...arr].sort((a,b) => a-b), m = Math.floor(v.length/2);
+    return v.length % 2 ? v[m] : (v[m-1] + v[m]) / 2;
+  };
+  const fmtMbps = n => n >= 1000 ? `${(n/1000).toLocaleString(undefined,{maximumFractionDigits:1})} Gbps` : `${n} Mbps`;
+  const fmtCpm = n => n >= 1 ? `$${n.toFixed(2)}` : `$${n.toFixed(3)}`;
+  document.getElementById("techcards").innerHTML = TECH_INFO.map(t => {
+    const rows = ROWS.filter(r => r.tech === t.tech);
+    const mbps = median(rows.map(r => r.mbps));
+    const cpms = rows.map(r => r.cpm).filter(v => v !== null);
+    const color = MINOR_TECH.has(t.tech) ? "var(--ink-soft)" : TECH_COLOR[t.tech];
+    const bead = t.bead === null ? "n/a" : `$${Math.round(t.bead).toLocaleString()}`;
+    return `<article class="techcard" style="--tc:${color}">
+      <div class="th"><span class="ti">${techIcon(t.tech, 20).replace('class="tech-inline-icon" ', '')}</span>
+        <div><h3>${t.tech}</h3><div class="medium">${t.medium}</div></div></div>
+      <p>${t.how}</p>
+      <p class="tradeoff">${t.tradeoff}</p>
+      <div class="stats">
+        <div><b>${fmtMbps(mbps)}</b><span>median down</span></div>
+        <div><b>${cpms.length ? fmtCpm(median(cpms)) : "n/a"}</b><span>$ / Mbps</span></div>
+        <div><b>${bead}</b><span>BEAD $ / loc.</span></div>
+      </div>
+    </article>`;
+  }).join("") + `<aside class="techcard technote" style="--tc:var(--line)">
+      <div class="medium">Reading the numbers</div>
+      <p class="tradeoff">${TECH_NOTE}</p>
+    </aside>`;
+}
+
 function renderRangeChart(){
   const container = document.getElementById("rangechart");
   const byTech = {};
@@ -1011,8 +1151,8 @@ function renderRangeChart(){
     const label = min === max
       ? `$${min.toFixed(3)} (flat, all 50 states + DC)`
       : `$${min.toFixed(3)}&ndash;$${max.toFixed(3)}`;
-    return `<div class="barrow" style="grid-template-columns:150px 1fr 150px">
-      <span>${tech}</span>
+    return `<div class="barrow" style="grid-template-columns:190px 1fr 150px">
+      <span style="color:${TECH_COLOR[tech]}">${techIcon(tech, 14)}<span style="color:var(--ink)">${tech}</span></span>
       <span class="track"><span style="left:${leftPct}%;width:${widthPct}%;background:${TECH_COLOR[tech]}"></span></span>
       <span class="val">${label}</span>
     </div>`;
@@ -1470,6 +1610,7 @@ function renderNoBeadChart(){
 }
 
 renderRangeChart();
+renderTechCards();
 setupFilterControls();
 renderTable();
 renderOoklaTable();
