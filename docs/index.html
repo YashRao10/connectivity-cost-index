@@ -185,6 +185,12 @@
   .mcard[open] summary::after{content:"\2212"}
   .mcard p{margin:10px 0 0;font-size:13px;color:var(--ink-soft);line-height:1.55}
   .mcard[open]{grid-column:1 / -1}
+  .lbl-icon{display:inline-block;vertical-align:-2px;margin-right:6px;color:var(--tile-color, var(--sig-cyan))}
+  .tile:nth-child(5){--tile-color:var(--sig-amber)}
+  .techstrip{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .techstrip span{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;color:rgba(255,255,255,.7);
+       border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04);border-radius:20px;padding:4px 10px 4px 7px}
+  .techstrip svg{margin:0}
   .tech-inline-icon{display:inline-block;vertical-align:-3px;margin-right:6px}
 
   .tiles{display:flex;flex-wrap:wrap;gap:10px}
@@ -264,6 +270,7 @@
       <h1>Connectivity Cost Index</h1>
       <p class="tag">Is satellite internet's pricing premium justified by its performance, or is it a connectivity tax paid for coverage rather than speed?</p>
       <span class="status">v4.0 &middot; market, real-world, and BEAD policy layers: all 50 states + DC, NTIA-verified provisional awards, CAI point-density map, funded + excluded-location breakdowns, technology explainer, state lookup</span>
+      <div class="techstrip" id="techstrip" aria-label="Technologies compared"></div>
       <span class="baseline-note">Cost-per-Mbps computed against FCC's real reported median speeds per technology per state, not marketing "up to" figures. Personal reliability layer is currently collecting data (see &sect; personal reliability layer, below).</span>
     </div>
   </header>
@@ -271,15 +278,15 @@
   <section>
     <h2>At a glance<svg class="h2-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg></h2>
     <div class="tiles">
-      <div class="tile"><div class="lbl">Starlink vs. licensed 5G home</div><div class="num">51/51</div>
+      <div class="tile"><div class="lbl"><svg class="lbl-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12l3-3 3 3-3 3z"/><path d="M4 7l3-3 4 4-3 3z"/><path d="M13 16l3-3 4 4-3 3z"/></svg>Starlink vs. licensed 5G home</div><div class="num">51/51</div>
         <div class="sub">cheaper per Mbps in every state + DC; margin ranges 2.1&times; (ID) to 25.5&times; (AK)</div></div>
-      <div class="tile"><div class="lbl">LEO satellite providers</div><div class="num">1</div>
+      <div class="tile"><div class="lbl"><svg class="lbl-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="2"/><circle cx="5" cy="7" r="1.2"/><circle cx="19" cy="7" r="1.2"/><circle cx="6" cy="18" r="1.2"/><circle cx="18" cy="17" r="1.2"/></svg>LEO satellite providers</div><div class="num">1</div>
         <div class="sub">unique provider in all 50 states + DC</div></div>
-      <div class="tile"><div class="lbl">Cheapest technology</div><div class="num">Fiber</div>
+      <div class="tile"><div class="lbl"><svg class="lbl-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/></svg>Cheapest technology</div><div class="num">Fiber</div>
         <div class="sub">$0.006&ndash;0.053/Mbps where available</div></div>
-      <div class="tile"><div class="lbl">Where satellite loses</div><div class="num">3 states</div>
+      <div class="tile"><div class="lbl"><svg class="lbl-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Where satellite loses</div><div class="num">3 states</div>
         <div class="sub">RI, HI, NV: DSL or unlicensed fixed wireless edge out LEO satellite</div></div>
-      <div class="tile"><div class="lbl">BEAD $ per funded location, satellite vs. fiber</div><div class="num">5.6&times;</div>
+      <div class="tile"><div class="lbl"><svg class="lbl-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6"/><path d="M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6"/></svg>BEAD $ per funded location, satellite vs. fiber</div><div class="num">5.6&times;</div>
         <div class="sub">real committed dollars, not a proxy: $701&ndash;1,138/location (satellite) vs. $6,420.70 (fiber), from actual project-level BEAD data</div></div>
     </div>
   </section>
@@ -1934,6 +1941,8 @@ function renderNoBeadChart(){
 
 renderRangeChart();
 renderTechCards();
+document.getElementById("techstrip").innerHTML = TECH_INFO.map(t =>
+  `<span style="color:${MINOR_TECH.has(t.tech) ? "rgba(255,255,255,.7)" : TECH_COLOR[t.tech]}">${techIcon(t.tech, 14)}<span style="border:0;background:none;padding:0;color:rgba(255,255,255,.75)">${t.tech}</span></span>`).join("");
 renderBeadMix();
 setupLookup();
 renderOoklaScatter();
