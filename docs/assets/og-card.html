@@ -8,86 +8,71 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#f4f5f2; --panel:#ffffff; --ink:#0b0f14; --ink-soft:#3d454c;
-    --ink-mute:#7c848c; --line:#dcdfd9;
-    --sig-blue:#3b82f6; --sig-amber:#f59e0b; --sig-rose:#f43f5e;
+    --bg:#050a10; --panel:#0e151d; --ink:#ffffff; --ink-soft:rgba(255,255,255,.78);
+    --ink-mute:rgba(255,255,255,.52); --line:rgba(255,255,255,.12);
+    --sig-cyan:#06b6d4; --sig-violet:#8b5cf6; --sig-rose:#f43f5e; --sig-lime:#84cc16;
     --mono:"JetBrains Mono","SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;
     --sans:"Space Grotesk",system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   }
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{width:1200px;height:630px;}
   body{
-    font-family:var(--sans);
+    font-family:var(--sans);color:var(--ink);position:relative;overflow:hidden;
     background:
-      radial-gradient(circle at 88% 10%, rgba(59,130,246,0.14), transparent 45%),
-      radial-gradient(circle at 8% 92%, rgba(245,158,11,0.10), transparent 40%),
+      radial-gradient(ellipse 900px 560px at 12% -25%, color-mix(in srgb, var(--sig-cyan) 32%, var(--bg)) 0%, var(--bg) 62%),
       var(--bg);
-    color:var(--ink);
-    display:flex;
-    flex-direction:column;
-    justify-content:space-between;
-    padding:64px 68px;
-    position:relative;
-    overflow:hidden;
+    padding:56px 64px 44px;display:flex;flex-direction:column;
   }
-  .kicker{
-    display:flex;align-items:center;gap:10px;
-    font-family:var(--mono);font-size:19px;letter-spacing:0.02em;
-    color:var(--ink-mute);text-transform:uppercase;
-  }
-  .dot{width:9px;height:9px;border-radius:50%;background:var(--sig-blue);flex:none;}
-  h1{
-    font-size:64px;font-weight:700;letter-spacing:-0.01em;
-    margin-top:22px;line-height:1.05;
-  }
-  .tag{
-    font-size:25px;color:var(--ink-soft);margin-top:20px;max-width:920px;line-height:1.42;
-  }
-  .stats{
-    display:flex;gap:44px;margin-top:auto;
-  }
-  .stat{
-    border-left:3px solid var(--sig-blue);padding-left:20px;
-  }
-  .stat .num{
-    font-family:var(--mono);font-weight:700;font-size:40px;line-height:1;
-  }
-  .stat .lbl{
-    font-size:16px;color:var(--ink-mute);margin-top:8px;max-width:260px;line-height:1.35;
-  }
-  .foot{
-    display:flex;justify-content:space-between;align-items:flex-end;
-    margin-top:44px;padding-top:26px;border-top:1px solid var(--line);
-  }
-  .foot .scope{
-    font-family:var(--mono);font-size:16px;color:var(--ink-mute);
-  }
-  .foot .brand{
-    font-family:var(--mono);font-size:16px;color:var(--ink-mute);
-  }
+  body::after{content:"";position:absolute;inset:0;pointer-events:none;
+    background-image:radial-gradient(rgba(255,255,255,.07) 1px, transparent 1px);background-size:26px 26px}
+  .orbit{position:absolute;right:-40px;top:-10px;width:520px;height:640px;z-index:0}
+  .content{position:relative;z-index:1;display:flex;flex-direction:column;height:100%}
+  .kicker{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:17px;
+    letter-spacing:.1em;text-transform:uppercase;color:var(--sig-cyan)}
+  .dot{width:9px;height:9px;border-radius:50%;background:var(--sig-lime);
+    box-shadow:0 0 0 4px color-mix(in srgb, var(--sig-lime) 25%, transparent)}
+  h1{font-size:66px;font-weight:700;letter-spacing:-0.02em;margin-top:18px;line-height:1.02}
+  .tag{font-size:24px;color:var(--ink-soft);margin-top:16px;max-width:640px;line-height:1.38;font-weight:500}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:auto}
+  .card{background:color-mix(in srgb, var(--panel) 88%, transparent);border:1px solid var(--line);
+    border-top:3px solid var(--c);border-radius:10px;padding:18px 20px;display:flex;gap:16px;align-items:flex-start}
+  .ic{flex:none;width:48px;height:48px;border-radius:50%;display:grid;place-items:center;color:var(--c);
+    background:color-mix(in srgb, var(--c) 16%, transparent);border:1px solid color-mix(in srgb, var(--c) 50%, transparent)}
+  .num{font-family:var(--mono);font-weight:700;font-size:36px;line-height:1}
+  .lbl{font-size:15.5px;color:var(--ink-mute);margin-top:8px;line-height:1.35}
+  .foot{display:flex;justify-content:space-between;margin-top:22px;font-family:var(--mono);font-size:15px;color:var(--ink-mute)}
 </style>
 </head>
 <body>
-  <div class="kicker"><span class="dot"></span>live market + reliability data</div>
-  <h1>Connectivity Cost Index</h1>
-  <p class="tag">Is satellite internet's pricing premium justified by its performance, or is it a connectivity tax paid for coverage, not speed?</p>
-  <div class="stats">
-    <div class="stat">
-      <div class="num">51/51</div>
-      <div class="lbl">states + DC where Starlink beats licensed 5G home internet on cost-per-Mbps</div>
+  <svg class="orbit" viewBox="0 0 520 640" fill="none" aria-hidden="true">
+    <circle cx="560" cy="330" r="150" fill="color-mix(in srgb, #06b6d4 14%, #050a10)" stroke="rgba(255,255,255,.25)" stroke-width="1.5"/>
+    <circle cx="560" cy="330" r="172" stroke="#8b5cf6" stroke-width="1.5" stroke-dasharray="4 4" opacity=".8"/>
+    <circle cx="560" cy="330" r="330" stroke="#f43f5e" stroke-width="1.5" stroke-dasharray="4 5" opacity=".7"/>
+    <circle cx="421" cy="229" r="5" fill="#8b5cf6"/>
+    <circle cx="470" cy="190" r="5" fill="#8b5cf6"/>
+    <g transform="translate(262,120) rotate(-35)" stroke="#f43f5e" stroke-width="1.6" fill="#050a10">
+      <rect x="-5" y="-5" width="10" height="10" rx="1.5"/><rect x="-5" y="-20" width="10" height="12"/><rect x="-5" y="8" width="10" height="12"/>
+    </g>
+  </svg>
+  <div class="content">
+    <div class="kicker"><span class="dot"></span>public data &middot; all 50 states + DC</div>
+    <h1>Connectivity Cost Index</h1>
+    <p class="tag">What home internet really costs per Mbps, and where federal broadband subsidy money actually goes.</p>
+    <div class="cards">
+      <div class="card" style="--c:var(--sig-violet)">
+        <span class="ic"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l3-3 3 3-3 3z"/><path d="M4 7l3-3 4 4-3 3z"/><path d="M13 16l3-3 4 4-3 3z"/><path d="M3.5 14.5a6 6 0 0 0 6 6"/></svg></span>
+        <div><div class="num">51/51</div><div class="lbl">states + DC where Starlink beats 5G home internet on cost per Mbps</div></div>
+      </div>
+      <div class="card" style="--c:var(--sig-cyan)">
+        <span class="ic"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/></svg></span>
+        <div><div class="num">5.6&times;</div><div class="lbl">BEAD subsidy per location, fiber vs. LEO satellite ($6,421 vs. $1,138)</div></div>
+      </div>
+      <div class="card" style="--c:var(--sig-rose)">
+        <span class="ic"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 6a10 10 0 0 0 13 13z"/><path d="M11.5 12.5L17 7"/><circle cx="18" cy="6" r="1.2"/><path d="M8 17l-2 4h6"/></svg></span>
+        <div><div class="num">~477 ms</div><div class="lbl">physics floor on latency for a 35,786 km-high satellite, vs. ~7 ms in low orbit</div></div>
+      </div>
     </div>
-    <div class="stat">
-      <div class="num">2.1&times;&ndash;25.5&times;</div>
-      <div class="lbl">the margin range: ID lowest, AK highest</div>
-    </div>
-    <div class="stat">
-      <div class="num">4</div>
-      <div class="lbl">data layers: market, real-world performance, BEAD policy, personal reliability</div>
-    </div>
-  </div>
-  <div class="foot">
-    <div class="scope">FCC &middot; Ookla &middot; NTIA BEAD &middot; all 50 states + DC</div>
-    <div class="brand">yashrao10.github.io/connectivity-cost-index</div>
+    <div class="foot"><span>FCC &middot; Ookla &middot; NTIA BEAD</span><span>yashrao10.github.io/connectivity-cost-index</span></div>
   </div>
 </body>
 </html>
