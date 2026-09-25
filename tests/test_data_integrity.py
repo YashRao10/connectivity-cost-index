@@ -176,3 +176,11 @@ def test_state_map_cheapest_tech_matches_cost_comparison(cost_comparison):
         p = f["properties"]
         if p.get("state_usps") in expected:
             assert p["cheapest_cost_per_mbps_usd"] == expected[p["state_usps"]], p["state_usps"]
+
+
+def test_state_median_income_covers_every_state_with_plausible_values():
+    income = _read("state_median_income.csv")
+    assert set(income["state_usps"]) == VALID_STATE_CODES
+    assert income["median_household_income_usd"].between(30_000, 200_000).all()
+    # One consistent survey year across states, so shares are comparable.
+    assert income["year"].nunique() == 1

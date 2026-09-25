@@ -99,6 +99,21 @@ def build_ookla_rows_block() -> str:
     return "\n".join(lines)
 
 
+def build_income_rows_block() -> str:
+    df = pd.read_csv(DATA_DIR / "state_median_income.csv").sort_values("state_usps")
+    lines = ["const INCOME_ROWS = ["]
+    for _, r in df.iterrows():
+        lines.append(
+            "  {{state:{}, income:{}, year:{}}},".format(
+                js_str(r["state_usps"]),
+                js_num(r["median_household_income_usd"]),
+                js_num(r["year"]),
+            )
+        )
+    lines.append("];")
+    return "\n".join(lines)
+
+
 def replace_block(html: str, var_name: str, new_block: str) -> str:
     pattern = re.compile(rf"const {var_name} = \[.*?\n\];", re.DOTALL)
     if not pattern.search(html):
@@ -111,6 +126,7 @@ def main() -> None:
     html = replace_block(html, "ROWS", build_rows_block())
     html = replace_block(html, "OOKLA_ROWS", build_ookla_rows_block())
     html = replace_block(html, "TIMESERIES_ROWS", build_timeseries_rows_block())
+    html = replace_block(html, "INCOME_ROWS", build_income_rows_block())
     HTML_PATH.write_text(html, encoding="utf-8")
 
     n_states = pd.read_csv(DATA_DIR / "cost_comparison_v1.csv")["state_usps"].nunique()

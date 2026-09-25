@@ -487,7 +487,7 @@
     <p style="font-size:13px;color:var(--ink-mute);margin-top:8px">This is why <strong>latency</strong> (round-trip delay, in ms), <strong>jitter</strong> (how much that delay swings from packet to packet), and <strong>packet loss</strong> (% of packets that never arrive), all three shown in the personal reliability layer further down, matter differently depending on the protocol. TCP mostly hides jitter and loss behind retries; you just see a page load slower. UDP doesn't hide it. That's the frozen call or the game lag spike, which is exactly why real-time apps use it instead of TCP.</p>
   </section>
 
-  <div class="chapter"><span>Part 3</span>What a Mbps costs<p>Monthly price divided by the FCC's median speed, per technology and per state.</p></div>
+  <div class="chapter"><span>Part 3</span>What a Mbps costs<p>Monthly price divided by the FCC's median speed, per technology and per state, and what that monthly price means against household income.</p></div>
   <section>
     <h2>Cost per Mbps, range across all 50 states + DC<svg class="h2-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M4 18v-3"/><path d="M11 18v-7"/><path d="M18 18V6"/></svg></h2>
     <p style="font-size:13.5px;color:var(--ink-soft);margin-top:-6px">Each bar spans the lowest-to-highest <code>monthly price &divide; FCC median advertised download speed</code> seen for that technology nationwide (fiber, cable, and DSL use each state's largest provider; the rest use one national plan). A bar with no visible span means the value is identical everywhere. Only LEO Satellite is flat across all 50 states + DC. States with an undefined DSL cost (median speed rounds to 0 Mbps) are excluded from this range; see methodology.</p>
@@ -496,9 +496,10 @@
   </section>
 
   <section>
-    <h2>Mapped by state: the satellite premium and BEAD subsidy<svg class="h2-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15c0-6.6 5.4-12 12-12"/><path d="M4 15h9"/><circle cx="16" cy="3" r="1.1" fill="currentColor" stroke="none"/><path d="M9.5 15v5.5"/><path d="M7 20.5h5"/></svg></h2>
+    <h2>Mapped by state: satellite premium, affordability, and BEAD subsidy<svg class="h2-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15c0-6.6 5.4-12 12-12"/><path d="M4 15h9"/><circle cx="16" cy="3" r="1.1" fill="currentColor" stroke="none"/><path d="M9.5 15v5.5"/><path d="M7 20.5h5"/></svg></h2>
     <div class="maptoggle" role="group" aria-label="Choose what the map shows">
       <button type="button" data-metric="premium" aria-pressed="true">Satellite premium over wired</button>
+      <button type="button" data-metric="afford" aria-pressed="false">Share of income</button>
       <button type="button" data-metric="bead" aria-pressed="false">BEAD $ per location</button>
     </div>
     <p id="mapcaption" style="font-size:13.5px;color:var(--ink-soft);margin-top:10px"></p>
@@ -773,6 +774,7 @@
     Data: <a href="https://broadbandmap.fcc.gov/" target="_blank" rel="noopener">FCC National Broadband Map</a> (bulk CSV, no API key) &middot;
     published ISP/carrier pricing (see <code>data/pricing_snapshot.csv</code> and <code>data/provider_pricing.csv</code>; largest provider per state from <a href="https://broadbandnow.com/" target="_blank" rel="noopener">BroadbandNow</a> state pages) &middot;
     NTIA BEAD Final Proposal data and per-state overview PDFs &middot;
+    median household income by state (Census CPS, via <a href="https://fred.stlouisfed.org/" target="_blank" rel="noopener">FRED</a>) &middot;
     <a href="https://github.com/teamookla/ookla-open-data" target="_blank" rel="noopener">Ookla Open Data</a> (auto-refreshed quarterly via GitHub Actions) &middot;
     <a href="https://www.census.gov/geographies/mapping-files/time-series/geo/carto-boundary-file.html" target="_blank" rel="noopener">US Census cartographic boundary shapefiles</a> (state join).
     Source: <a href="https://github.com/YashRao10/connectivity-cost-index" target="_blank" rel="noopener">github.com/YashRao10/connectivity-cost-index</a>.
@@ -1473,6 +1475,10 @@ function renderLookup(st){
   if (bead) tiles.push(`<div class="tile" style="--tile-color:var(--sig-rose)"><div class="lbl">BEAD award (2025)</div>
     <div class="num">${fmtM(bead.prov)}</div>
     <div class="sub">${bead.pct.toFixed(1)}% vs. the original 2023 allocation of ${fmtM(bead.orig)}; $${bead.perloc.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})} per GSO-served location</div></div>`);
+  const af = affordabilityByState()[st];
+  if (af?.leoPct != null) tiles.push(`<div class="tile" style="--tile-color:var(--sig-amber)"><div class="lbl">Share of median income</div>
+    <div class="num">${af.leoPct.toFixed(2)}%</div>
+    <div class="sub">Starlink's $${af.leoPrice}/mo against a median household income of $${Math.round(af.income).toLocaleString("en-US")}/yr${af.wired ? `; the cheapest wired plan ($${af.wired.price}/mo ${af.wired.tech}) is ${af.wiredPct.toFixed(2)}%` : ""}</div></div>`);
   document.getElementById("lookupTiles").innerHTML = tiles.join("");
 
   const lo = Math.log10(0.004), hi = Math.log10(6);
@@ -1526,6 +1532,7 @@ function renderCompare(a, b){
     mobile: OOKLA_ROWS.find(r => r.state === st && r.net === "Mobile"),
     trend: TIMESERIES_ROWS.find(r => r.state === st && r.net === "Fixed"),
     bead: BEAD_ROWS.find(r => r.state === st),
+    af: affordabilityByState()[st],
   });
   const A = pick(a), B = pick(b);
   const fmtCpm = n => n >= 1 ? `$${n.toFixed(2)}` : `$${n.toFixed(3)}`;
@@ -1538,6 +1545,8 @@ function renderCompare(a, b){
     ["Fixed latency", A.fixed?.lat, B.fixed?.lat, v => `${v} ms`, "low", () => "Ookla median"],
     ["Real-world mobile download", A.mobile?.down, B.mobile?.down, v => `${v} Mbps`, "high", () => "Ookla median"],
     ["Fixed speed, Q1 to Q2", A.trend?.pct, B.trend?.pct, v => `${v > 0 ? "+" : ""}${v.toFixed(1)}%`, "high", () => "change in median download"],
+    ["Median household income", A.af?.income, B.af?.income, v => `$${Math.round(v/1000)}K/yr`, "high", X => `${X.af?.year ?? ""} CPS, via FRED`],
+    ["Starlink as share of income", A.af?.leoPct, B.af?.leoPct, v => `${v.toFixed(2)}%`, "low", () => "$55/mo vs. median monthly income"],
     ["BEAD award (2025)", A.bead?.prov, B.bead?.prov, fmtM, null, X => X.bead ? `${X.bead.pct.toFixed(1)}% vs. 2023` : ""],
     ["BEAD $ per GSO-served location", A.bead?.perloc, B.bead?.perloc, v => `$${v.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2})}`, null, () => "subsidy intensity"],
   ].filter(m => m[1] != null && m[2] != null);
@@ -2057,6 +2066,59 @@ const TIMESERIES_ROWS = [
   {state:"AZ", net:"Mobile", q1:187.8, q2:205.8, pct:9.6},
   {state:"DC", net:"Mobile", q1:265.3, q2:294.6, pct:11},
 ];
+const INCOME_ROWS = [
+  {state:"AK", income:102500, year:2025},
+  {state:"AL", income:68410, year:2025},
+  {state:"AR", income:68060, year:2025},
+  {state:"AZ", income:86570, year:2025},
+  {state:"CA", income:100800, year:2025},
+  {state:"CO", income:102500, year:2025},
+  {state:"CT", income:101400, year:2025},
+  {state:"DC", income:107600, year:2025},
+  {state:"DE", income:99800, year:2025},
+  {state:"FL", income:77920, year:2025},
+  {state:"GA", income:82100, year:2025},
+  {state:"HI", income:105100, year:2025},
+  {state:"IA", income:81890, year:2025},
+  {state:"ID", income:87840, year:2025},
+  {state:"IL", income:93270, year:2025},
+  {state:"IN", income:76180, year:2025},
+  {state:"KS", income:85540, year:2025},
+  {state:"KY", income:73750, year:2025},
+  {state:"LA", income:60670, year:2025},
+  {state:"MA", income:118500, year:2025},
+  {state:"MD", income:116300, year:2025},
+  {state:"ME", income:95150, year:2025},
+  {state:"MI", income:76800, year:2025},
+  {state:"MN", income:95160, year:2025},
+  {state:"MO", income:84700, year:2025},
+  {state:"MS", income:57840, year:2025},
+  {state:"MT", income:86770, year:2025},
+  {state:"NC", income:80250, year:2025},
+  {state:"ND", income:85060, year:2025},
+  {state:"NE", income:100600, year:2025},
+  {state:"NH", income:112100, year:2025},
+  {state:"NJ", income:111400, year:2025},
+  {state:"NM", income:67620, year:2025},
+  {state:"NV", income:88880, year:2025},
+  {state:"NY", income:86900, year:2025},
+  {state:"OH", income:85150, year:2025},
+  {state:"OK", income:75390, year:2025},
+  {state:"OR", income:92740, year:2025},
+  {state:"PA", income:85880, year:2025},
+  {state:"RI", income:96880, year:2025},
+  {state:"SC", income:82320, year:2025},
+  {state:"SD", income:82460, year:2025},
+  {state:"TN", income:75250, year:2025},
+  {state:"TX", income:85060, year:2025},
+  {state:"UT", income:102900, year:2025},
+  {state:"VA", income:100000, year:2025},
+  {state:"VT", income:95290, year:2025},
+  {state:"WA", income:112600, year:2025},
+  {state:"WI", income:88020, year:2025},
+  {state:"WV", income:61770, year:2025},
+  {state:"WY", income:81030, year:2025},
+];
 
 function renderTimeseriesTable(){
   const tbody = document.querySelector("#timeseriestable tbody");
@@ -2099,10 +2161,28 @@ function satellitePremiumByState(){
   return out;
 }
 
+// Monthly price as a share of the state's median monthly household income.
+function affordabilityByState(){
+  const out = {};
+  INCOME_ROWS.forEach(({state, income, year}) => {
+    const rows = ROWS.filter(r => r.state === state);
+    const leo = rows.find(r => r.tech === "LEO Satellite");
+    const wired = rows.filter(r => (r.tech === "Fiber" || r.tech === "Cable") && r.price != null).sort((a,b) => a.price - b.price)[0];
+    const monthly = income / 12;
+    out[state] = {income, year, monthly, leoPct: leo?.price != null ? 100 * leo.price / monthly : null, leoPrice: leo?.price,
+      wired, wiredPct: wired ? 100 * wired.price / monthly : null};
+  });
+  return out;
+}
+
 const MAP_METRICS = {
   bead: {
     caption: "The 2025 provisional BEAD award divided by each state's GSO-satellite-served locations, the same figure as the BEAD table further below. Darker &#61; more subsidy dollars per underserved location. Alaska and Hawaii are plotted as insets. Non-state territories (PR, GU, VI, AS, MP) aren't part of this map.",
     aria: "Choropleth map of the US shaded by BEAD subsidy dollars per underserved location, all 50 states plus DC",
+  },
+  afford: {
+    caption: "Starlink's $55 monthly plan as a share of each state's median monthly household income (Census CPS via FRED, 2025). Darker &#61; a bigger share. For a household at the median it is under 1.2% everywhere, below the 2%-of-income line often used as a broadband affordability benchmark. Half of households earn less than the median, and at half the median income every figure here doubles.",
+    aria: "Choropleth map of the US shaded by Starlink's monthly price as a share of median household income, all 50 states plus DC",
   },
   premium: {
     caption: "How many times more Starlink costs per Mbps than the cheapest wired option (fiber or cable) in each state, using each state's own largest provider. Darker &#61; a bigger premium. Where wired service reaches, it is always cheaper per Mbps; this shows by how much. It says nothing about where wired service <em>doesn't</em> reach, which is exactly where satellite matters.",
@@ -2117,6 +2197,7 @@ function renderMap(){
   const projection = d3.geoAlbersUsa().translate([width/2, height/2]).scale(1200);
   const path = d3.geoPath().projection(projection);
   const premium = satellitePremiumByState();
+  const afford = affordabilityByState();
   const fmtCpm = n => n >= 1 ? `$${n.toFixed(2)}` : `$${n.toFixed(3)}`;
 
   fetch("data/state_map.geojson").then(r => r.json()).then(geo => {
@@ -2124,14 +2205,15 @@ function renderMap(){
       .attr("d", path).attr("stroke", "var(--bg)").attr("stroke-width", 1);
 
     const draw = metric => {
-      const val = metric === "bead"
-        ? f => f.properties.bead_usd_per_gso_location
+      const val = metric === "bead" ? f => f.properties.bead_usd_per_gso_location
+        : metric === "afford" ? f => afford[f.properties.state_usps]?.leoPct
         : f => premium[f.properties.state_usps]?.ratio;
       const priced = geo.features.filter(f => val(f) != null);
       const values = priced.map(val);
       const lo = d3.min(values), hi = d3.max(values);
       const color = metric === "bead"
         ? d3.scaleSequential(d3.interpolateRgb("#dff0e8", "#0ca34a")).domain([lo, hi])
+        : metric === "afford" ? d3.scaleSequential(d3.interpolateRgb("#fdf1dc", "#c0620a")).domain([lo, hi])
         : d3.scaleSequentialLog(d3.interpolateRgb("#ece6fd", "#6d3fe0")).domain([lo, hi]);
 
       paths.attr("fill", d => val(d) != null ? color(val(d)) : "var(--grid)")
@@ -2139,7 +2221,10 @@ function renderMap(){
         .on("mousemove", (event, d) => {
           if (val(d) == null) { tooltip.style.display = "none"; return; }
           const p = d.properties, pr = premium[p.state_usps];
-          tooltip.innerHTML = metric === "bead"
+          const af = afford[p.state_usps];
+          tooltip.innerHTML = metric === "afford"
+            ? `<strong>${p.NAME}</strong><br>Starlink $${af.leoPrice}/mo = ${af.leoPct.toFixed(2)}% of median monthly income<br>Median household income: $${Math.round(af.income).toLocaleString("en-US")}/yr (${af.year})${af.wired ? `<br>Cheapest wired: $${af.wired.price}/mo ${af.wired.tech} (${af.wiredPct.toFixed(2)}%)` : ""}`
+            : metric === "bead"
             ? `<strong>${p.NAME}</strong><br>$${p.bead_usd_per_gso_location.toFixed(2)} per GSO-served location<br>BEAD allocation: $${Math.round(p.bead_allocation_usd).toLocaleString()}<br>Cheapest tech: ${p.cheapest_technology ?? "n/a"} (${p.cheapest_cost_per_mbps_usd != null ? fmtCpm(p.cheapest_cost_per_mbps_usd) : "n/a"}/Mbps)`
             : `<strong>${p.NAME}</strong><br>Starlink: ${pr.ratio.toFixed(1)}&times; the cost per Mbps<br>Starlink ${fmtCpm(pr.leo)}/Mbps vs. ${pr.wired.tech} ${fmtCpm(pr.wired.cpm)}/Mbps<br>(${pr.wired.provider})`;
           tooltip.style.display = "block";
@@ -2152,7 +2237,10 @@ function renderMap(){
       const loSt = priced.find(f => val(f) === lo).properties.state_usps;
       const hiSt = priced.find(f => val(f) === hi).properties.state_usps;
       const ties = v => priced.filter(f => Math.abs(val(f) - v) < 1e-9).map(f => f.properties.state_usps).sort().join(", ");
-      document.getElementById("maplegend").innerHTML = metric === "bead" ? `
+      document.getElementById("maplegend").innerHTML = metric === "afford" ? `
+        <span class="item"><span class="swatch" style="background:${color(lo)}"></span>${lo.toFixed(2)}% (smallest share, ${ties(lo)})</span>
+        <span class="item"><span class="swatch" style="background:${color(d3.median(values))}"></span>${d3.median(values).toFixed(2)}% median</span>
+        <span class="item"><span class="swatch" style="background:${color(hi)}"></span>${hi.toFixed(2)}% (largest share, ${ties(hi)})</span>` : metric === "bead" ? `
         <span class="item"><span class="swatch" style="background:${color(lo)}"></span>$${lo.toFixed(2)}/location (least subsidy-intense, ${loSt})</span>
         <span class="item"><span class="swatch" style="background:${color(hi)}"></span>$${Math.round(hi).toLocaleString("en-US")}/location (most subsidy-intense, ${hiSt})</span>
         <span class="item"><span class="swatch" style="background:var(--grid)"></span>non-state territories not shown (PR, GU, VI, AS, MP)</span>` : `
