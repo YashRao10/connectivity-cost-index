@@ -45,7 +45,7 @@ def build_rows_block() -> str:
     lines = ["const ROWS = ["]
     for _, r in df.iterrows():
         lines.append(
-            "  {{state:{}, tech:{}, provider:{}, price:{}, mbps:{}, cpm:{}, providers:{}, locations:{}}},".format(
+            "  {{state:{}, tech:{}, provider:{}, price:{}, mbps:{}, cpm:{}, providers:{}, locations:{}, basis:{}}},".format(
                 js_str(r["state_usps"]),
                 js_str(r["technology_label"]),
                 js_str(r.get("provider")),
@@ -54,6 +54,7 @@ def build_rows_block() -> str:
                 js_num(r.get("cost_per_fcc_median_mbps_usd")),
                 js_num(r.get("unique_providers")),
                 js_num(r.get("locations_served")),
+                js_str(r.get("price_basis")),
             )
         )
     lines.append("];")

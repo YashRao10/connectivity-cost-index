@@ -1,0 +1,154 @@
+state_usps,technology,provider,coverage_pct,source_url,as_of
+AK,Cable,GCI Communication,68.0,https://broadbandnow.com/Alaska,2026-09
+AK,DSL (Copper),Alaska Communications,24.4,https://broadbandnow.com/Alaska,2026-09
+AK,Fiber,KPU Telecommunications,1.9,https://broadbandnow.com/Alaska,2026-09
+AL,Cable,Spectrum,43.2,https://broadbandnow.com/Alabama,2026-09
+AL,DSL (Copper),AT&T Internet,26.6,https://broadbandnow.com/Alabama,2026-09
+AL,Fiber,AT&T Fiber,35.8,https://broadbandnow.com/Alabama,2026-09
+AR,Cable,Cox,18.8,https://broadbandnow.com/Arkansas,2026-09
+AR,DSL (Copper),AT&T Internet,19.0,https://broadbandnow.com/Arkansas,2026-09
+AR,Fiber,AT&T Fiber,25.0,https://broadbandnow.com/Arkansas,2026-09
+AZ,Cable,Cox,59.5,https://broadbandnow.com/Arizona,2026-09
+AZ,DSL (Copper),CenturyLink,70.4,https://broadbandnow.com/Arizona,2026-09
+AZ,Fiber,Quantum Fiber,11.9,https://broadbandnow.com/Arizona,2026-09
+CA,Cable,Spectrum,49.5,https://broadbandnow.com/California,2026-09
+CA,DSL (Copper),AT&T Internet,46.3,https://broadbandnow.com/California,2026-09
+CA,Fiber,AT&T Fiber,46.3,https://broadbandnow.com/California,2026-09
+CO,Cable,Xfinity,78.8,https://broadbandnow.com/Colorado,2026-09
+CO,DSL (Copper),CenturyLink,62.2,https://broadbandnow.com/Colorado,2026-09
+CO,Fiber,Quantum Fiber,33.5,https://broadbandnow.com/Colorado,2026-09
+CT,Cable,Xfinity,54.1,https://broadbandnow.com/Connecticut,2026-09
+CT,DSL (Copper),Frontier,3.2,https://broadbandnow.com/Connecticut,2026-09
+CT,Fiber,Frontier,80.0,https://broadbandnow.com/Connecticut,2026-09
+DC,Cable,Xfinity,99.1,https://broadbandnow.com/District-of-Columbia,2026-09
+DC,DSL (Copper),Verizon High Speed Internet,100.0,https://broadbandnow.com/District-of-Columbia,2026-09
+DC,Fiber,Verizon Fios,63.6,https://broadbandnow.com/District-of-Columbia,2026-09
+DE,Cable,Xfinity,83.1,https://broadbandnow.com/Delaware,2026-09
+DE,DSL (Copper),Verizon High Speed Internet,42.9,https://broadbandnow.com/Delaware,2026-09
+DE,Fiber,Verizon Fios,62.4,https://broadbandnow.com/Delaware,2026-09
+FL,Cable,Xfinity,50.8,https://broadbandnow.com/Florida,2026-09
+FL,DSL (Copper),AT&T Internet,20.5,https://broadbandnow.com/Florida,2026-09
+FL,Fiber,AT&T Fiber,29.9,https://broadbandnow.com/Florida,2026-09
+GA,Cable,Xfinity,57.1,https://broadbandnow.com/Georgia,2026-09
+GA,DSL (Copper),AT&T Internet,26.4,https://broadbandnow.com/Georgia,2026-09
+GA,Fiber,AT&T Fiber,44.5,https://broadbandnow.com/Georgia,2026-09
+HI,Cable,Spectrum,92.0,https://broadbandnow.com/Hawaii,2026-09
+HI,DSL (Copper),Hawaiian Telcom,7.9,https://broadbandnow.com/Hawaii,2026-09
+HI,Fiber,Hawaiian Telcom,77.3,https://broadbandnow.com/Hawaii,2026-09
+IA,Cable,Mediacom,65.0,https://broadbandnow.com/Iowa,2026-09
+IA,DSL (Copper),CenturyLink,59.1,https://broadbandnow.com/Iowa,2026-09
+IA,Fiber,Metronet,25.7,https://broadbandnow.com/Iowa,2026-09
+ID,Cable,Sparklight,57.4,https://broadbandnow.com/Idaho,2026-09
+ID,DSL (Copper),CenturyLink,56.5,https://broadbandnow.com/Idaho,2026-09
+ID,Fiber,Quantum Fiber,13.6,https://broadbandnow.com/Idaho,2026-09
+IL,Cable,Xfinity,78.2,https://broadbandnow.com/Illinois,2026-09
+IL,DSL (Copper),AT&T Internet,48.8,https://broadbandnow.com/Illinois,2026-09
+IL,Fiber,AT&T Fiber,48.8,https://broadbandnow.com/Illinois,2026-09
+IN,Cable,Xfinity,57.0,https://broadbandnow.com/Indiana,2026-09
+IN,DSL (Copper),AT&T Internet,23.1,https://broadbandnow.com/Indiana,2026-09
+IN,Fiber,AT&T Fiber,23.4,https://broadbandnow.com/Indiana,2026-09
+KS,Cable,Cox,34.7,https://broadbandnow.com/Kansas,2026-09
+KS,DSL (Copper),AT&T Internet,28.4,https://broadbandnow.com/Kansas,2026-09
+KS,Fiber,AT&T Fiber,32.8,https://broadbandnow.com/Kansas,2026-09
+KY,Cable,Spectrum,60.4,https://broadbandnow.com/Kentucky,2026-09
+KY,DSL (Copper),AT&T Internet,16.7,https://broadbandnow.com/Kentucky,2026-09
+KY,Fiber,AT&T Fiber,23.8,https://broadbandnow.com/Kentucky,2026-09
+LA,Cable,Cox,40.2,https://broadbandnow.com/Louisiana,2026-09
+LA,DSL (Copper),AT&T Internet,32.2,https://broadbandnow.com/Louisiana,2026-09
+LA,Fiber,AT&T Fiber,41.6,https://broadbandnow.com/Louisiana,2026-09
+MA,Cable,Xfinity,85.6,https://broadbandnow.com/Massachusetts,2026-09
+MA,DSL (Copper),Verizon High Speed Internet,54.7,https://broadbandnow.com/Massachusetts,2026-09
+MA,Fiber,Verizon Fios,51.2,https://broadbandnow.com/Massachusetts,2026-09
+MD,Cable,Xfinity,87.4,https://broadbandnow.com/Maryland,2026-09
+MD,DSL (Copper),Verizon High Speed Internet,36.1,https://broadbandnow.com/Maryland,2026-09
+MD,Fiber,Verizon Fios,63.1,https://broadbandnow.com/Maryland,2026-09
+ME,Cable,Spectrum,73.1,https://broadbandnow.com/Maine,2026-09
+ME,DSL (Copper),Consolidated Communications,19.6,https://broadbandnow.com/Maine,2026-09
+ME,Fiber,Fidium,41.3,https://broadbandnow.com/Maine,2026-09
+MI,Cable,Xfinity,60.5,https://broadbandnow.com/Michigan,2026-09
+MI,DSL (Copper),AT&T Internet,36.9,https://broadbandnow.com/Michigan,2026-09
+MI,Fiber,AT&T Fiber,36.9,https://broadbandnow.com/Michigan,2026-09
+MN,Cable,Xfinity,46.5,https://broadbandnow.com/Minnesota,2026-09
+MN,DSL (Copper),CenturyLink,62.2,https://broadbandnow.com/Minnesota,2026-09
+MN,Fiber,Quantum Fiber,21.4,https://broadbandnow.com/Minnesota,2026-09
+MO,Cable,Spectrum,51.1,https://broadbandnow.com/Missouri,2026-09
+MO,DSL (Copper),AT&T Internet,25.6,https://broadbandnow.com/Missouri,2026-09
+MO,Fiber,AT&T Fiber,26.9,https://broadbandnow.com/Missouri,2026-09
+MS,Cable,Xfinity,29.9,https://broadbandnow.com/Mississippi,2026-09
+MS,DSL (Copper),AT&T Internet,40.6,https://broadbandnow.com/Mississippi,2026-09
+MS,Fiber,AT&T Fiber,40.6,https://broadbandnow.com/Mississippi,2026-09
+MT,Cable,Spectrum,55.6,https://broadbandnow.com/Montana,2026-09
+MT,DSL (Copper),CenturyLink,68.7,https://broadbandnow.com/Montana,2026-09
+MT,Fiber,Montana Opticom,5.3,https://broadbandnow.com/Montana,2026-09
+NC,Cable,Spectrum,76.8,https://broadbandnow.com/North-Carolina,2026-09
+NC,DSL (Copper),Brightspeed,21.0,https://broadbandnow.com/North-Carolina,2026-09
+NC,Fiber,AT&T Fiber,26.8,https://broadbandnow.com/North-Carolina,2026-09
+ND,Cable,Midco,60.7,https://broadbandnow.com/North-Dakota,2026-09
+ND,DSL (Copper),CenturyLink,47.9,https://broadbandnow.com/North-Dakota,2026-09
+ND,Fiber,SRT Communications,9.4,https://broadbandnow.com/North-Dakota,2026-09
+NE,Cable,Cox,34.8,https://broadbandnow.com/Nebraska,2026-09
+NE,DSL (Copper),CenturyLink,38.9,https://broadbandnow.com/Nebraska,2026-09
+NE,Fiber,Allo Communications,35.2,https://broadbandnow.com/Nebraska,2026-09
+NH,Cable,Xfinity,74.4,https://broadbandnow.com/New-Hampshire,2026-09
+NH,DSL (Copper),Consolidated Communications,17.6,https://broadbandnow.com/New-Hampshire,2026-09
+NH,Fiber,Fidium,51.0,https://broadbandnow.com/New-Hampshire,2026-09
+NJ,Cable,Xfinity,54.4,https://broadbandnow.com/New-Jersey,2026-09
+NJ,DSL (Copper),Verizon High Speed Internet,43.2,https://broadbandnow.com/New-Jersey,2026-09
+NJ,Fiber,Verizon Fios,66.2,https://broadbandnow.com/New-Jersey,2026-09
+NM,Cable,Xfinity,57.0,https://broadbandnow.com/New-Mexico,2026-09
+NM,DSL (Copper),CenturyLink,77.0,https://broadbandnow.com/New-Mexico,2026-09
+NM,Fiber,Ezee Fiber,10.1,https://broadbandnow.com/New-Mexico,2026-09
+NV,Cable,Cox,62.0,https://broadbandnow.com/Nevada,2026-09
+NV,DSL (Copper),CenturyLink,47.5,https://broadbandnow.com/Nevada,2026-09
+NV,Fiber,Quantum Fiber,17.4,https://broadbandnow.com/Nevada,2026-09
+NY,Cable,Spectrum,60.1,https://broadbandnow.com/New-York,2026-09
+NY,DSL (Copper),Verizon High Speed Internet,33.9,https://broadbandnow.com/New-York,2026-09
+NY,Fiber,Verizon Fios,63.1,https://broadbandnow.com/New-York,2026-09
+OH,Cable,Spectrum,76.4,https://broadbandnow.com/Ohio,2026-09
+OH,DSL (Copper),AT&T Internet,26.0,https://broadbandnow.com/Ohio,2026-09
+OH,Fiber,AT&T Fiber,26.0,https://broadbandnow.com/Ohio,2026-09
+OK,Cable,Cox,42.6,https://broadbandnow.com/Oklahoma,2026-09
+OK,DSL (Copper),AT&T Internet,19.2,https://broadbandnow.com/Oklahoma,2026-09
+OK,Fiber,AT&T Fiber,30.9,https://broadbandnow.com/Oklahoma,2026-09
+OR,Cable,Xfinity,59.5,https://broadbandnow.com/Oregon,2026-09
+OR,DSL (Copper),CenturyLink,54.8,https://broadbandnow.com/Oregon,2026-09
+OR,Fiber,Ziply Fiber,20.4,https://broadbandnow.com/Oregon,2026-09
+PA,Cable,Xfinity,71.0,https://broadbandnow.com/Pennsylvania,2026-09
+PA,DSL (Copper),Verizon High Speed Internet,44.9,https://broadbandnow.com/Pennsylvania,2026-09
+PA,Fiber,Verizon Fios,43.1,https://broadbandnow.com/Pennsylvania,2026-09
+RI,Cable,Cox,88.7,https://broadbandnow.com/Rhode-Island,2026-09
+RI,DSL (Copper),Verizon High Speed Internet,48.4,https://broadbandnow.com/Rhode-Island,2026-09
+RI,Fiber,Verizon Fios,82.7,https://broadbandnow.com/Rhode-Island,2026-09
+SC,Cable,Spectrum,57.8,https://broadbandnow.com/South-Carolina,2026-09
+SC,DSL (Copper),AT&T Internet,28.5,https://broadbandnow.com/South-Carolina,2026-09
+SC,Fiber,AT&T Fiber,28.5,https://broadbandnow.com/South-Carolina,2026-09
+SD,Cable,Midco,51.0,https://broadbandnow.com/South-Dakota,2026-09
+SD,DSL (Copper),CenturyLink,63.2,https://broadbandnow.com/South-Dakota,2026-09
+SD,Fiber,Golden West Telecommunications,8.6,https://broadbandnow.com/South-Dakota,2026-09
+TN,Cable,Xfinity,54.9,https://broadbandnow.com/Tennessee,2026-09
+TN,DSL (Copper),AT&T Internet,31.2,https://broadbandnow.com/Tennessee,2026-09
+TN,Fiber,AT&T Fiber,36.5,https://broadbandnow.com/Tennessee,2026-09
+TX,Cable,Spectrum,50.7,https://broadbandnow.com/Texas,2026-09
+TX,DSL (Copper),AT&T Internet,20.7,https://broadbandnow.com/Texas,2026-09
+TX,Fiber,AT&T Fiber,45.6,https://broadbandnow.com/Texas,2026-09
+UT,Cable,Xfinity,79.4,https://broadbandnow.com/Utah,2026-09
+UT,DSL (Copper),CenturyLink,61.7,https://broadbandnow.com/Utah,2026-09
+UT,Fiber,Quantum Fiber,26.1,https://broadbandnow.com/Utah,2026-09
+VA,Cable,Xfinity,44.7,https://broadbandnow.com/Virginia,2026-09
+VA,DSL (Copper),Verizon High Speed Internet,24.2,https://broadbandnow.com/Virginia,2026-09
+VA,Fiber,Verizon Fios,49.0,https://broadbandnow.com/Virginia,2026-09
+VT,Cable,Xfinity,65.7,https://broadbandnow.com/Vermont,2026-09
+VT,DSL (Copper),Consolidated Communications,29.9,https://broadbandnow.com/Vermont,2026-09
+VT,Fiber,Fidium,29.9,https://broadbandnow.com/Vermont,2026-09
+WA,Cable,Xfinity,72.8,https://broadbandnow.com/Washington,2026-09
+WA,DSL (Copper),CenturyLink,53.4,https://broadbandnow.com/Washington,2026-09
+WA,Fiber,Quantum Fiber,15.8,https://broadbandnow.com/Washington,2026-09
+WI,Cable,Spectrum,72.0,https://broadbandnow.com/Wisconsin,2026-09
+WI,DSL (Copper),AT&T Internet,32.0,https://broadbandnow.com/Wisconsin,2026-09
+WI,Fiber,AT&T Fiber,32.0,https://broadbandnow.com/Wisconsin,2026-09
+WV,Cable,Optimum,36.4,https://broadbandnow.com/West-Virginia,2026-09
+WV,DSL (Copper),Frontier,22.5,https://broadbandnow.com/West-Virginia,2026-09
+WV,Fiber,Frontier,42.3,https://broadbandnow.com/West-Virginia,2026-09
+WY,Cable,Spectrum,51.6,https://broadbandnow.com/Wyoming,2026-09
+WY,DSL (Copper),CenturyLink,69.7,https://broadbandnow.com/Wyoming,2026-09
+WY,Fiber,Bluepeak,26.4,https://broadbandnow.com/Wyoming,2026-09

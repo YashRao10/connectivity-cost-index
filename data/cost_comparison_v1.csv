@@ -1,419 +1,419 @@
-state_usps,technology_label,locations_served,unique_providers,median_max_down_mbps,median_max_up_mbps,provider,plan,monthly_price_usd,advertised_mbps_down,cost_per_advertised_mbps_usd,cost_per_fcc_median_mbps_usd
-AK,Cable,163680,3,2500.0,75.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.02
-AK,Fiber,50007,21,1000.0,200.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.05
-AK,LEO Satellite,281533,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
-AK,Unlicensed Fixed Wireless,136418,11,100.0,100.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,0.45
-AK,GSO Satellite,616193,2,50.0,3.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.8
-AK,DSL (Copper),145503,13,10.0,1.0,National average,Typical residential,50.0,25.0,2.0,5.0
-AK,Licensed Fixed Wireless,36055,6,10.0,1.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,5.0
-AK,LBR Fixed Wireless,54916,1,300.0,75.0,,,,,,
-AL,Fiber,1659237,65,2000.0,2000.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.025
-AL,Cable,1893635,14,1000.0,35.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.05
-AL,LEO Satellite,2197519,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
-AL,GSO Satellite,6602646,3,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.4
-AL,Unlicensed Fixed Wireless,24508,9,25.0,10.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,1.8
-AL,Licensed Fixed Wireless,3730200,7,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,2.0
-AL,DSL (Copper),1069352,25,10.0,1.0,National average,Typical residential,50.0,25.0,2.0,5.0
-AL,LBR Fixed Wireless,18069,1,100.0,20.0,,,,,,
-AL,Other,1,1,30.0,30.0,,,,,,
-AR,Fiber,1155860,71,2000.0,2000.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.025
-AR,Cable,889275,21,1200.0,50.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.042
-AR,LEO Satellite,1355779,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
-AR,GSO Satellite,4067884,2,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.4
-AR,Unlicensed Fixed Wireless,79432,28,45.0,10.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,1.0
-AR,Licensed Fixed Wireless,2367084,9,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,2.0
-AR,DSL (Copper),533541,21,10.0,1.0,National average,Typical residential,50.0,25.0,2.0,5.0
-AR,LBR Fixed Wireless,70921,11,25.0,3.0,,,,,,
-AZ,Fiber,1557665,50,2300.0,2300.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.022
-AZ,Cable,2038494,11,2000.0,100.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.025
-AZ,LEO Satellite,2755191,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
-AZ,GSO Satellite,8227689,3,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.4
-AZ,Unlicensed Fixed Wireless,3111626,42,100.0,25.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,0.45
-AZ,DSL (Copper),1797224,20,40.0,3.0,National average,Typical residential,50.0,25.0,2.0,1.25
-AZ,Licensed Fixed Wireless,5620131,10,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,2.0
-AZ,LBR Fixed Wireless,628704,9,400.0,100.0,,,,,,
-AZ,Other,1,1,0.0,0.0,,,,,,
-CA,Fiber,5429304,87,5000.0,5000.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.01
-CA,Cable,9659237,25,1000.0,35.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.05
-CA,LEO Satellite,10246075,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
-CA,GSO Satellite,30762079,3,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.4
-CA,Unlicensed Fixed Wireless,5575339,92,100.0,50.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,0.45
-CA,DSL (Copper),4567718,27,50.0,10.0,National average,Typical residential,50.0,25.0,2.0,1.0
-CA,Licensed Fixed Wireless,20621111,23,25.0,6.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,2.0
-CA,LBR Fixed Wireless,2160997,22,250.0,50.0,,,,,,
-CA,Other,4,1,0.0,0.0,,,,,,
-CO,Cable,1658876,10,2000.0,250.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.025
-CO,Fiber,1502695,89,2000.0,2000.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.025
-CO,LEO Satellite,2002660,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
-CO,GSO Satellite,6014318,3,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.4
-CO,Unlicensed Fixed Wireless,1334546,53,50.0,10.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,0.9
-CO,DSL (Copper),1184080,23,40.0,3.0,National average,Typical residential,50.0,25.0,2.0,1.25
-CO,Licensed Fixed Wireless,3976215,19,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,2.0
-CO,LBR Fixed Wireless,752941,18,250.0,100.0,,,,,,
-CT,Fiber,1790892,15,7000.0,7000.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.007
-CT,Cable,1144684,5,2000.0,100.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.025
-CT,LEO Satellite,1090843,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
-CT,GSO Satellite,3271775,2,50.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.8
-CT,Licensed Fixed Wireless,2093490,3,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,2.0
-CT,DSL (Copper),178140,4,10.0,1.0,National average,Typical residential,50.0,25.0,2.0,5.0
-DC,Cable,211386,3,1500.0,50.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.033
-DC,Fiber,142582,16,940.0,880.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.053
-DC,LEO Satellite,123420,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
-DC,Unlicensed Fixed Wireless,18697,4,200.0,50.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,0.225
-DC,GSO Satellite,370493,2,150.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.267
-DC,DSL (Copper),105,4,100.0,100.0,National average,Typical residential,50.0,25.0,2.0,0.5
-DC,Licensed Fixed Wireless,254898,4,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,2.0
-DE,Fiber,285581,12,2300.0,2300.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.022
-DE,Cable,389908,4,1200.0,50.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.042
-DE,LEO Satellite,404574,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
-DE,DSL (Copper),4,1,225.0,115.0,National average,Typical residential,50.0,25.0,2.0,0.222
-DE,GSO Satellite,1213722,2,150.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.267
-DE,Unlicensed Fixed Wireless,25163,3,25.0,3.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,1.8
-DE,Licensed Fixed Wireless,855086,4,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,2.0
-DE,LBR Fixed Wireless,10092,1,50.0,10.0,,,,,,
-FL,Fiber,6217194,76,5000.0,5000.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.01
-FL,Cable,7355352,17,1200.0,35.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.042
-FL,LEO Satellite,7659382,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
-FL,GSO Satellite,22993764,3,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.4
-FL,Unlicensed Fixed Wireless,178258,18,50.0,25.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,0.9
-FL,Licensed Fixed Wireless,16010328,10,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,2.0
-FL,DSL (Copper),3427638,20,10.0,1.0,National average,Typical residential,50.0,25.0,2.0,5.0
-FL,LBR Fixed Wireless,628004,8,50.0,10.0,,,,,,
-FL,Other,3,1,1000.0,1000.0,,,,,,
-GA,Fiber,2988931,101,2000.0,2000.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.025
-GA,Cable,3444290,25,1200.0,50.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.042
-GA,LEO Satellite,3862293,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
-GA,GSO Satellite,11601441,3,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.4
-GA,Unlicensed Fixed Wireless,26241,15,50.0,5.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,0.9
-GA,Licensed Fixed Wireless,6775248,8,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,2.0
-GA,DSL (Copper),1887066,31,10.0,1.0,National average,Typical residential,50.0,25.0,2.0,5.0
-GA,LBR Fixed Wireless,2106,1,100.0,100.0,,,,,,
-HI,Unlicensed Fixed Wireless,7,2,1000.0,1000.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,0.045
-HI,Cable,300832,2,1000.0,35.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.05
-HI,Fiber,514672,7,940.0,500.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.053
-HI,LEO Satellite,320368,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
-HI,GSO Satellite,639996,1,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.4
-HI,Licensed Fixed Wireless,276614,3,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,2.0
-HI,DSL (Copper),47351,6,10.0,1.0,National average,Typical residential,50.0,25.0,2.0,5.0
-IA,Fiber,1693569,217,2000.0,2000.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.025
-IA,Cable,914732,27,1000.0,50.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.05
-IA,LEO Satellite,1350247,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
-IA,GSO Satellite,4049127,2,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.4
-IA,Unlicensed Fixed Wireless,509295,60,50.0,10.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,0.9
-IA,Licensed Fixed Wireless,2421110,15,25.0,6.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,2.0
-IA,DSL (Copper),783602,38,10.0,1.0,National average,Typical residential,50.0,25.0,2.0,5.0
-IA,LBR Fixed Wireless,322165,19,150.0,130.0,,,,,,
-ID,Fiber,599610,48,2000.0,2000.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.025
-ID,Cable,505792,13,1000.0,50.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.05
-ID,LEO Satellite,763640,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
-ID,Licensed Fixed Wireless,1154690,12,120.0,20.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,0.417
-ID,GSO Satellite,2294383,3,50.0,3.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.8
-ID,Unlicensed Fixed Wireless,879982,33,50.0,10.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,0.9
-ID,DSL (Copper),420160,22,25.0,3.0,National average,Typical residential,50.0,25.0,2.0,2.0
-ID,LBR Fixed Wireless,159740,13,100.0,10.0,,,,,,
-IL,Fiber,2558108,116,5120.0,5120.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.01
-IL,Cable,4076726,12,1500.0,150.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.033
-IL,LEO Satellite,4126493,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
-IL,GSO Satellite,12380745,2,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.4
-IL,Unlicensed Fixed Wireless,849468,55,60.0,10.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,0.75
-IL,DSL (Copper),2149896,34,50.0,10.0,National average,Typical residential,50.0,25.0,2.0,1.0
-IL,Licensed Fixed Wireless,8960016,14,25.0,6.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,2.0
-IL,LBR Fixed Wireless,504872,22,100.0,20.0,,,,,,
-IL,Other,13,1,0.0,0.0,,,,,,
-IN,Fiber,2619519,92,5000.0,5000.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.01
-IN,Cable,2185767,9,1200.0,35.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.042
-IN,LEO Satellite,2724288,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
-IN,GSO Satellite,8173855,2,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.4
-IN,Unlicensed Fixed Wireless,1149396,48,25.0,3.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,1.8
-IN,Licensed Fixed Wireless,5149238,12,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,2.0
-IN,DSL (Copper),1027309,29,25.0,3.0,National average,Typical residential,50.0,25.0,2.0,2.0
-IN,LBR Fixed Wireless,522347,21,150.0,20.0,,,,,,
-KS,Fiber,1406083,87,2500.0,2500.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.02
-KS,Cable,983212,22,2000.0,50.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.025
-KS,LEO Satellite,1189259,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
-KS,GSO Satellite,3568184,2,100.0,3.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.4
-KS,Unlicensed Fixed Wireless,353966,42,100.0,12.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,0.45
-KS,Licensed Fixed Wireless,2279170,16,25.0,6.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,2.0
-KS,DSL (Copper),483225,21,25.0,3.0,National average,Typical residential,50.0,25.0,2.0,2.0
-KS,LBR Fixed Wireless,452223,25,100.0,20.0,,,,,,
-KS,Other,1,1,0.0,0.0,,,,,,
-KY,Fiber,1740690,68,3000.0,2000.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.017
-KY,Cable,1315520,25,1000.0,1000.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.05
-KY,LEO Satellite,1839054,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
-KY,GSO Satellite,5521885,3,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.4
-KY,Unlicensed Fixed Wireless,297289,21,100.0,30.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,0.45
-KY,Licensed Fixed Wireless,3164379,9,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,2.0
-KY,DSL (Copper),712696,14,10.0,1.0,National average,Typical residential,50.0,25.0,2.0,5.0
-KY,LBR Fixed Wireless,36403,7,50.0,10.0,,,,,,
-LA,Fiber,1281390,46,5000.0,5000.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.01
-LA,Cable,1568065,13,1200.0,35.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.042
-LA,LEO Satellite,1868460,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
-LA,GSO Satellite,5610175,3,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.4
-LA,Unlicensed Fixed Wireless,291938,18,50.0,50.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,0.9
-LA,Licensed Fixed Wireless,3194640,6,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,2.0
-LA,DSL (Copper),898445,12,10.0,1.0,National average,Typical residential,50.0,25.0,2.0,5.0
-LA,LBR Fixed Wireless,88618,6,499.0,100.0,,,,,,
-MA,Cable,2169468,6,1500.0,250.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.033
-MA,Fiber,1337932,32,980.0,880.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.051
-MA,LEO Satellite,1937065,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
-MA,Unlicensed Fixed Wireless,87971,6,150.0,150.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,0.3
-MA,GSO Satellite,5858804,2,50.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.8
-MA,Licensed Fixed Wireless,3258457,4,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,2.0
-MA,DSL (Copper),664,5,10.0,1.0,National average,Typical residential,50.0,25.0,2.0,5.0
-MA,LBR Fixed Wireless,43592,3,520.0,116.0,,,,,,
-MA,Other,2,1,0.0,0.0,,,,,,
-MD,Cable,1890255,13,2000.0,250.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.025
-MD,Fiber,1487706,39,1000.0,1000.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.05
-MD,LEO Satellite,1777541,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
-MD,GSO Satellite,5577488,2,150.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.267
-MD,Licensed Fixed Wireless,3300636,10,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,2.0
-MD,Unlicensed Fixed Wireless,553092,19,10.0,1.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,4.5
-MD,DSL (Copper),7090,8,10.0,1.0,National average,Typical residential,50.0,25.0,2.0,5.0
-MD,LBR Fixed Wireless,47995,4,10.0,1.0,,,,,,
-ME,Fiber,504432,21,2000.0,2000.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.025
-ME,Cable,526222,3,1000.0,35.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.05
-ME,LEO Satellite,639593,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
-ME,GSO Satellite,1259926,3,100.0,5.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.4
-ME,Unlicensed Fixed Wireless,18807,3,50.0,50.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,0.9
-ME,Licensed Fixed Wireless,1049340,5,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,2.0
-ME,DSL (Copper),173661,13,10.0,1.0,National average,Typical residential,50.0,25.0,2.0,5.0
-ME,LBR Fixed Wireless,4434,2,400.0,100.0,,,,,,
-MI,Fiber,2149114,84,5000.0,5000.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.01
-MI,Cable,4037119,15,1200.0,35.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.042
-MI,LEO Satellite,4014841,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
-MI,GSO Satellite,12000459,2,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.4
-MI,DSL (Copper),1827200,30,30.0,10.0,National average,Typical residential,50.0,25.0,2.0,1.667
-MI,Licensed Fixed Wireless,7323235,13,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,2.0
-MI,Unlicensed Fixed Wireless,677556,33,0.0,0.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,inf
-MI,LBR Fixed Wireless,472698,17,150.0,20.0,,,,,,
-MN,Fiber,1632640,111,2000.0,2000.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.025
-MN,Cable,1617159,16,1200.0,50.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.042
-MN,LEO Satellite,2121667,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
-MN,GSO Satellite,6001068,2,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.4
-MN,Unlicensed Fixed Wireless,271186,37,100.0,30.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,0.45
-MN,Licensed Fixed Wireless,4309804,19,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,2.0
-MN,DSL (Copper),1238586,45,10.0,1.0,National average,Typical residential,50.0,25.0,2.0,5.0
-MN,LBR Fixed Wireless,674284,20,150.0,130.0,,,,,,
-MN,Other,1,1,0.0,0.0,,,,,,
-MO,Fiber,2230406,110,2500.0,2500.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.02
-MO,Cable,1804875,17,1000.0,50.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.05
-MO,LEO Satellite,2510537,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
-MO,GSO Satellite,7533168,2,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.4
-MO,Unlicensed Fixed Wireless,1740135,58,50.0,10.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,0.9
-MO,Licensed Fixed Wireless,4846975,8,25.0,6.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,2.0
-MO,DSL (Copper),1313292,31,10.0,1.0,National average,Typical residential,50.0,25.0,2.0,5.0
-MO,LBR Fixed Wireless,339817,15,100.0,20.0,,,,,,
-MO,Other,1,1,0.0,0.0,,,,,,
-MS,Fiber,1232288,54,2000.0,2000.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.025
-MS,Cable,745808,10,1000.0,50.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.05
-MS,LEO Satellite,1321855,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
-MS,GSO Satellite,3979522,3,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.4
-MS,Licensed Fixed Wireless,2568464,5,100.0,6.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,0.5
-MS,Unlicensed Fixed Wireless,18327,6,50.0,5.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,0.9
-MS,DSL (Copper),645756,21,10.0,1.0,National average,Typical residential,50.0,25.0,2.0,5.0
-MS,LBR Fixed Wireless,43589,3,335.0,192.0,,,,,,
-MT,Cable,267654,5,1000.0,35.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.05
-MT,Fiber,215102,42,1000.0,1000.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.05
-MT,LEO Satellite,490379,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
-MT,Unlicensed Fixed Wireless,258498,24,100.0,32.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,0.45
-MT,GSO Satellite,1415897,3,50.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.8
-MT,Licensed Fixed Wireless,748598,11,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,2.0
-MT,DSL (Copper),316785,18,10.0,1.0,National average,Typical residential,50.0,25.0,2.0,5.0
-MT,LBR Fixed Wireless,47652,5,25.0,5.0,,,,,,
-NC,Fiber,3789193,69,5000.0,5000.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.01
-NC,Cable,3659891,22,1000.0,35.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.05
-NC,LEO Satellite,4381390,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
-NC,GSO Satellite,13143566,2,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.4
-NC,Unlicensed Fixed Wireless,357736,15,25.0,10.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,1.8
-NC,Licensed Fixed Wireless,8163089,7,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,2.0
-NC,DSL (Copper),2026675,31,10.0,1.0,National average,Typical residential,50.0,25.0,2.0,5.0
-NC,LBR Fixed Wireless,6134,3,100.0,20.0,,,,,,
-ND,Cable,341856,6,2000.0,350.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.025
-ND,Fiber,261627,43,1000.0,1000.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.05
-ND,LEO Satellite,325298,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
-ND,GSO Satellite,660653,2,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.4
-ND,Unlicensed Fixed Wireless,127,1,100.0,75.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,0.45
-ND,Licensed Fixed Wireless,581060,8,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,2.0
-ND,DSL (Copper),117326,8,10.0,1.0,National average,Typical residential,50.0,25.0,2.0,5.0
-ND,LBR Fixed Wireless,5209,2,25.0,3.0,,,,,,
-NE,Fiber,866753,72,2000.0,2000.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.025
-NE,Cable,539848,17,1000.0,35.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.05
-NE,LEO Satellite,792248,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
-NE,GSO Satellite,2371048,2,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.4
-NE,Unlicensed Fixed Wireless,397821,32,50.0,10.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,0.9
-NE,Licensed Fixed Wireless,1624678,8,25.0,6.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,2.0
-NE,DSL (Copper),427141,20,10.0,1.0,National average,Typical residential,50.0,25.0,2.0,5.0
-NE,LBR Fixed Wireless,290190,12,150.0,100.0,,,,,,
-NH,Fiber,412862,17,2000.0,2000.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.025
-NH,Cable,478690,3,1200.0,250.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.042
-NH,LEO Satellite,514626,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
-NH,Unlicensed Fixed Wireless,13200,2,150.0,150.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,0.3
-NH,GSO Satellite,1559078,2,50.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.8
-NH,Licensed Fixed Wireless,762137,5,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,2.0
-NH,DSL (Copper),132217,5,10.0,1.0,National average,Typical residential,50.0,25.0,2.0,5.0
-NH,LBR Fixed Wireless,6957,2,350.0,350.0,,,,,,
-NJ,Fiber,3991930,25,8000.0,8000.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.006
-NJ,Cable,2659689,7,1200.0,35.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.042
-NJ,LEO Satellite,2583442,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
-NJ,GSO Satellite,7750029,2,50.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.8
-NJ,Licensed Fixed Wireless,5005830,5,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,2.0
-NJ,Unlicensed Fixed Wireless,103,2,10.0,1.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,4.5
-NJ,DSL (Copper),65253,11,0.0,0.0,National average,Typical residential,50.0,25.0,2.0,inf
-NJ,LBR Fixed Wireless,43,1,1000.0,1000.0,,,,,,
-NM,Cable,615082,8,1200.0,35.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.042
-NM,Fiber,334954,43,1000.0,1000.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.05
-NM,LEO Satellite,853931,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
-NM,GSO Satellite,2490104,3,50.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.8
-NM,Licensed Fixed Wireless,1906135,16,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,2.0
-NM,DSL (Copper),628092,22,25.0,3.0,National average,Typical residential,50.0,25.0,2.0,2.0
-NM,Unlicensed Fixed Wireless,1240817,33,10.0,1.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,4.5
-NM,LBR Fixed Wireless,284994,8,200.0,50.0,,,,,,
-NV,Cable,817566,7,2000.0,100.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.025
-NV,Fiber,534485,31,2000.0,1000.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.025
-NV,Unlicensed Fixed Wireless,2197691,26,500.0,200.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,0.09
-NV,LEO Satellite,1024123,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
-NV,GSO Satellite,3072369,2,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.4
-NV,Licensed Fixed Wireless,2078692,10,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,2.0
-NV,DSL (Copper),546499,15,10.0,1.0,National average,Typical residential,50.0,25.0,2.0,5.0
-NV,LBR Fixed Wireless,49629,8,100.0,20.0,,,,,,
-NV,Other,1,1,0.0,0.0,,,,,,
-NY,Fiber,6598435,83,8000.0,8000.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.006
-NY,Cable,4445719,15,1000.0,35.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.05
-NY,LEO Satellite,4700029,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
-NY,GSO Satellite,14078313,3,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.4
-NY,Unlicensed Fixed Wireless,285489,14,100.0,8.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,0.45
-NY,Licensed Fixed Wireless,5337761,7,25.0,6.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,2.0
-NY,DSL (Copper),269093,29,10.0,1.0,National average,Typical residential,50.0,25.0,2.0,5.0
-NY,LBR Fixed Wireless,166646,3,100.0,10.0,,,,,,
-NY,Other,1,1,0.0,0.0,,,,,,
-OH,Fiber,3594816,97,3000.0,3000.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.017
-OH,Cable,4567906,24,1000.0,35.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.05
-OH,LEO Satellite,4541690,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
-OH,GSO Satellite,13387643,2,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.4
-OH,Unlicensed Fixed Wireless,679640,52,50.0,10.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,0.9
-OH,Licensed Fixed Wireless,9806722,16,25.0,6.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,2.0
-OH,DSL (Copper),1897825,34,25.0,3.0,National average,Typical residential,50.0,25.0,2.0,2.0
-OH,LBR Fixed Wireless,716542,19,100.0,40.0,,,,,,
-OK,Fiber,1488591,95,5000.0,5000.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.01
-OK,Cable,1078419,8,2000.0,50.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.025
-OK,LEO Satellite,1732477,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
-OK,GSO Satellite,5197910,2,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.4
-OK,Unlicensed Fixed Wireless,708640,36,50.0,10.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,0.9
-OK,Licensed Fixed Wireless,3339893,17,25.0,6.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,2.0
-OK,DSL (Copper),625934,44,25.0,3.0,National average,Typical residential,50.0,25.0,2.0,2.0
-OK,LBR Fixed Wireless,611818,21,100.0,20.0,,,,,,
-OK,Other,10,1,100.0,100.0,,,,,,
-OR,Fiber,960379,66,2500.0,2300.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.02
-OR,Cable,1299451,11,1200.0,50.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.042
-OR,LEO Satellite,1520628,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
-OR,GSO Satellite,4570092,3,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.4
-OR,Unlicensed Fixed Wireless,530165,37,100.0,15.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,0.45
-OR,Licensed Fixed Wireless,3054849,11,25.0,6.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,2.0
-OR,DSL (Copper),671566,24,10.0,1.0,National average,Typical residential,50.0,25.0,2.0,5.0
-OR,LBR Fixed Wireless,218478,11,400.0,50.0,,,,,,
-PA,Fiber,3743125,83,2000.0,2000.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.025
-PA,Cable,5318947,25,1500.0,40.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.033
-PA,LEO Satellite,4645639,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
-PA,Unlicensed Fixed Wireless,847304,27,200.0,50.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,0.225
-PA,GSO Satellite,14591849,3,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.4
-PA,Licensed Fixed Wireless,8855051,8,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,2.0
-PA,DSL (Copper),554478,26,10.0,1.0,National average,Typical residential,50.0,25.0,2.0,5.0
-PA,LBR Fixed Wireless,224105,12,100.0,100.0,,,,,,
-PA,Other,1,1,10.0,1.0,,,,,,
-RI,Cable,319912,6,2000.0,100.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.025
-RI,DSL (Copper),14,3,1000.0,1000.0,National average,Typical residential,50.0,25.0,2.0,0.05
-RI,Fiber,357943,9,980.0,880.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.051
-RI,Unlicensed Fixed Wireless,1,1,300.0,30.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,0.15
-RI,LEO Satellite,341168,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
-RI,GSO Satellite,1023236,2,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.4
-RI,Licensed Fixed Wireless,569999,3,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,2.0
-SC,Fiber,1700126,48,2000.0,2000.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.025
-SC,Cable,1890524,15,1000.0,35.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.05
-SC,LEO Satellite,2224440,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
-SC,GSO Satellite,6673339,2,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.4
-SC,Unlicensed Fixed Wireless,30042,5,25.0,10.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,1.8
-SC,Licensed Fixed Wireless,4132575,5,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,2.0
-SC,DSL (Copper),947431,23,10.0,1.0,National average,Typical residential,50.0,25.0,2.0,5.0
-SC,LBR Fixed Wireless,1308,1,10.0,1.0,,,,,,
-SD,Cable,340238,8,1250.0,60.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.04
-SD,Fiber,297542,50,1000.0,1000.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.05
-SD,LEO Satellite,395243,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
-SD,GSO Satellite,1090497,2,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.4
-SD,Unlicensed Fixed Wireless,101790,13,50.0,10.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,0.9
-SD,Licensed Fixed Wireless,633946,8,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,2.0
-SD,DSL (Copper),190302,17,10.0,1.0,National average,Typical residential,50.0,25.0,2.0,5.0
-SD,LBR Fixed Wireless,56815,7,100.0,20.0,,,,,,
-TN,Fiber,2814535,88,2500.0,2500.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.02
-TN,Cable,2314131,12,1200.0,35.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.042
-TN,LEO Satellite,2789051,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
-TN,GSO Satellite,8367840,2,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.4
-TN,Unlicensed Fixed Wireless,71790,15,60.0,8.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,0.75
-TN,Licensed Fixed Wireless,4958383,6,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,2.0
-TN,DSL (Copper),1413089,20,10.0,1.0,National average,Typical residential,50.0,25.0,2.0,5.0
-TN,LBR Fixed Wireless,3372,2,50.0,10.0,,,,,,
-TX,Fiber,10369034,178,5000.0,5000.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.01
-TX,Cable,8693494,23,1000.0,35.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.05
-TX,LEO Satellite,10227823,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
-TX,GSO Satellite,30680821,3,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.4
-TX,Unlicensed Fixed Wireless,5111566,128,100.0,20.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,0.45
-TX,Licensed Fixed Wireless,21010925,32,25.0,6.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,2.0
-TX,DSL (Copper),2871146,64,25.0,5.0,National average,Typical residential,50.0,25.0,2.0,2.0
-TX,LBR Fixed Wireless,1579944,35,200.0,50.0,,,,,,
-TX,Other,867,1,100.0,100.0,,,,,,
-UT,Fiber,1431851,37,2500.0,2500.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.02
-UT,Cable,862760,9,2000.0,250.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.025
-UT,LEO Satellite,1034144,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
-UT,GSO Satellite,3104711,3,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.4
-UT,Unlicensed Fixed Wireless,1054304,32,50.0,15.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,0.9
-UT,Licensed Fixed Wireless,2394996,10,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,2.0
-UT,DSL (Copper),601188,14,10.0,1.0,National average,Typical residential,50.0,25.0,2.0,5.0
-UT,LBR Fixed Wireless,249129,6,25.0,5.0,,,,,,
-VA,Cable,2344951,15,2000.0,35.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.025
-VA,Fiber,2315451,63,1000.0,1000.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.05
-VA,LEO Satellite,2915803,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
-VA,GSO Satellite,8751193,2,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.4
-VA,Unlicensed Fixed Wireless,193742,22,25.0,5.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,1.8
-VA,Licensed Fixed Wireless,4600239,11,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,2.0
-VA,DSL (Copper),271861,19,0.0,0.0,National average,Typical residential,50.0,25.0,2.0,inf
-VA,LBR Fixed Wireless,2784,3,100.0,20.0,,,,,,
-VT,Fiber,203946,22,2000.0,2000.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.025
-VT,Cable,191040,4,1200.0,35.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.042
-VT,LEO Satellite,282226,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
-VT,Unlicensed Fixed Wireless,9014,4,75.0,25.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,0.6
-VT,GSO Satellite,768584,2,50.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.8
-VT,Licensed Fixed Wireless,563775,5,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,2.0
-VT,DSL (Copper),108650,9,10.0,1.0,National average,Typical residential,50.0,25.0,2.0,5.0
-VT,LBR Fixed Wireless,7990,5,50.0,10.0,,,,,,
-WA,Cable,2294425,19,2000.0,250.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.025
-WA,Fiber,1177139,76,2000.0,1000.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.025
-WA,LEO Satellite,2572740,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
-WA,GSO Satellite,7728964,3,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.4
-WA,Unlicensed Fixed Wireless,1019823,44,100.0,20.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,0.45
-WA,Licensed Fixed Wireless,4967049,11,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,2.0
-WA,DSL (Copper),997359,21,25.0,3.0,National average,Typical residential,50.0,25.0,2.0,2.0
-WA,LBR Fixed Wireless,390382,11,50.0,10.0,,,,,,
-WI,Fiber,1397325,86,5000.0,5000.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.01
-WI,Cable,1615392,15,1000.0,35.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.05
-WI,LEO Satellite,2303344,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
-WI,GSO Satellite,6917041,3,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.4
-WI,Unlicensed Fixed Wireless,854064,30,100.0,20.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,0.45
-WI,Licensed Fixed Wireless,4166392,12,25.0,5.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,2.0
-WI,DSL (Copper),1180659,25,25.0,3.0,National average,Typical residential,50.0,25.0,2.0,2.0
-WI,LBR Fixed Wireless,520998,13,50.0,8.0,,,,,,
-WI,Other,1,1,0.0,0.0,,,,,,
-WV,Fiber,430234,31,7000.0,7000.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.007
-WV,Cable,665786,12,1000.0,35.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.05
-WV,LEO Satellite,893544,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
-WV,GSO Satellite,2695580,3,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.4
-WV,Unlicensed Fixed Wireless,137202,22,50.0,10.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,0.9
-WV,Licensed Fixed Wireless,1222230,4,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,2.0
-WV,DSL (Copper),155641,9,10.0,1.0,National average,Typical residential,50.0,25.0,2.0,5.0
-WV,LBR Fixed Wireless,13744,7,100.0,20.0,,,,,,
-WY,Fiber,138575,25,5000.0,5000.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,0.01
-WY,Cable,166372,5,1000.0,35.0,Spectrum,300 Mbps,50.0,300.0,0.167,0.05
-WY,LEO Satellite,260714,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,0.196
-WY,GSO Satellite,789778,3,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,0.4
-WY,Unlicensed Fixed Wireless,273250,21,100.0,25.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,0.45
-WY,Licensed Fixed Wireless,458864,8,50.0,6.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,1.0
-WY,DSL (Copper),177245,12,10.0,1.0,National average,Typical residential,50.0,25.0,2.0,5.0
-WY,LBR Fixed Wireless,74343,6,50.0,20.0,,,,,,
+state_usps,technology_label,locations_served,unique_providers,median_max_down_mbps,median_max_up_mbps,provider,plan,monthly_price_usd,advertised_mbps_down,cost_per_advertised_mbps_usd,price_basis,cost_per_fcc_median_mbps_usd
+AK,Cable,163680,3,2500.0,75.0,GCI Communication,No Worries 250,89.99,250.0,0.36,state_provider,0.036
+AK,Fiber,50007,21,1000.0,200.0,KPU Telecommunications,50/50,64.95,50.0,1.299,state_provider,0.065
+AK,LEO Satellite,281533,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,national,0.196
+AK,Unlicensed Fixed Wireless,136418,11,100.0,100.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,national,0.45
+AK,GSO Satellite,616193,2,50.0,3.0,Viasat,Essentials (150GB),40.0,150.0,0.267,national,0.8
+AK,Licensed Fixed Wireless,36055,6,10.0,1.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,national,5.0
+AK,DSL (Copper),145503,13,10.0,1.0,Alaska Communications,Unlimited Internet 75,84.99,75.0,1.133,state_provider,8.499
+AK,LBR Fixed Wireless,54916,1,300.0,75.0,,,,,,,
+AL,Fiber,1659237,65,2000.0,2000.0,AT&T Fiber,300 Mbps (standard),55.0,300.0,0.183,state_provider,0.028
+AL,Cable,1893635,14,1000.0,35.0,Spectrum,300 Mbps,50.0,300.0,0.167,state_provider,0.05
+AL,LEO Satellite,2197519,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,national,0.196
+AL,GSO Satellite,6602646,3,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,national,0.4
+AL,Unlicensed Fixed Wireless,24508,9,25.0,10.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,national,1.8
+AL,Licensed Fixed Wireless,3730200,7,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,national,2.0
+AL,DSL (Copper),1069352,25,10.0,1.0,National average,Typical residential,50.0,25.0,2.0,national,5.0
+AL,LBR Fixed Wireless,18069,1,100.0,20.0,,,,,,,
+AL,Other,1,1,30.0,30.0,,,,,,,
+AR,Fiber,1155860,71,2000.0,2000.0,AT&T Fiber,300 Mbps (standard),55.0,300.0,0.183,state_provider,0.028
+AR,Cable,889275,21,1200.0,50.0,Cox,StraightUp Internet,50.0,100.0,0.5,state_provider,0.042
+AR,LEO Satellite,1355779,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,national,0.196
+AR,GSO Satellite,4067884,2,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,national,0.4
+AR,Unlicensed Fixed Wireless,79432,28,45.0,10.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,national,1.0
+AR,Licensed Fixed Wireless,2367084,9,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,national,2.0
+AR,DSL (Copper),533541,21,10.0,1.0,National average,Typical residential,50.0,25.0,2.0,national,5.0
+AR,LBR Fixed Wireless,70921,11,25.0,3.0,,,,,,,
+AZ,Fiber,1557665,50,2300.0,2300.0,Quantum Fiber,500 Mbps,50.0,500.0,0.1,state_provider,0.022
+AZ,Cable,2038494,11,2000.0,100.0,Cox,StraightUp Internet,50.0,100.0,0.5,state_provider,0.025
+AZ,LEO Satellite,2755191,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,national,0.196
+AZ,GSO Satellite,8227689,3,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,national,0.4
+AZ,Unlicensed Fixed Wireless,3111626,42,100.0,25.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,national,0.45
+AZ,DSL (Copper),1797224,20,40.0,3.0,CenturyLink,Simply Unlimited Internet (entry),50.0,,,state_provider,1.25
+AZ,Licensed Fixed Wireless,5620131,10,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,national,2.0
+AZ,LBR Fixed Wireless,628704,9,400.0,100.0,,,,,,,
+AZ,Other,1,1,0.0,0.0,,,,,,,
+CA,Fiber,5429304,87,5000.0,5000.0,AT&T Fiber,300 Mbps (standard),55.0,300.0,0.183,state_provider,0.011
+CA,Cable,9659237,25,1000.0,35.0,Spectrum,300 Mbps,50.0,300.0,0.167,state_provider,0.05
+CA,LEO Satellite,10246075,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,national,0.196
+CA,GSO Satellite,30762079,3,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,national,0.4
+CA,Unlicensed Fixed Wireless,5575339,92,100.0,50.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,national,0.45
+CA,DSL (Copper),4567718,27,50.0,10.0,National average,Typical residential,50.0,25.0,2.0,national,1.0
+CA,Licensed Fixed Wireless,20621111,23,25.0,6.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,national,2.0
+CA,LBR Fixed Wireless,2160997,22,250.0,50.0,,,,,,,
+CA,Other,4,1,0.0,0.0,,,,,,,
+CO,Fiber,1502695,89,2000.0,2000.0,Quantum Fiber,500 Mbps,50.0,500.0,0.1,state_provider,0.025
+CO,Cable,1658876,10,2000.0,250.0,Xfinity,500 Mbps,55.0,500.0,0.11,state_provider,0.028
+CO,LEO Satellite,2002660,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,national,0.196
+CO,GSO Satellite,6014318,3,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,national,0.4
+CO,Unlicensed Fixed Wireless,1334546,53,50.0,10.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,national,0.9
+CO,DSL (Copper),1184080,23,40.0,3.0,CenturyLink,Simply Unlimited Internet (entry),50.0,,,state_provider,1.25
+CO,Licensed Fixed Wireless,3976215,19,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,national,2.0
+CO,LBR Fixed Wireless,752941,18,250.0,100.0,,,,,,,
+CT,Fiber,1790892,15,7000.0,7000.0,Frontier,Fiber 200,29.99,200.0,0.15,state_provider,0.004
+CT,Cable,1144684,5,2000.0,100.0,Xfinity,500 Mbps,55.0,500.0,0.11,state_provider,0.028
+CT,LEO Satellite,1090843,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,national,0.196
+CT,GSO Satellite,3271775,2,50.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,national,0.8
+CT,Licensed Fixed Wireless,2093490,3,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,national,2.0
+CT,DSL (Copper),178140,4,10.0,1.0,Frontier,Frontier Internet,64.99,,,state_provider,6.499
+DC,Cable,211386,3,1500.0,50.0,Xfinity,500 Mbps,55.0,500.0,0.11,state_provider,0.037
+DC,Fiber,142582,16,940.0,880.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,state_provider,0.053
+DC,LEO Satellite,123420,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,national,0.196
+DC,Unlicensed Fixed Wireless,18697,4,200.0,50.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,national,0.225
+DC,GSO Satellite,370493,2,150.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,national,0.267
+DC,DSL (Copper),105,4,100.0,100.0,Verizon High Speed Internet,High Speed Internet,40.0,15.0,2.667,state_provider,0.4
+DC,Licensed Fixed Wireless,254898,4,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,national,2.0
+DE,Fiber,285581,12,2300.0,2300.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,state_provider,0.022
+DE,Cable,389908,4,1200.0,50.0,Xfinity,500 Mbps,55.0,500.0,0.11,state_provider,0.046
+DE,DSL (Copper),4,1,225.0,115.0,Verizon High Speed Internet,High Speed Internet,40.0,15.0,2.667,state_provider,0.178
+DE,LEO Satellite,404574,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,national,0.196
+DE,GSO Satellite,1213722,2,150.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,national,0.267
+DE,Unlicensed Fixed Wireless,25163,3,25.0,3.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,national,1.8
+DE,Licensed Fixed Wireless,855086,4,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,national,2.0
+DE,LBR Fixed Wireless,10092,1,50.0,10.0,,,,,,,
+FL,Fiber,6217194,76,5000.0,5000.0,AT&T Fiber,300 Mbps (standard),55.0,300.0,0.183,state_provider,0.011
+FL,Cable,7355352,17,1200.0,35.0,Xfinity,500 Mbps,55.0,500.0,0.11,state_provider,0.046
+FL,LEO Satellite,7659382,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,national,0.196
+FL,GSO Satellite,22993764,3,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,national,0.4
+FL,Unlicensed Fixed Wireless,178258,18,50.0,25.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,national,0.9
+FL,Licensed Fixed Wireless,16010328,10,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,national,2.0
+FL,DSL (Copper),3427638,20,10.0,1.0,National average,Typical residential,50.0,25.0,2.0,national,5.0
+FL,LBR Fixed Wireless,628004,8,50.0,10.0,,,,,,,
+FL,Other,3,1,1000.0,1000.0,,,,,,,
+GA,Fiber,2988931,101,2000.0,2000.0,AT&T Fiber,300 Mbps (standard),55.0,300.0,0.183,state_provider,0.028
+GA,Cable,3444290,25,1200.0,50.0,Xfinity,500 Mbps,55.0,500.0,0.11,state_provider,0.046
+GA,LEO Satellite,3862293,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,national,0.196
+GA,GSO Satellite,11601441,3,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,national,0.4
+GA,Unlicensed Fixed Wireless,26241,15,50.0,5.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,national,0.9
+GA,Licensed Fixed Wireless,6775248,8,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,national,2.0
+GA,DSL (Copper),1887066,31,10.0,1.0,National average,Typical residential,50.0,25.0,2.0,national,5.0
+GA,LBR Fixed Wireless,2106,1,100.0,100.0,,,,,,,
+HI,Fiber,514672,7,940.0,500.0,Hawaiian Telcom,Fioptics 100,30.0,100.0,0.3,state_provider,0.032
+HI,Unlicensed Fixed Wireless,7,2,1000.0,1000.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,national,0.045
+HI,Cable,300832,2,1000.0,35.0,Spectrum,300 Mbps,50.0,300.0,0.167,state_provider,0.05
+HI,LEO Satellite,320368,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,national,0.196
+HI,GSO Satellite,639996,1,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,national,0.4
+HI,Licensed Fixed Wireless,276614,3,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,national,2.0
+HI,DSL (Copper),47351,6,10.0,1.0,National average,Typical residential,50.0,25.0,2.0,national,5.0
+IA,Fiber,1693569,217,2000.0,2000.0,Metronet,150 Mbps,34.95,150.0,0.233,state_provider,0.017
+IA,Cable,914732,27,1000.0,50.0,Mediacom,Xtream Internet 300,50.0,300.0,0.167,state_provider,0.05
+IA,LEO Satellite,1350247,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,national,0.196
+IA,GSO Satellite,4049127,2,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,national,0.4
+IA,Unlicensed Fixed Wireless,509295,60,50.0,10.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,national,0.9
+IA,Licensed Fixed Wireless,2421110,15,25.0,6.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,national,2.0
+IA,DSL (Copper),783602,38,10.0,1.0,CenturyLink,Simply Unlimited Internet (entry),50.0,,,state_provider,5.0
+IA,LBR Fixed Wireless,322165,19,150.0,130.0,,,,,,,
+ID,Fiber,599610,48,2000.0,2000.0,Quantum Fiber,500 Mbps,50.0,500.0,0.1,state_provider,0.025
+ID,Cable,505792,13,1000.0,50.0,Sparklight,Internet (entry),39.95,,,state_provider,0.04
+ID,LEO Satellite,763640,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,national,0.196
+ID,Licensed Fixed Wireless,1154690,12,120.0,20.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,national,0.417
+ID,GSO Satellite,2294383,3,50.0,3.0,Viasat,Essentials (150GB),40.0,150.0,0.267,national,0.8
+ID,Unlicensed Fixed Wireless,879982,33,50.0,10.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,national,0.9
+ID,DSL (Copper),420160,22,25.0,3.0,CenturyLink,Simply Unlimited Internet (entry),50.0,,,state_provider,2.0
+ID,LBR Fixed Wireless,159740,13,100.0,10.0,,,,,,,
+IL,Fiber,2558108,116,5120.0,5120.0,AT&T Fiber,300 Mbps (standard),55.0,300.0,0.183,state_provider,0.011
+IL,Cable,4076726,12,1500.0,150.0,Xfinity,500 Mbps,55.0,500.0,0.11,state_provider,0.037
+IL,LEO Satellite,4126493,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,national,0.196
+IL,GSO Satellite,12380745,2,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,national,0.4
+IL,Unlicensed Fixed Wireless,849468,55,60.0,10.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,national,0.75
+IL,DSL (Copper),2149896,34,50.0,10.0,National average,Typical residential,50.0,25.0,2.0,national,1.0
+IL,Licensed Fixed Wireless,8960016,14,25.0,6.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,national,2.0
+IL,LBR Fixed Wireless,504872,22,100.0,20.0,,,,,,,
+IL,Other,13,1,0.0,0.0,,,,,,,
+IN,Fiber,2619519,92,5000.0,5000.0,AT&T Fiber,300 Mbps (standard),55.0,300.0,0.183,state_provider,0.011
+IN,Cable,2185767,9,1200.0,35.0,Xfinity,500 Mbps,55.0,500.0,0.11,state_provider,0.046
+IN,LEO Satellite,2724288,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,national,0.196
+IN,GSO Satellite,8173855,2,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,national,0.4
+IN,Unlicensed Fixed Wireless,1149396,48,25.0,3.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,national,1.8
+IN,Licensed Fixed Wireless,5149238,12,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,national,2.0
+IN,DSL (Copper),1027309,29,25.0,3.0,National average,Typical residential,50.0,25.0,2.0,national,2.0
+IN,LBR Fixed Wireless,522347,21,150.0,20.0,,,,,,,
+KS,Fiber,1406083,87,2500.0,2500.0,AT&T Fiber,300 Mbps (standard),55.0,300.0,0.183,state_provider,0.022
+KS,Cable,983212,22,2000.0,50.0,Cox,StraightUp Internet,50.0,100.0,0.5,state_provider,0.025
+KS,LEO Satellite,1189259,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,national,0.196
+KS,GSO Satellite,3568184,2,100.0,3.0,Viasat,Essentials (150GB),40.0,150.0,0.267,national,0.4
+KS,Unlicensed Fixed Wireless,353966,42,100.0,12.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,national,0.45
+KS,Licensed Fixed Wireless,2279170,16,25.0,6.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,national,2.0
+KS,DSL (Copper),483225,21,25.0,3.0,National average,Typical residential,50.0,25.0,2.0,national,2.0
+KS,LBR Fixed Wireless,452223,25,100.0,20.0,,,,,,,
+KS,Other,1,1,0.0,0.0,,,,,,,
+KY,Fiber,1740690,68,3000.0,2000.0,AT&T Fiber,300 Mbps (standard),55.0,300.0,0.183,state_provider,0.018
+KY,Cable,1315520,25,1000.0,1000.0,Spectrum,300 Mbps,50.0,300.0,0.167,state_provider,0.05
+KY,LEO Satellite,1839054,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,national,0.196
+KY,GSO Satellite,5521885,3,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,national,0.4
+KY,Unlicensed Fixed Wireless,297289,21,100.0,30.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,national,0.45
+KY,Licensed Fixed Wireless,3164379,9,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,national,2.0
+KY,DSL (Copper),712696,14,10.0,1.0,National average,Typical residential,50.0,25.0,2.0,national,5.0
+KY,LBR Fixed Wireless,36403,7,50.0,10.0,,,,,,,
+LA,Fiber,1281390,46,5000.0,5000.0,AT&T Fiber,300 Mbps (standard),55.0,300.0,0.183,state_provider,0.011
+LA,Cable,1568065,13,1200.0,35.0,Cox,StraightUp Internet,50.0,100.0,0.5,state_provider,0.042
+LA,LEO Satellite,1868460,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,national,0.196
+LA,GSO Satellite,5610175,3,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,national,0.4
+LA,Unlicensed Fixed Wireless,291938,18,50.0,50.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,national,0.9
+LA,Licensed Fixed Wireless,3194640,6,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,national,2.0
+LA,DSL (Copper),898445,12,10.0,1.0,National average,Typical residential,50.0,25.0,2.0,national,5.0
+LA,LBR Fixed Wireless,88618,6,499.0,100.0,,,,,,,
+MA,Cable,2169468,6,1500.0,250.0,Xfinity,500 Mbps,55.0,500.0,0.11,state_provider,0.037
+MA,Fiber,1337932,32,980.0,880.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,state_provider,0.051
+MA,LEO Satellite,1937065,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,national,0.196
+MA,Unlicensed Fixed Wireless,87971,6,150.0,150.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,national,0.3
+MA,GSO Satellite,5858804,2,50.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,national,0.8
+MA,Licensed Fixed Wireless,3258457,4,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,national,2.0
+MA,DSL (Copper),664,5,10.0,1.0,Verizon High Speed Internet,High Speed Internet,40.0,15.0,2.667,state_provider,4.0
+MA,LBR Fixed Wireless,43592,3,520.0,116.0,,,,,,,
+MA,Other,2,1,0.0,0.0,,,,,,,
+MD,Cable,1890255,13,2000.0,250.0,Xfinity,500 Mbps,55.0,500.0,0.11,state_provider,0.028
+MD,Fiber,1487706,39,1000.0,1000.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,state_provider,0.05
+MD,LEO Satellite,1777541,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,national,0.196
+MD,GSO Satellite,5577488,2,150.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,national,0.267
+MD,Licensed Fixed Wireless,3300636,10,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,national,2.0
+MD,DSL (Copper),7090,8,10.0,1.0,Verizon High Speed Internet,High Speed Internet,40.0,15.0,2.667,state_provider,4.0
+MD,Unlicensed Fixed Wireless,553092,19,10.0,1.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,national,4.5
+MD,LBR Fixed Wireless,47995,4,10.0,1.0,,,,,,,
+ME,Fiber,504432,21,2000.0,2000.0,Fidium,Essential (100 Mbps),30.0,100.0,0.3,state_provider,0.015
+ME,Cable,526222,3,1000.0,35.0,Spectrum,300 Mbps,50.0,300.0,0.167,state_provider,0.05
+ME,LEO Satellite,639593,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,national,0.196
+ME,GSO Satellite,1259926,3,100.0,5.0,Viasat,Essentials (150GB),40.0,150.0,0.267,national,0.4
+ME,Unlicensed Fixed Wireless,18807,3,50.0,50.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,national,0.9
+ME,Licensed Fixed Wireless,1049340,5,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,national,2.0
+ME,DSL (Copper),173661,13,10.0,1.0,Consolidated Communications,DSL,25.0,18.0,1.389,state_provider,2.5
+ME,LBR Fixed Wireless,4434,2,400.0,100.0,,,,,,,
+MI,Fiber,2149114,84,5000.0,5000.0,AT&T Fiber,300 Mbps (standard),55.0,300.0,0.183,state_provider,0.011
+MI,Cable,4037119,15,1200.0,35.0,Xfinity,500 Mbps,55.0,500.0,0.11,state_provider,0.046
+MI,LEO Satellite,4014841,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,national,0.196
+MI,GSO Satellite,12000459,2,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,national,0.4
+MI,DSL (Copper),1827200,30,30.0,10.0,National average,Typical residential,50.0,25.0,2.0,national,1.667
+MI,Licensed Fixed Wireless,7323235,13,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,national,2.0
+MI,Unlicensed Fixed Wireless,677556,33,0.0,0.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,national,inf
+MI,LBR Fixed Wireless,472698,17,150.0,20.0,,,,,,,
+MN,Fiber,1632640,111,2000.0,2000.0,Quantum Fiber,500 Mbps,50.0,500.0,0.1,state_provider,0.025
+MN,Cable,1617159,16,1200.0,50.0,Xfinity,500 Mbps,55.0,500.0,0.11,state_provider,0.046
+MN,LEO Satellite,2121667,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,national,0.196
+MN,GSO Satellite,6001068,2,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,national,0.4
+MN,Unlicensed Fixed Wireless,271186,37,100.0,30.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,national,0.45
+MN,Licensed Fixed Wireless,4309804,19,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,national,2.0
+MN,DSL (Copper),1238586,45,10.0,1.0,CenturyLink,Simply Unlimited Internet (entry),50.0,,,state_provider,5.0
+MN,LBR Fixed Wireless,674284,20,150.0,130.0,,,,,,,
+MN,Other,1,1,0.0,0.0,,,,,,,
+MO,Fiber,2230406,110,2500.0,2500.0,AT&T Fiber,300 Mbps (standard),55.0,300.0,0.183,state_provider,0.022
+MO,Cable,1804875,17,1000.0,50.0,Spectrum,300 Mbps,50.0,300.0,0.167,state_provider,0.05
+MO,LEO Satellite,2510537,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,national,0.196
+MO,GSO Satellite,7533168,2,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,national,0.4
+MO,Unlicensed Fixed Wireless,1740135,58,50.0,10.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,national,0.9
+MO,Licensed Fixed Wireless,4846975,8,25.0,6.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,national,2.0
+MO,DSL (Copper),1313292,31,10.0,1.0,National average,Typical residential,50.0,25.0,2.0,national,5.0
+MO,LBR Fixed Wireless,339817,15,100.0,20.0,,,,,,,
+MO,Other,1,1,0.0,0.0,,,,,,,
+MS,Fiber,1232288,54,2000.0,2000.0,AT&T Fiber,300 Mbps (standard),55.0,300.0,0.183,state_provider,0.028
+MS,Cable,745808,10,1000.0,50.0,Xfinity,500 Mbps,55.0,500.0,0.11,state_provider,0.055
+MS,LEO Satellite,1321855,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,national,0.196
+MS,GSO Satellite,3979522,3,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,national,0.4
+MS,Licensed Fixed Wireless,2568464,5,100.0,6.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,national,0.5
+MS,Unlicensed Fixed Wireless,18327,6,50.0,5.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,national,0.9
+MS,DSL (Copper),645756,21,10.0,1.0,National average,Typical residential,50.0,25.0,2.0,national,5.0
+MS,LBR Fixed Wireless,43589,3,335.0,192.0,,,,,,,
+MT,Fiber,215102,42,1000.0,1000.0,Montana Opticom,Fiber,45.0,1000.0,0.045,state_provider,0.045
+MT,Cable,267654,5,1000.0,35.0,Spectrum,300 Mbps,50.0,300.0,0.167,state_provider,0.05
+MT,LEO Satellite,490379,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,national,0.196
+MT,Unlicensed Fixed Wireless,258498,24,100.0,32.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,national,0.45
+MT,GSO Satellite,1415897,3,50.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,national,0.8
+MT,Licensed Fixed Wireless,748598,11,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,national,2.0
+MT,DSL (Copper),316785,18,10.0,1.0,CenturyLink,Simply Unlimited Internet (entry),50.0,,,state_provider,5.0
+MT,LBR Fixed Wireless,47652,5,25.0,5.0,,,,,,,
+NC,Fiber,3789193,69,5000.0,5000.0,AT&T Fiber,300 Mbps (standard),55.0,300.0,0.183,state_provider,0.011
+NC,Cable,3659891,22,1000.0,35.0,Spectrum,300 Mbps,50.0,300.0,0.167,state_provider,0.05
+NC,LEO Satellite,4381390,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,national,0.196
+NC,GSO Satellite,13143566,2,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,national,0.4
+NC,Unlicensed Fixed Wireless,357736,15,25.0,10.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,national,1.8
+NC,Licensed Fixed Wireless,8163089,7,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,national,2.0
+NC,DSL (Copper),2026675,31,10.0,1.0,Brightspeed,Internet 100,50.0,100.0,0.5,state_provider,5.0
+NC,LBR Fixed Wireless,6134,3,100.0,20.0,,,,,,,
+ND,Cable,341856,6,2000.0,350.0,Midco,Internet 250,49.0,250.0,0.196,state_provider,0.024
+ND,Fiber,261627,43,1000.0,1000.0,SRT Communications,Fiber (entry),34.95,,,state_provider,0.035
+ND,LEO Satellite,325298,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,national,0.196
+ND,GSO Satellite,660653,2,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,national,0.4
+ND,Unlicensed Fixed Wireless,127,1,100.0,75.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,national,0.45
+ND,Licensed Fixed Wireless,581060,8,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,national,2.0
+ND,DSL (Copper),117326,8,10.0,1.0,CenturyLink,Simply Unlimited Internet (entry),50.0,,,state_provider,5.0
+ND,LBR Fixed Wireless,5209,2,25.0,3.0,,,,,,,
+NE,Fiber,866753,72,2000.0,2000.0,Allo Communications,Fiber (entry),79.0,,,state_provider,0.04
+NE,Cable,539848,17,1000.0,35.0,Cox,StraightUp Internet,50.0,100.0,0.5,state_provider,0.05
+NE,LEO Satellite,792248,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,national,0.196
+NE,GSO Satellite,2371048,2,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,national,0.4
+NE,Unlicensed Fixed Wireless,397821,32,50.0,10.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,national,0.9
+NE,Licensed Fixed Wireless,1624678,8,25.0,6.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,national,2.0
+NE,DSL (Copper),427141,20,10.0,1.0,CenturyLink,Simply Unlimited Internet (entry),50.0,,,state_provider,5.0
+NE,LBR Fixed Wireless,290190,12,150.0,100.0,,,,,,,
+NH,Fiber,412862,17,2000.0,2000.0,Fidium,Essential (100 Mbps),30.0,100.0,0.3,state_provider,0.015
+NH,Cable,478690,3,1200.0,250.0,Xfinity,500 Mbps,55.0,500.0,0.11,state_provider,0.046
+NH,LEO Satellite,514626,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,national,0.196
+NH,Unlicensed Fixed Wireless,13200,2,150.0,150.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,national,0.3
+NH,GSO Satellite,1559078,2,50.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,national,0.8
+NH,Licensed Fixed Wireless,762137,5,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,national,2.0
+NH,DSL (Copper),132217,5,10.0,1.0,Consolidated Communications,DSL,25.0,18.0,1.389,state_provider,2.5
+NH,LBR Fixed Wireless,6957,2,350.0,350.0,,,,,,,
+NJ,Fiber,3991930,25,8000.0,8000.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,state_provider,0.006
+NJ,Cable,2659689,7,1200.0,35.0,Xfinity,500 Mbps,55.0,500.0,0.11,state_provider,0.046
+NJ,LEO Satellite,2583442,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,national,0.196
+NJ,GSO Satellite,7750029,2,50.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,national,0.8
+NJ,Licensed Fixed Wireless,5005830,5,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,national,2.0
+NJ,Unlicensed Fixed Wireless,103,2,10.0,1.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,national,4.5
+NJ,DSL (Copper),65253,11,0.0,0.0,Verizon High Speed Internet,High Speed Internet,40.0,15.0,2.667,state_provider,inf
+NJ,LBR Fixed Wireless,43,1,1000.0,1000.0,,,,,,,
+NM,Cable,615082,8,1200.0,35.0,Xfinity,500 Mbps,55.0,500.0,0.11,state_provider,0.046
+NM,Fiber,334954,43,1000.0,1000.0,Ezee Fiber,1 Gig,69.0,1000.0,0.069,state_provider,0.069
+NM,LEO Satellite,853931,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,national,0.196
+NM,GSO Satellite,2490104,3,50.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,national,0.8
+NM,Licensed Fixed Wireless,1906135,16,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,national,2.0
+NM,DSL (Copper),628092,22,25.0,3.0,CenturyLink,Simply Unlimited Internet (entry),50.0,,,state_provider,2.0
+NM,Unlicensed Fixed Wireless,1240817,33,10.0,1.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,national,4.5
+NM,LBR Fixed Wireless,284994,8,200.0,50.0,,,,,,,
+NV,Cable,817566,7,2000.0,100.0,Cox,StraightUp Internet,50.0,100.0,0.5,state_provider,0.025
+NV,Fiber,534485,31,2000.0,1000.0,Quantum Fiber,500 Mbps,50.0,500.0,0.1,state_provider,0.025
+NV,Unlicensed Fixed Wireless,2197691,26,500.0,200.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,national,0.09
+NV,LEO Satellite,1024123,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,national,0.196
+NV,GSO Satellite,3072369,2,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,national,0.4
+NV,Licensed Fixed Wireless,2078692,10,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,national,2.0
+NV,DSL (Copper),546499,15,10.0,1.0,CenturyLink,Simply Unlimited Internet (entry),50.0,,,state_provider,5.0
+NV,LBR Fixed Wireless,49629,8,100.0,20.0,,,,,,,
+NV,Other,1,1,0.0,0.0,,,,,,,
+NY,Fiber,6598435,83,8000.0,8000.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,state_provider,0.006
+NY,Cable,4445719,15,1000.0,35.0,Spectrum,300 Mbps,50.0,300.0,0.167,state_provider,0.05
+NY,LEO Satellite,4700029,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,national,0.196
+NY,GSO Satellite,14078313,3,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,national,0.4
+NY,Unlicensed Fixed Wireless,285489,14,100.0,8.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,national,0.45
+NY,Licensed Fixed Wireless,5337761,7,25.0,6.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,national,2.0
+NY,DSL (Copper),269093,29,10.0,1.0,Verizon High Speed Internet,High Speed Internet,40.0,15.0,2.667,state_provider,4.0
+NY,LBR Fixed Wireless,166646,3,100.0,10.0,,,,,,,
+NY,Other,1,1,0.0,0.0,,,,,,,
+OH,Fiber,3594816,97,3000.0,3000.0,AT&T Fiber,300 Mbps (standard),55.0,300.0,0.183,state_provider,0.018
+OH,Cable,4567906,24,1000.0,35.0,Spectrum,300 Mbps,50.0,300.0,0.167,state_provider,0.05
+OH,LEO Satellite,4541690,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,national,0.196
+OH,GSO Satellite,13387643,2,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,national,0.4
+OH,Unlicensed Fixed Wireless,679640,52,50.0,10.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,national,0.9
+OH,Licensed Fixed Wireless,9806722,16,25.0,6.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,national,2.0
+OH,DSL (Copper),1897825,34,25.0,3.0,National average,Typical residential,50.0,25.0,2.0,national,2.0
+OH,LBR Fixed Wireless,716542,19,100.0,40.0,,,,,,,
+OK,Fiber,1488591,95,5000.0,5000.0,AT&T Fiber,300 Mbps (standard),55.0,300.0,0.183,state_provider,0.011
+OK,Cable,1078419,8,2000.0,50.0,Cox,StraightUp Internet,50.0,100.0,0.5,state_provider,0.025
+OK,LEO Satellite,1732477,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,national,0.196
+OK,GSO Satellite,5197910,2,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,national,0.4
+OK,Unlicensed Fixed Wireless,708640,36,50.0,10.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,national,0.9
+OK,Licensed Fixed Wireless,3339893,17,25.0,6.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,national,2.0
+OK,DSL (Copper),625934,44,25.0,3.0,National average,Typical residential,50.0,25.0,2.0,national,2.0
+OK,LBR Fixed Wireless,611818,21,100.0,20.0,,,,,,,
+OK,Other,10,1,100.0,100.0,,,,,,,
+OR,Fiber,960379,66,2500.0,2300.0,Ziply Fiber,Fiber (entry),35.0,,,state_provider,0.014
+OR,Cable,1299451,11,1200.0,50.0,Xfinity,500 Mbps,55.0,500.0,0.11,state_provider,0.046
+OR,LEO Satellite,1520628,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,national,0.196
+OR,GSO Satellite,4570092,3,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,national,0.4
+OR,Unlicensed Fixed Wireless,530165,37,100.0,15.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,national,0.45
+OR,Licensed Fixed Wireless,3054849,11,25.0,6.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,national,2.0
+OR,DSL (Copper),671566,24,10.0,1.0,CenturyLink,Simply Unlimited Internet (entry),50.0,,,state_provider,5.0
+OR,LBR Fixed Wireless,218478,11,400.0,50.0,,,,,,,
+PA,Fiber,3743125,83,2000.0,2000.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,state_provider,0.025
+PA,Cable,5318947,25,1500.0,40.0,Xfinity,500 Mbps,55.0,500.0,0.11,state_provider,0.037
+PA,LEO Satellite,4645639,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,national,0.196
+PA,Unlicensed Fixed Wireless,847304,27,200.0,50.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,national,0.225
+PA,GSO Satellite,14591849,3,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,national,0.4
+PA,Licensed Fixed Wireless,8855051,8,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,national,2.0
+PA,DSL (Copper),554478,26,10.0,1.0,Verizon High Speed Internet,High Speed Internet,40.0,15.0,2.667,state_provider,4.0
+PA,LBR Fixed Wireless,224105,12,100.0,100.0,,,,,,,
+PA,Other,1,1,10.0,1.0,,,,,,,
+RI,Cable,319912,6,2000.0,100.0,Cox,StraightUp Internet,50.0,100.0,0.5,state_provider,0.025
+RI,DSL (Copper),14,3,1000.0,1000.0,Verizon High Speed Internet,High Speed Internet,40.0,15.0,2.667,state_provider,0.04
+RI,Fiber,357943,9,980.0,880.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,state_provider,0.051
+RI,Unlicensed Fixed Wireless,1,1,300.0,30.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,national,0.15
+RI,LEO Satellite,341168,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,national,0.196
+RI,GSO Satellite,1023236,2,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,national,0.4
+RI,Licensed Fixed Wireless,569999,3,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,national,2.0
+SC,Fiber,1700126,48,2000.0,2000.0,AT&T Fiber,300 Mbps (standard),55.0,300.0,0.183,state_provider,0.028
+SC,Cable,1890524,15,1000.0,35.0,Spectrum,300 Mbps,50.0,300.0,0.167,state_provider,0.05
+SC,LEO Satellite,2224440,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,national,0.196
+SC,GSO Satellite,6673339,2,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,national,0.4
+SC,Unlicensed Fixed Wireless,30042,5,25.0,10.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,national,1.8
+SC,Licensed Fixed Wireless,4132575,5,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,national,2.0
+SC,DSL (Copper),947431,23,10.0,1.0,National average,Typical residential,50.0,25.0,2.0,national,5.0
+SC,LBR Fixed Wireless,1308,1,10.0,1.0,,,,,,,
+SD,Cable,340238,8,1250.0,60.0,Midco,Internet 250,49.0,250.0,0.196,state_provider,0.039
+SD,Fiber,297542,50,1000.0,1000.0,Golden West Telecommunications,1 Gig,59.95,1000.0,0.06,state_provider,0.06
+SD,LEO Satellite,395243,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,national,0.196
+SD,GSO Satellite,1090497,2,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,national,0.4
+SD,Unlicensed Fixed Wireless,101790,13,50.0,10.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,national,0.9
+SD,Licensed Fixed Wireless,633946,8,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,national,2.0
+SD,DSL (Copper),190302,17,10.0,1.0,CenturyLink,Simply Unlimited Internet (entry),50.0,,,state_provider,5.0
+SD,LBR Fixed Wireless,56815,7,100.0,20.0,,,,,,,
+TN,Fiber,2814535,88,2500.0,2500.0,AT&T Fiber,300 Mbps (standard),55.0,300.0,0.183,state_provider,0.022
+TN,Cable,2314131,12,1200.0,35.0,Xfinity,500 Mbps,55.0,500.0,0.11,state_provider,0.046
+TN,LEO Satellite,2789051,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,national,0.196
+TN,GSO Satellite,8367840,2,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,national,0.4
+TN,Unlicensed Fixed Wireless,71790,15,60.0,8.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,national,0.75
+TN,Licensed Fixed Wireless,4958383,6,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,national,2.0
+TN,DSL (Copper),1413089,20,10.0,1.0,National average,Typical residential,50.0,25.0,2.0,national,5.0
+TN,LBR Fixed Wireless,3372,2,50.0,10.0,,,,,,,
+TX,Fiber,10369034,178,5000.0,5000.0,AT&T Fiber,300 Mbps (standard),55.0,300.0,0.183,state_provider,0.011
+TX,Cable,8693494,23,1000.0,35.0,Spectrum,300 Mbps,50.0,300.0,0.167,state_provider,0.05
+TX,LEO Satellite,10227823,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,national,0.196
+TX,GSO Satellite,30680821,3,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,national,0.4
+TX,Unlicensed Fixed Wireless,5111566,128,100.0,20.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,national,0.45
+TX,Licensed Fixed Wireless,21010925,32,25.0,6.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,national,2.0
+TX,DSL (Copper),2871146,64,25.0,5.0,National average,Typical residential,50.0,25.0,2.0,national,2.0
+TX,LBR Fixed Wireless,1579944,35,200.0,50.0,,,,,,,
+TX,Other,867,1,100.0,100.0,,,,,,,
+UT,Fiber,1431851,37,2500.0,2500.0,Quantum Fiber,500 Mbps,50.0,500.0,0.1,state_provider,0.02
+UT,Cable,862760,9,2000.0,250.0,Xfinity,500 Mbps,55.0,500.0,0.11,state_provider,0.028
+UT,LEO Satellite,1034144,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,national,0.196
+UT,GSO Satellite,3104711,3,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,national,0.4
+UT,Unlicensed Fixed Wireless,1054304,32,50.0,15.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,national,0.9
+UT,Licensed Fixed Wireless,2394996,10,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,national,2.0
+UT,DSL (Copper),601188,14,10.0,1.0,CenturyLink,Simply Unlimited Internet (entry),50.0,,,state_provider,5.0
+UT,LBR Fixed Wireless,249129,6,25.0,5.0,,,,,,,
+VA,Cable,2344951,15,2000.0,35.0,Xfinity,500 Mbps,55.0,500.0,0.11,state_provider,0.028
+VA,Fiber,2315451,63,1000.0,1000.0,Verizon Fios,300 Mbps,50.0,300.0,0.167,state_provider,0.05
+VA,LEO Satellite,2915803,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,national,0.196
+VA,GSO Satellite,8751193,2,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,national,0.4
+VA,Unlicensed Fixed Wireless,193742,22,25.0,5.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,national,1.8
+VA,Licensed Fixed Wireless,4600239,11,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,national,2.0
+VA,DSL (Copper),271861,19,0.0,0.0,Verizon High Speed Internet,High Speed Internet,40.0,15.0,2.667,state_provider,inf
+VA,LBR Fixed Wireless,2784,3,100.0,20.0,,,,,,,
+VT,Fiber,203946,22,2000.0,2000.0,Fidium,Essential (100 Mbps),30.0,100.0,0.3,state_provider,0.015
+VT,Cable,191040,4,1200.0,35.0,Xfinity,500 Mbps,55.0,500.0,0.11,state_provider,0.046
+VT,LEO Satellite,282226,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,national,0.196
+VT,Unlicensed Fixed Wireless,9014,4,75.0,25.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,national,0.6
+VT,GSO Satellite,768584,2,50.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,national,0.8
+VT,Licensed Fixed Wireless,563775,5,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,national,2.0
+VT,DSL (Copper),108650,9,10.0,1.0,Consolidated Communications,DSL,25.0,18.0,1.389,state_provider,2.5
+VT,LBR Fixed Wireless,7990,5,50.0,10.0,,,,,,,
+WA,Fiber,1177139,76,2000.0,1000.0,Quantum Fiber,500 Mbps,50.0,500.0,0.1,state_provider,0.025
+WA,Cable,2294425,19,2000.0,250.0,Xfinity,500 Mbps,55.0,500.0,0.11,state_provider,0.028
+WA,LEO Satellite,2572740,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,national,0.196
+WA,GSO Satellite,7728964,3,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,national,0.4
+WA,Unlicensed Fixed Wireless,1019823,44,100.0,20.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,national,0.45
+WA,Licensed Fixed Wireless,4967049,11,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,national,2.0
+WA,DSL (Copper),997359,21,25.0,3.0,CenturyLink,Simply Unlimited Internet (entry),50.0,,,state_provider,2.0
+WA,LBR Fixed Wireless,390382,11,50.0,10.0,,,,,,,
+WI,Fiber,1397325,86,5000.0,5000.0,AT&T Fiber,300 Mbps (standard),55.0,300.0,0.183,state_provider,0.011
+WI,Cable,1615392,15,1000.0,35.0,Spectrum,300 Mbps,50.0,300.0,0.167,state_provider,0.05
+WI,LEO Satellite,2303344,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,national,0.196
+WI,GSO Satellite,6917041,3,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,national,0.4
+WI,Unlicensed Fixed Wireless,854064,30,100.0,20.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,national,0.45
+WI,Licensed Fixed Wireless,4166392,12,25.0,5.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,national,2.0
+WI,DSL (Copper),1180659,25,25.0,3.0,National average,Typical residential,50.0,25.0,2.0,national,2.0
+WI,LBR Fixed Wireless,520998,13,50.0,8.0,,,,,,,
+WI,Other,1,1,0.0,0.0,,,,,,,
+WV,Fiber,430234,31,7000.0,7000.0,Frontier,Fiber 200,29.99,200.0,0.15,state_provider,0.004
+WV,Cable,665786,12,1000.0,35.0,Optimum,300 Mbps,30.0,300.0,0.1,state_provider,0.03
+WV,LEO Satellite,893544,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,national,0.196
+WV,GSO Satellite,2695580,3,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,national,0.4
+WV,Unlicensed Fixed Wireless,137202,22,50.0,10.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,national,0.9
+WV,Licensed Fixed Wireless,1222230,4,25.0,3.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,national,2.0
+WV,DSL (Copper),155641,9,10.0,1.0,Frontier,Frontier Internet,64.99,,,state_provider,6.499
+WV,LBR Fixed Wireless,13744,7,100.0,20.0,,,,,,,
+WY,Fiber,138575,25,5000.0,5000.0,Bluepeak,1 Gig,55.0,1000.0,0.055,state_provider,0.011
+WY,Cable,166372,5,1000.0,35.0,Spectrum,300 Mbps,50.0,300.0,0.167,state_provider,0.05
+WY,LEO Satellite,260714,1,280.0,30.0,Starlink,Residential,55.0,100.0,0.55,national,0.196
+WY,GSO Satellite,789778,3,100.0,4.0,Viasat,Essentials (150GB),40.0,150.0,0.267,national,0.4
+WY,Unlicensed Fixed Wireless,273250,21,100.0,25.0,National average (WISP proxy),Typical residential,45.0,50.0,0.9,national,0.45
+WY,Licensed Fixed Wireless,458864,8,50.0,6.0,Verizon 5G Home,Entry (100 Mbps),50.0,100.0,0.5,national,1.0
+WY,DSL (Copper),177245,12,10.0,1.0,CenturyLink,Simply Unlimited Internet (entry),50.0,,,state_provider,5.0
+WY,LBR Fixed Wireless,74343,6,50.0,20.0,,,,,,,

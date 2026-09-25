@@ -46,3 +46,41 @@ def test_cheapest_plan_is_selected_per_technology():
     row = result[result["technology_label"] == "Licensed Fixed Wireless"]
     if not row.empty:
         assert row.iloc[0]["monthly_price_usd"] == row["monthly_price_usd"].min()
+
+
+def test_state_provider_pricing_overrides_fiber_cable_dsl_only():
+    from build_cost_comparison import STATE_PRICED_TECHS, build_comparison
+
+    result = build_comparison()
+    state_rows = result[result["price_basis"] == "state_provider"]
+    assert not state_rows.empty
+    # Only the technologies whose provider genuinely varies by state get a
+    # state-specific price; satellite and 5G home stay on the national plan.
+    assert set(state_rows["technology_label"]) <= STATE_PRICED_TECHS
+    for tech in ["LEO Satellite", "GSO Satellite", "Licensed Fixed Wireless"]:
+        rows = result[result["technology_label"] == tech]
+        assert (rows["price_basis"] == "national").all()
+
+
+def test_every_state_has_state_priced_fiber_and_cable():
+    from build_cost_comparison import build_comparison
+
+    result = build_comparison()
+    for tech in ["Fiber", "Cable"]:
+        rows = result[result["technology_label"] == tech]
+        assert (rows["price_basis"] == "state_provider").all(), tech
+
+
+def test_unpriced_top_provider_falls_back_to_national_plan():
+    # AT&T no longer sells DSL, so AT&T-led DSL states must fall back to the
+    # national average rather than drop out or get a guessed price.
+    import pandas as pd
+    from build_cost_comparison import DATA_DIR, build_comparison
+
+    top = pd.read_csv(DATA_DIR / "state_top_providers.csv")
+    att_dsl = set(top[(top["technology"] == "DSL (Copper)") & (top["provider"] == "AT&T Internet")]["state_usps"])
+    assert att_dsl
+    result = build_comparison()
+    rows = result[(result["technology_label"] == "DSL (Copper)") & result["state_usps"].isin(att_dsl)]
+    assert (rows["price_basis"] == "national").all()
+    assert rows["monthly_price_usd"].notna().all()

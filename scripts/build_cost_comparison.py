@@ -4,6 +4,17 @@ with FCC's real per-state median advertised speeds (not just marketing copy).
 Inputs:
     data/pricing_snapshot.csv       -- published plan pricing (manual research)
     data/fcc_technology_summary.csv -- output of scripts/load_fcc_broadband.py
+    data/state_top_providers.csv    -- largest Fiber/Cable/DSL provider per state
+    data/provider_pricing.csv       -- that provider's cheapest published plan
+
+Fiber, Cable, and DSL are priced from each state's own largest provider for
+that technology (price_basis = "state_provider"). Those are the technologies
+where the provider, and so the price, genuinely changes from state to state.
+If the state's top provider has no published price (e.g. AT&T, which stopped
+selling DSL to new customers in 2023), the national cheapest plan is used
+instead (price_basis = "national"). Satellite and licensed fixed wireless
+(Starlink, Viasat, Verizon 5G Home, T-Mobile) are sold at one national price,
+so they always use the national plan.
 
 Output:
     data/cost_comparison_v1.csv
@@ -66,11 +77,41 @@ def load_pricing_by_technology() -> pd.DataFrame:
     ].rename(columns={"cost_per_mbps_usd": "cost_per_advertised_mbps_usd"})
 
 
+STATE_PRICED_TECHS = {"Fiber", "Cable", "DSL (Copper)"}
+
+
+def load_state_provider_pricing() -> pd.DataFrame:
+    """One row per (state, technology) for the state-priced technologies,
+    only where the state's top provider has a published price."""
+    top = pd.read_csv(DATA_DIR / "state_top_providers.csv")
+    prices = pd.read_csv(DATA_DIR / "provider_pricing.csv")
+    prices = prices.rename(columns={"technology": "technology_label"})
+    merged = top.rename(columns={"technology": "technology_label"}).merge(
+        prices[["provider", "technology_label", "plan", "monthly_price_usd", "advertised_mbps_down"]],
+        on=["provider", "technology_label"],
+        how="left",
+    )
+    merged = merged[merged["technology_label"].isin(STATE_PRICED_TECHS)]
+    return merged.dropna(subset=["monthly_price_usd"])[
+        ["state_usps", "technology_label", "provider", "plan", "monthly_price_usd", "advertised_mbps_down"]
+    ]
+
+
 def build_comparison() -> pd.DataFrame:
     pricing = load_pricing_by_technology()
     fcc = pd.read_csv(DATA_DIR / "fcc_technology_summary.csv")
 
     merged = fcc.merge(pricing, on="technology_label", how="left")
+    merged["price_basis"] = merged["monthly_price_usd"].notna().map({True: "national", False: None})
+    state = load_state_provider_pricing().set_index(["state_usps", "technology_label"])
+    key = pd.MultiIndex.from_frame(merged[["state_usps", "technology_label"]])
+    hit = key.isin(state.index)
+    for col in ["provider", "plan", "monthly_price_usd", "advertised_mbps_down"]:
+        merged.loc[hit, col] = state.loc[key[hit], col].to_numpy()
+    merged.loc[hit, "price_basis"] = "state_provider"
+    merged["cost_per_advertised_mbps_usd"] = (
+        merged["monthly_price_usd"] / merged["advertised_mbps_down"]
+    ).round(3)
     merged["cost_per_fcc_median_mbps_usd"] = (
         merged["monthly_price_usd"] / merged["median_max_down_mbps"]
     ).round(3)
@@ -88,6 +129,7 @@ if __name__ == "__main__":
         "cost_per_fcc_median_mbps_usd",
         "unique_providers",
         "locations_served",
+        "price_basis",
     ]
     print(result[cols].to_string(index=False))
     out_path = DATA_DIR / "cost_comparison_v1.csv"
