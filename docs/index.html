@@ -177,6 +177,7 @@
   .maptoggle button{font-family:var(--mono);font-size:11.5px;letter-spacing:.03em;padding:7px 12px;border:0;background:transparent;color:var(--ink-soft);cursor:pointer}
   .maptoggle button + button{border-left:1px solid var(--line)}
   .maptoggle button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+  footer .cite{margin-top:10px;padding-top:10px;border-top:1px dashed var(--line)}
   .ladder{margin-top:16px}
   .ladder .rung{display:grid;grid-template-columns:minmax(150px,210px) 1fr 92px;align-items:center;gap:10px;
        padding:8px 0;border-bottom:1px dashed var(--line);font-size:13px}
@@ -349,6 +350,8 @@
         <div class="sub">DE, RI, HI, NV: DSL or unlicensed fixed wireless edge out LEO satellite</div></div>
       <div class="tile"><div class="lbl"><svg class="lbl-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6"/><path d="M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6"/></svg>BEAD $ per funded location, satellite vs. fiber</div><div class="num">5.6&times;</div>
         <div class="sub">real committed dollars, not a proxy: $701&ndash;1,138/location (satellite) vs. $6,420.70 (fiber), from actual project-level BEAD data</div></div>
+      <div class="tile" style="--tile-color:var(--sig-violet)"><div class="lbl"><svg class="lbl-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19h16"/><path d="M7 16V9"/><path d="M12 16V5"/><path d="M17 16v-4"/></svg>Satellite premium where wired exists</div><div class="num">8.9&times;</div>
+        <div class="sub">median: Starlink's cost per Mbps over the cheapest fiber or cable option, from 4.3&times; (NM) to 49&times; (CT, WV). See the state map.</div></div>
     </div>
   </section>
   <section id="lookup">
@@ -531,7 +534,7 @@
 
   <section>
     <h2>Full comparison table<svg class="h2-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12h3"/><rect x="6" y="9" width="4" height="6" rx="1"/><path d="M10 12h2l1.5-3 1.5 3 1.5-3 1.5 3h2"/></svg></h2>
-    <p style="font-size:13px;color:var(--ink-mute);margin-top:-6px">Filter by state/technology/price, click a column header to sort.</p>
+    <p style="font-size:13px;color:var(--ink-mute);margin-top:-6px">Filter by state/technology/price, click a column header to sort, and download whatever is showing as a CSV.</p>
     <div class="filterbar" id="filterbar">
       <div class="filtergroup">
         <span class="filterlbl" id="filterStateLbl">State (ctrl/cmd-click for multiple)</span>
@@ -546,6 +549,7 @@
         <input type="number" id="filterMaxPrice" placeholder="any" min="0" step="5" aria-labelledby="filterMaxPriceLbl">
       </div>
       <button id="filterReset" class="filterreset">Reset</button>
+      <button id="filterDownload" class="filterreset" type="button" title="Download the rows currently shown as a CSV file">Download CSV</button>
       <span class="filtercount" id="filterCount"></span>
     </div>
     <div class="table-scroll">
@@ -740,10 +744,12 @@
 
   <footer>
     Data: <a href="https://broadbandmap.fcc.gov/" target="_blank" rel="noopener">FCC National Broadband Map</a> (bulk CSV, no API key) &middot;
-    published ISP/carrier pricing (see <code>data/pricing_snapshot.csv</code> and <code>data/provider_pricing.csv</code>) &middot;
+    published ISP/carrier pricing (see <code>data/pricing_snapshot.csv</code> and <code>data/provider_pricing.csv</code>; largest provider per state from <a href="https://broadbandnow.com/" target="_blank" rel="noopener">BroadbandNow</a> state pages) &middot;
+    NTIA BEAD Final Proposal data and per-state overview PDFs &middot;
     <a href="https://github.com/teamookla/ookla-open-data" target="_blank" rel="noopener">Ookla Open Data</a> (auto-refreshed quarterly via GitHub Actions) &middot;
     <a href="https://www.census.gov/geographies/mapping-files/time-series/geo/carto-boundary-file.html" target="_blank" rel="noopener">US Census cartographic boundary shapefiles</a> (state join).
     Source: <a href="https://github.com/YashRao10/connectivity-cost-index" target="_blank" rel="noopener">github.com/YashRao10/connectivity-cost-index</a>.
+    <div class="cite"><strong>Last updated:</strong> September 2026 (pricing as of 2026-09, Ookla through Q2 2026, BEAD awards as published by NTIA). <strong>Cite as:</strong> Rao, Y. (2026). <em>Connectivity Cost Index</em>. https://yashrao10.github.io/connectivity-cost-index/</div>
   </footer>
 </div>
 
@@ -1803,7 +1809,21 @@ function renderTable(){
   document.getElementById("filterCount").textContent = `${rows.length} / ${ROWS.length} rows`;
 }
 
+function downloadTableCsv(){
+  const rows = filteredSortedRows();
+  const cols = [["state","state"],["technology","tech"],["priced_provider","provider"],["price_basis","basis"],["monthly_usd","price"],
+    ["fcc_median_down_mbps","mbps"],["usd_per_mbps","cpm"],["unique_providers","providers"],["locations_served","locations"]];
+  const cell = v => v == null ? "" : /[",\n]/.test(String(v)) ? `"${String(v).replace(/"/g, '""')}"` : String(v);
+  const csv = [cols.map(c => c[0]).join(","), ...rows.map(r => cols.map(c => cell(r[c[1]])).join(","))].join("\n");
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([csv], {type: "text/csv"}));
+  a.download = "connectivity-cost-index.csv";
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+}
+
 function setupFilterControls(){
+  document.getElementById("filterDownload").addEventListener("click", downloadTableCsv);
   const stateSel = document.getElementById("filterState");
   const techSel = document.getElementById("filterTech");
   const states = [...new Set(ROWS.map(r => r.state))].sort();
