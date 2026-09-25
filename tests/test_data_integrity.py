@@ -125,3 +125,36 @@ def test_bead_allocations_are_positive(bead_comparison):
 def test_bead_comparison_covers_all_51_states(bead_comparison):
     missing = VALID_STATE_CODES - set(bead_comparison["state_usps"])
     assert not missing, f"BEAD layer missing state(s): {missing}"
+
+
+def _read(name):
+    import pandas as pd
+    from conftest import DATA_DIR
+
+    return pd.read_csv(DATA_DIR / name)
+
+
+def test_state_top_providers_covers_every_state_once_per_technology():
+    top = _read("state_top_providers.csv")
+    assert set(top["state_usps"]) == VALID_STATE_CODES
+    assert set(top["technology"]) == {"Fiber", "Cable", "DSL (Copper)"}
+    counts = top.groupby(["state_usps", "technology"]).size()
+    assert (counts == 1).all(), counts[counts != 1]
+
+
+def test_every_top_provider_has_a_pricing_record():
+    # A provider with no published price must still have a row (with the
+    # price blank and a note saying why), so a missing price is a recorded
+    # decision rather than a silent join miss.
+    top = _read("state_top_providers.csv")
+    prices = _read("provider_pricing.csv")
+    have = set(zip(prices["provider"], prices["technology"]))
+    missing = {(p, t) for p, t in zip(top["provider"], top["technology"]) if (p, t) not in have}
+    assert not missing, f"No pricing row for: {sorted(missing)}"
+    blank = prices[prices["monthly_price_usd"].isna()]
+    assert blank["notes"].notna().all()
+
+
+def test_provider_prices_are_plausible():
+    prices = _read("provider_pricing.csv").dropna(subset=["monthly_price_usd"])
+    assert prices["monthly_price_usd"].between(10, 200).all()
