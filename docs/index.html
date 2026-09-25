@@ -681,7 +681,7 @@
     </div>
   </section>
 
-  <div class="chapter"><span>Part 7</span>What's next, and the fine print<p>A first-hand layer still collecting data, and every caveat and correction.</p></div>
+  <div class="chapter"><span>Part 7</span>What's next, and the fine print<p>A first-hand layer still collecting data, plain-English answers to common questions, and every caveat and correction.</p></div>
   <section>
     <h2>Personal reliability layer (in progress)<svg class="h2-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="13" width="18" height="7" rx="1.5"/><path d="M8 13V8M16 13V8"/><circle cx="7" cy="16.5" r=".9" fill="currentColor" stroke="none"/><circle cx="10.5" cy="16.5" r=".9" fill="currentColor" stroke="none"/></svg></h2>
     <p style="font-size:13.5px;color:var(--ink-soft);margin-top:-6px">The one layer on this page that's measured first-hand instead of pulled from a public dataset. Here's how a sample gets made.</p>
@@ -736,6 +736,20 @@
   </section>
   
 
+  <section>
+    <h2>Questions people ask<svg class="h2-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .8-1 1.5v.7"/><circle cx="12" cy="17" r=".8" fill="currentColor" stroke="none"/></svg></h2>
+    <p style="font-size:13.5px;color:var(--ink-soft);margin-top:-6px">The short, plain-English version. Click any question.</p>
+    <div class="mgroup" style="--mc:var(--sig-cyan)"><div class="mgrid">
+        <details class="mcard"><summary>What does "cost per Mbps" mean?</summary><p>The monthly price of a plan divided by the download speed you'd typically get, using the FCC's median reported speed for that technology in that state rather than the "up to" number in an ad. It answers "how much speed does each dollar buy," which makes a $50 fiber plan and a $50 5G plan comparable.</p></details>
+        <details class="mcard"><summary>So is Starlink the best deal?</summary><p>Depends what's available. It beats 5G home internet on cost per Mbps in all 51 states and beats older geostationary satellite everywhere. But where fiber or cable reaches, those are cheaper per Mbps by 4.3&times; to 49&times; (median 8.9&times;). Starlink's real strength is being available almost anywhere.</p></details>
+        <details class="mcard"><summary>Why is Starlink's number the same in every state?</summary><p>Starlink sells one national price ($55/mo for the entry plan here), and the FCC reports the same median speed for it everywhere (280 Mbps). Same price, same speed, same $0.196 per Mbps. Wired prices and speeds vary by state and provider, so theirs don't.</p></details>
+        <details class="mcard"><summary>What is 100/20, and why does it matter?</summary><p>Since 2024 the FCC counts a connection as broadband only if it reaches 100 Mbps down and 20 up. Fiber, cable, and LEO satellite meet that at the typical location in every state; 5G home internet meets it in 1 of 51, and geostationary satellite in none.</p></details>
+        <details class="mcard"><summary>Can people actually afford it?</summary><p>For a household at the state median income, Starlink's $55 plan is 0.56% (Massachusetts) to 1.14% (Mississippi) of monthly income. Half of households earn less than the median, and at half the median every share doubles.</p></details>
+        <details class="mcard"><summary>What is BEAD?</summary><p>The federal Broadband Equity, Access, and Deployment program, $42.45B allocated to states in 2023 to connect places without good internet. A 2025 restructuring cut the median state's award by 62%, and satellite now serves 22% of the locations it funds at about a sixth of fiber's cost per location.</p></details>
+        <details class="mcard"><summary>Why does the FCC speed differ from what I measure at home?</summary><p>The FCC numbers are what providers advertise as each location's best available plan. The real-world section uses Ookla speed tests, which reflect the plan people actually bought, their Wi-Fi, and congestion. Both are shown so the gap is visible.</p></details>
+        <details class="mcard"><summary>Where does the data come from, and can I use it?</summary><p>FCC National Broadband Map, published provider pricing, Ookla open data, NTIA BEAD filings, and Census income data via FRED. Everything is in the public GitHub repo, the full table downloads as CSV, and the footer has a citation line.</p></details>
+    </div></div>
+  </section>
   <section>
     <h2>Methodology &amp; caveats<svg class="h2-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg></h2>
         <div class="mtools"><button type="button" class="filterreset" id="methodToggle">Expand all</button><span class="filtercount">19 notes, click any card to read it</span></div>
@@ -1704,7 +1718,7 @@ function renderBeadCutChart(){
 
 function setupMethodToggle(){
   const btn = document.getElementById("methodToggle");
-  const cards = () => [...document.querySelectorAll(".mcard")];
+  const cards = () => [...btn.closest("section").querySelectorAll(".mcard")];
   btn.addEventListener("click", () => {
     const open = !cards().every(c => c.open);
     cards().forEach(c => { c.open = open; });
@@ -1719,7 +1733,7 @@ const NAV_LABELS = [
   ["The question","The question"], ["How this data is actually measured","Networking 101"],
   ["How each network actually reaches you","Technologies"], ["Full comparison table","Full table"],
   ["Real-world speed","Real speeds"], ["Quarter-over-quarter","Trend"], ["Where the subsidy money goes","BEAD cuts"],
-  ["What BEAD money actually builds","BEAD tech mix"], ["Methodology","Methodology"], ["Personal reliability","Reliability"],
+  ["What BEAD money actually builds","BEAD tech mix"], ["Questions people ask","FAQ"], ["Methodology","Methodology"], ["Personal reliability","Reliability"],
 ];
 function setupSectionNav(){
   const list = document.getElementById("secnavlist");
