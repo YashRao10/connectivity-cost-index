@@ -2128,6 +2128,20 @@ function resolveCssVar(name){
   return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 }
 
+// cai_locations.json is ~600KB (22,675 points) -- only fetch and draw it
+// once the map's section is about to scroll into view, not on page load.
+function setupLazyCaiMap(){
+  const wrap = document.getElementById("caimapwrap");
+  if (!("IntersectionObserver" in window)) { renderCaiMap(); return; }
+  const observer = new IntersectionObserver((entries) => {
+    if (entries.some(e => e.isIntersecting)) {
+      observer.disconnect();
+      renderCaiMap();
+    }
+  }, {rootMargin: "400px"});
+  observer.observe(wrap);
+}
+
 function renderCaiMap(){
   const canvas = document.getElementById("caimap");
   const ctx = canvas.getContext("2d");
@@ -2277,7 +2291,7 @@ renderTable();
 renderOoklaTable();
 renderTimeseriesTable();
 renderBeadTable();
-renderCaiMap();
+setupLazyCaiMap();
 renderNoBeadChart();
 renderMap();
 </script>
