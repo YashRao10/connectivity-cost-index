@@ -158,3 +158,21 @@ def test_every_top_provider_has_a_pricing_record():
 def test_provider_prices_are_plausible():
     prices = _read("provider_pricing.csv").dropna(subset=["monthly_price_usd"])
     assert prices["monthly_price_usd"].between(10, 200).all()
+
+
+def test_state_map_cheapest_tech_matches_cost_comparison(cost_comparison):
+    # The map tooltip reads cheapest-tech figures baked into the geojson by
+    # build_state_map_data.py; if pricing changes without rerunning it, the
+    # map silently shows stale prices (happened once, 2026-09-24).
+    import json
+
+    from conftest import DATA_DIR
+
+    geo = json.loads((DATA_DIR.parent / "docs" / "data" / "state_map.geojson").read_text())
+    priced = cost_comparison.dropna(subset=["cost_per_fcc_median_mbps_usd"])
+    cheapest = priced.loc[priced.groupby("state_usps")["cost_per_fcc_median_mbps_usd"].idxmin()]
+    expected = dict(zip(cheapest["state_usps"], cheapest["cost_per_fcc_median_mbps_usd"]))
+    for f in geo["features"]:
+        p = f["properties"]
+        if p.get("state_usps") in expected:
+            assert p["cheapest_cost_per_mbps_usd"] == expected[p["state_usps"]], p["state_usps"]

@@ -173,6 +173,10 @@
   .cmp-bars .val{font-size:11.5px;line-height:1.5}
   .cmp-bars .val .nw{display:block;white-space:nowrap}
   @media(max-width:560px){.cmp-bars .rung{grid-template-columns:1fr 130px}.cmp-bars .bars{grid-column:1 / -1;order:3}}
+  .maptoggle{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--panel)}
+  .maptoggle button{font-family:var(--mono);font-size:11.5px;letter-spacing:.03em;padding:7px 12px;border:0;background:transparent;color:var(--ink-soft);cursor:pointer}
+  .maptoggle button + button{border-left:1px solid var(--line)}
+  .maptoggle button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
   .ladder{margin-top:16px}
   .ladder .rung{display:grid;grid-template-columns:minmax(150px,210px) 1fr 92px;align-items:center;gap:10px;
        padding:8px 0;border-bottom:1px dashed var(--line);font-size:13px}
@@ -349,7 +353,7 @@
   </section>
   <section id="lookup">
     <h2>Look up a state<svg class="h2-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></h2>
-    <p style="font-size:13.5px;color:var(--ink-soft);margin-top:-6px">Every layer on this page, for one state. Pick one below or click a state on the BEAD map, and add a second state to compare them side by side. The link updates, so you can share it.</p>
+    <p style="font-size:13.5px;color:var(--ink-soft);margin-top:-6px">Every layer on this page, for one state. Pick one below or click a state on the state map, and add a second state to compare them side by side. The link updates, so you can share it.</p>
     <div class="panel">
       <div class="lookup-head">
         <div style="display:flex;align-items:center;gap:16px"><svg class="locator" id="lookupLocator" viewBox="0 0 960 600" aria-hidden="true"></svg>
@@ -365,8 +369,12 @@
     </div>
   </section>
   <section>
-    <h2>BEAD subsidy intensity, by state<svg class="h2-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15c0-6.6 5.4-12 12-12"/><path d="M4 15h9"/><circle cx="16" cy="3" r="1.1" fill="currentColor" stroke="none"/><path d="M9.5 15v5.5"/><path d="M7 20.5h5"/></svg></h2>
-    <p style="font-size:13.5px;color:var(--ink-soft);margin-top:-6px">Same $ per GSO-satellite-served-location figure as the table further below (2025 provisional award, not the original 2023 allocation), shown geographically for all 50 states + DC (Alaska and Hawaii plotted as insets via the map's AlbersUSA projection). Darker shading &#61; more subsidy dollars per underserved location. Every mapped state has real data. Non-state territories (PR, GU, VI, AS, MP) aren't part of this map.</p>
+    <h2>Mapped by state: BEAD subsidy and the satellite premium<svg class="h2-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15c0-6.6 5.4-12 12-12"/><path d="M4 15h9"/><circle cx="16" cy="3" r="1.1" fill="currentColor" stroke="none"/><path d="M9.5 15v5.5"/><path d="M7 20.5h5"/></svg></h2>
+    <div class="maptoggle" role="group" aria-label="Choose what the map shows">
+      <button type="button" data-metric="bead" aria-pressed="true">BEAD $ per location</button>
+      <button type="button" data-metric="premium" aria-pressed="false">Satellite premium over wired</button>
+    </div>
+    <p id="mapcaption" style="font-size:13.5px;color:var(--ink-soft);margin-top:10px"></p>
     <div class="panel" id="mapwrap" style="padding:16px">
       <svg id="statemap" viewBox="0 0 960 600" style="width:100%;height:auto;display:block" role="img" aria-label="Choropleth map of the US shaded by BEAD subsidy dollars per underserved location, all 50 states plus DC"></svg>
       <div id="maptooltip" style="position:fixed;pointer-events:none;display:none;background:var(--panel);border:1px solid var(--border-hair);border-radius:6px;padding:8px 10px;font-family:var(--mono);font-size:12px;color:var(--ink);box-shadow:0 4px 16px rgba(0,0,0,0.25);z-index:50"></div>
@@ -1658,7 +1666,7 @@ function setupMethodToggle(){
 
 // Sticky section nav, built from each section's own h2 (text + icon).
 const NAV_LABELS = [
-  ["At a glance","Overview"], ["Look up a state","State lookup"], ["BEAD subsidy intensity","BEAD map"],
+  ["At a glance","Overview"], ["Look up a state","State lookup"], ["Mapped by state","State maps"],
   ["Where BEAD-funded community","Institutions"], ["Cost per Mbps","Cost range"], ["Where the other 1.1M","Unfunded"],
   ["The question","The question"], ["How this data is actually measured","Networking 101"],
   ["How each network actually reaches you","Technologies"], ["Full comparison table","Full table"],
@@ -2028,47 +2036,87 @@ function renderOoklaTable(){
   </tr>`).join("");
 }
 
+// Per-state satellite premium: Starlink's $/Mbps over the cheaper of fiber
+// or cable, computed from ROWS so it always matches the table and lookup.
+function satellitePremiumByState(){
+  const out = {};
+  const states = [...new Set(ROWS.map(r => r.state))];
+  states.forEach(st => {
+    const rows = ROWS.filter(r => r.state === st);
+    const leo = rows.find(r => r.tech === "LEO Satellite");
+    const wired = rows.filter(r => (r.tech === "Fiber" || r.tech === "Cable") && r.cpm != null).sort((a,b) => a.cpm - b.cpm)[0];
+    if (leo?.cpm != null && wired) out[st] = {ratio: leo.cpm / wired.cpm, leo: leo.cpm, wired};
+  });
+  return out;
+}
+
+const MAP_METRICS = {
+  bead: {
+    caption: "The 2025 provisional BEAD award divided by each state's GSO-satellite-served locations, the same figure as the BEAD table further below. Darker &#61; more subsidy dollars per underserved location. Alaska and Hawaii are plotted as insets. Non-state territories (PR, GU, VI, AS, MP) aren't part of this map.",
+    aria: "Choropleth map of the US shaded by BEAD subsidy dollars per underserved location, all 50 states plus DC",
+  },
+  premium: {
+    caption: "How many times more Starlink costs per Mbps than the cheapest wired option (fiber or cable) in each state, using each state's own largest provider. Darker &#61; a bigger premium. Where wired service reaches, it is always cheaper per Mbps; this shows by how much. It says nothing about where wired service <em>doesn't</em> reach, which is exactly where satellite matters.",
+    aria: "Choropleth map of the US shaded by how many times more Starlink costs per Mbps than the cheapest wired option, all 50 states plus DC",
+  },
+};
+
 function renderMap(){
   const svg = d3.select("#statemap");
   const tooltip = document.getElementById("maptooltip");
   const width = 960, height = 600;
   const projection = d3.geoAlbersUsa().translate([width/2, height/2]).scale(1200);
   const path = d3.geoPath().projection(projection);
+  const premium = satellitePremiumByState();
+  const fmtCpm = n => n >= 1 ? `$${n.toFixed(2)}` : `$${n.toFixed(3)}`;
 
   fetch("data/state_map.geojson").then(r => r.json()).then(geo => {
-    const priced = geo.features.filter(f => f.properties.bead_usd_per_gso_location != null);
-    const values = priced.map(f => f.properties.bead_usd_per_gso_location);
-    const color = d3.scaleSequential(d3.interpolateRgb("#dff0e8", "#0ca34a")).domain([d3.min(values), d3.max(values)]);
-    const noDataFill = "var(--grid)";
+    const paths = svg.selectAll("path").data(geo.features).join("path")
+      .attr("d", path).attr("stroke", "var(--bg)").attr("stroke-width", 1);
 
-    svg.selectAll("path")
-      .data(geo.features)
-      .join("path")
-      .attr("d", path)
-      .attr("fill", d => d.properties.bead_usd_per_gso_location != null ? color(d.properties.bead_usd_per_gso_location) : noDataFill)
-      .attr("stroke", "var(--bg)")
-      .attr("stroke-width", 1)
-      .style("cursor", d => d.properties.bead_usd_per_gso_location != null ? "pointer" : "default")
-      .on("mousemove", (event, d) => {
-        if (d.properties.bead_usd_per_gso_location == null) { tooltip.style.display = "none"; return; }
-        const p = d.properties;
-        tooltip.innerHTML = `<strong>${p.NAME}</strong><br>$${p.bead_usd_per_gso_location.toFixed(2)} per GSO-served location<br>BEAD allocation: $${Math.round(p.bead_allocation_usd).toLocaleString()}<br>Cheapest tech: ${p.cheapest_technology ?? "n/a"} ($${p.cheapest_cost_per_mbps_usd?.toFixed(3) ?? "n/a"}/Mbps)`;
-        tooltip.style.display = "block";
-        tooltip.style.left = (event.clientX + 14) + "px";
-        tooltip.style.top = (event.clientY + 14) + "px";
-      })
-      .on("mouseleave", () => { tooltip.style.display = "none"; })
-      .on("click", (event, d) => { tooltip.style.display = "none"; selectLookupState(d.properties.state_usps); });
+    const draw = metric => {
+      const val = metric === "bead"
+        ? f => f.properties.bead_usd_per_gso_location
+        : f => premium[f.properties.state_usps]?.ratio;
+      const priced = geo.features.filter(f => val(f) != null);
+      const values = priced.map(val);
+      const lo = d3.min(values), hi = d3.max(values);
+      const color = metric === "bead"
+        ? d3.scaleSequential(d3.interpolateRgb("#dff0e8", "#0ca34a")).domain([lo, hi])
+        : d3.scaleSequentialLog(d3.interpolateRgb("#ece6fd", "#6d3fe0")).domain([lo, hi]);
 
-    const legend = document.getElementById("maplegend");
-    const lo = d3.min(values), hi = d3.max(values);
-    const loFeat = priced.find(f => f.properties.bead_usd_per_gso_location === lo);
-    const hiFeat = priced.find(f => f.properties.bead_usd_per_gso_location === hi);
-    legend.innerHTML = `
-      <span class="item"><span class="swatch" style="background:${color(lo)}"></span>$${lo.toFixed(2)}/location (least subsidy-intense, ${loFeat.properties.state_usps})</span>
-      <span class="item"><span class="swatch" style="background:${color(hi)}"></span>$${Math.round(hi).toLocaleString('en-US')}/location (most subsidy-intense, ${hiFeat.properties.state_usps})</span>
-      <span class="item"><span class="swatch" style="background:var(--grid)"></span>non-state territories not shown (PR, GU, VI, AS, MP)</span>
-    `;
+      paths.attr("fill", d => val(d) != null ? color(val(d)) : "var(--grid)")
+        .style("cursor", d => val(d) != null ? "pointer" : "default")
+        .on("mousemove", (event, d) => {
+          if (val(d) == null) { tooltip.style.display = "none"; return; }
+          const p = d.properties, pr = premium[p.state_usps];
+          tooltip.innerHTML = metric === "bead"
+            ? `<strong>${p.NAME}</strong><br>$${p.bead_usd_per_gso_location.toFixed(2)} per GSO-served location<br>BEAD allocation: $${Math.round(p.bead_allocation_usd).toLocaleString()}<br>Cheapest tech: ${p.cheapest_technology ?? "n/a"} (${p.cheapest_cost_per_mbps_usd != null ? fmtCpm(p.cheapest_cost_per_mbps_usd) : "n/a"}/Mbps)`
+            : `<strong>${p.NAME}</strong><br>Starlink: ${pr.ratio.toFixed(1)}&times; the cost per Mbps<br>Starlink ${fmtCpm(pr.leo)}/Mbps vs. ${pr.wired.tech} ${fmtCpm(pr.wired.cpm)}/Mbps<br>(${pr.wired.provider})`;
+          tooltip.style.display = "block";
+          tooltip.style.left = (event.clientX + 14) + "px";
+          tooltip.style.top = (event.clientY + 14) + "px";
+        })
+        .on("mouseleave", () => { tooltip.style.display = "none"; })
+        .on("click", (event, d) => { tooltip.style.display = "none"; selectLookupState(d.properties.state_usps); });
+
+      const loSt = priced.find(f => val(f) === lo).properties.state_usps;
+      const hiSt = priced.find(f => val(f) === hi).properties.state_usps;
+      const ties = v => priced.filter(f => Math.abs(val(f) - v) < 1e-9).map(f => f.properties.state_usps).sort().join(", ");
+      document.getElementById("maplegend").innerHTML = metric === "bead" ? `
+        <span class="item"><span class="swatch" style="background:${color(lo)}"></span>$${lo.toFixed(2)}/location (least subsidy-intense, ${loSt})</span>
+        <span class="item"><span class="swatch" style="background:${color(hi)}"></span>$${Math.round(hi).toLocaleString("en-US")}/location (most subsidy-intense, ${hiSt})</span>
+        <span class="item"><span class="swatch" style="background:var(--grid)"></span>non-state territories not shown (PR, GU, VI, AS, MP)</span>` : `
+        <span class="item"><span class="swatch" style="background:${color(lo)}"></span>${lo.toFixed(1)}&times; (smallest premium, ${ties(lo)})</span>
+        <span class="item"><span class="swatch" style="background:${color(d3.median(values))}"></span>${d3.median(values).toFixed(1)}&times; median</span>
+        <span class="item"><span class="swatch" style="background:${color(hi)}"></span>${hi.toFixed(1)}&times; (largest premium, ${ties(hi)})</span>`;
+      document.getElementById("mapcaption").innerHTML = MAP_METRICS[metric].caption;
+      document.getElementById("statemap").setAttribute("aria-label", MAP_METRICS[metric].aria);
+      document.querySelectorAll(".maptoggle button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.metric === metric)));
+    };
+
+    document.querySelectorAll(".maptoggle button").forEach(b => b.addEventListener("click", () => draw(b.dataset.metric)));
+    draw("bead");
   });
 }
 
