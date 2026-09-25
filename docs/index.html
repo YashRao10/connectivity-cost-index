@@ -151,6 +151,27 @@
   .lookup-head h3{margin:0;font-size:28px;font-weight:700;letter-spacing:-0.01em;line-height:1}
   .lookup-head select{font-family:var(--sans);font-size:14px;background:var(--bg);color:var(--ink);
        border:1px solid var(--line);border-radius:6px;padding:7px 10px;min-width:200px}
+  .lookup-pick{display:flex;flex-wrap:wrap;gap:8px}
+  .lookup-pick select.vs{border-color:var(--sig-amber)}
+  .cmp{margin-top:4px}
+  .cmp-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:13px;color:var(--ink-soft);margin-bottom:12px}
+  .cmp-key{display:inline-flex;align-items:center;gap:6px;font-weight:600;color:var(--ink)}
+  .cmp-key i{width:10px;height:10px;border-radius:3px;display:inline-block}
+  .cmp-clear{margin-left:auto}
+  .cmp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
+  .cmp-m{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+  .cmp-m .lbl{margin-bottom:6px}
+  .cmp-m .pair{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .cmp-m .v{font-family:var(--mono);font-size:14px;white-space:nowrap;font-weight:700;font-variant-numeric:tabular-nums;color:var(--ink-mute);
+       border-left:3px solid var(--k);padding-left:7px;line-height:1.25}
+  .cmp-m .v small{display:block;white-space:normal;font-size:10px;font-weight:500;color:var(--ink-mute)}
+  .cmp-m .v.win{color:var(--ink)}
+  .cmp-m .v.win::after{content:" \2713";color:var(--sig-lime);font-size:12px}
+  .cmp-bars .rung{grid-template-columns:minmax(150px,210px) 1fr 150px}
+  .cmp-bars .track{height:6px;margin:2px 0}
+  .cmp-bars .val{font-size:11.5px;line-height:1.5}
+  .cmp-bars .val .nw{display:block;white-space:nowrap}
+  @media(max-width:560px){.cmp-bars .rung{grid-template-columns:1fr 130px}.cmp-bars .bars{grid-column:1 / -1;order:3}}
   .ladder{margin-top:16px}
   .ladder .rung{display:grid;grid-template-columns:minmax(150px,210px) 1fr 92px;align-items:center;gap:10px;
        padding:8px 0;border-bottom:1px dashed var(--line);font-size:13px}
@@ -326,16 +347,18 @@
   </section>
   <section id="lookup">
     <h2>Look up a state<svg class="h2-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></h2>
-    <p style="font-size:13.5px;color:var(--ink-soft);margin-top:-6px">Every layer on this page, for one state. Pick one below or click a state on the BEAD map. The link updates, so you can share a specific state.</p>
+    <p style="font-size:13.5px;color:var(--ink-soft);margin-top:-6px">Every layer on this page, for one state. Pick one below or click a state on the BEAD map, and add a second state to compare them side by side. The link updates, so you can share it.</p>
     <div class="panel">
       <div class="lookup-head">
         <div style="display:flex;align-items:center;gap:16px"><svg class="locator" id="lookupLocator" viewBox="0 0 960 600" aria-hidden="true"></svg>
           <div><div class="lbl">State</div><h3 id="lookupName"></h3></div></div>
-        <select id="lookupSelect" aria-label="Choose a state"></select>
+        <div class="lookup-pick"><select id="lookupSelect" aria-label="Choose a state"></select>
+          <select id="compareSelect" class="vs" aria-label="Compare with another state"></select></div>
       </div>
-      <div class="tiles" id="lookupTiles"></div>
+      <div id="singleView"><div class="tiles" id="lookupTiles"></div>
       <div class="lbl" style="margin-top:22px">Every technology priced here, cheapest per Mbps first <span style="text-transform:none;letter-spacing:0">(bar length on a log scale)</span></div>
-      <div class="ladder" id="lookupLadder"></div>
+      <div class="ladder" id="lookupLadder"></div></div>
+      <div class="cmp" id="compareBox" hidden></div>
       <p style="font-size:12.5px;color:var(--ink-mute);margin:12px 0 0">Prices are one cheapest published plan per technology, used nationally (the provider in parentheses is where that price came from, not necessarily a company selling in this state). Speeds are this state's own FCC-reported median for the technology, which is what makes each state's numbers different.</p>
     </div>
   </section>
@@ -1393,7 +1416,6 @@ function renderLookup(st){
   const fmtM = n => n >= 1e9 ? `$${(n/1e9).toFixed(2)}B` : `$${(n/1e6).toFixed(1)}M`;
 
   document.getElementById("lookupName").textContent = STATE_NAME[st] || st;
-  renderLocator(st);
   const tiles = [];
   if (cheapest) tiles.push(`<div class="tile" style="--tile-color:${TECH_COLOR[cheapest.tech]}"><div class="lbl">Cheapest per Mbps</div>
     <div class="num" style="color:${TECH_COLOR[cheapest.tech]}">${techIcon(cheapest.tech, 20)}<span style="color:var(--ink)">${fmtCpm(cheapest.cpm)}</span></div>
@@ -1424,18 +1446,89 @@ function renderLookup(st){
       <div class="track"></div><div class="val">${r.price === null ? "n/a" : "undefined"}</div></div>`).join("");
 }
 
+function lookupHash(){
+  const a = document.getElementById("lookupSelect").value, b = document.getElementById("compareSelect").value;
+  history.replaceState(null, "", `#state=${a}` + (b ? `&vs=${b}` : ""));
+}
+
 function setupLookup(){
   const sel = document.getElementById("lookupSelect");
+  const cmp = document.getElementById("compareSelect");
   const states = [...new Set(ROWS.map(r => r.state))].sort((a,b) => (STATE_NAME[a]||a).localeCompare(STATE_NAME[b]||b));
-  sel.innerHTML = states.map(st => `<option value="${st}">${STATE_NAME[st] || st}</option>`).join("");
+  const opts = states.map(st => `<option value="${st}">${STATE_NAME[st] || st}</option>`).join("");
+  sel.innerHTML = opts;
+  cmp.innerHTML = `<option value="">Compare with...</option>` + opts;
   const fromHash = (location.hash.match(/state=([A-Z]{2})/) || [])[1];
+  const vsHash = (location.hash.match(/vs=([A-Z]{2})/) || [])[1];
   const initial = states.includes(fromHash) ? fromHash : "TX";
   sel.value = initial;
-  renderLookup(initial);
-  sel.addEventListener("change", () => {
-    renderLookup(sel.value);
-    history.replaceState(null, "", `#state=${sel.value}`);
+  cmp.value = states.includes(vsHash) && vsHash !== initial ? vsHash : "";
+  const refresh = () => { renderLookup(sel.value); renderCompare(sel.value, cmp.value); };
+  refresh();
+  sel.addEventListener("change", () => { if (cmp.value === sel.value) cmp.value = ""; refresh(); lookupHash(); });
+  cmp.addEventListener("change", () => { if (cmp.value === sel.value) cmp.value = ""; refresh(); lookupHash(); });
+}
+
+function renderCompare(a, b){
+  const box = document.getElementById("compareBox");
+  renderLocator(a, b || null);
+  document.getElementById("singleView").hidden = !!b;
+  if (!b){ box.hidden = true; box.innerHTML = ""; return; }
+  box.hidden = false;
+  const CA = "var(--sig-cyan)", CB = "var(--sig-amber)";
+  const pick = st => ({
+    rows: ROWS.filter(r => r.state === st),
+    fixed: OOKLA_ROWS.find(r => r.state === st && r.net === "Fixed"),
+    mobile: OOKLA_ROWS.find(r => r.state === st && r.net === "Mobile"),
+    trend: TIMESERIES_ROWS.find(r => r.state === st && r.net === "Fixed"),
+    bead: BEAD_ROWS.find(r => r.state === st),
   });
+  const A = pick(a), B = pick(b);
+  const fmtCpm = n => n >= 1 ? `$${n.toFixed(2)}` : `$${n.toFixed(3)}`;
+  const fmtM = n => n >= 1e9 ? `$${(n/1e9).toFixed(2)}B` : `$${(n/1e6).toFixed(1)}M`;
+  const cheapest = X => X.rows.filter(r => r.cpm !== null).sort((x,y) => x.cpm - y.cpm)[0];
+  // [label, valueA, valueB, formatter, better: "low" | "high" | null, sub-formatter]
+  const metrics = [
+    ["Cheapest per Mbps", cheapest(A)?.cpm, cheapest(B)?.cpm, fmtCpm, "low", X => cheapest(X)?.tech],
+    ["Real-world fixed download", A.fixed?.down, B.fixed?.down, v => `${v} Mbps`, "high", () => "Ookla median, Q2 2026"],
+    ["Fixed latency", A.fixed?.lat, B.fixed?.lat, v => `${v} ms`, "low", () => "Ookla median"],
+    ["Real-world mobile download", A.mobile?.down, B.mobile?.down, v => `${v} Mbps`, "high", () => "Ookla median"],
+    ["Fixed speed, Q1 to Q2", A.trend?.pct, B.trend?.pct, v => `${v > 0 ? "+" : ""}${v.toFixed(1)}%`, "high", () => "change in median download"],
+    ["BEAD award (2025)", A.bead?.prov, B.bead?.prov, fmtM, null, X => X.bead ? `${X.bead.pct.toFixed(1)}% vs. 2023` : ""],
+    ["BEAD $ per GSO-served location", A.bead?.perloc, B.bead?.perloc, v => `$${v.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2})}`, null, () => "subsidy intensity"],
+  ].filter(m => m[1] != null && m[2] != null);
+  const cell = (v, other, fmt, better, key, sub) => {
+    const win = better && v !== other && (better === "low" ? v < other : v > other);
+    return `<div class="v${win ? " win" : ""}" style="--k:${key}">${fmt(v)}<small>${sub || ""}</small></div>`;
+  };
+  const grid = metrics.map(([lbl, va, vb, fmt, better, sub]) => `<div class="cmp-m"><div class="lbl">${lbl}</div><div class="pair">
+      ${cell(va, vb, fmt, better, CA, sub(A))}${cell(vb, va, fmt, better, CB, sub(B))}</div></div>`).join("");
+
+  const lo = Math.log10(0.004), hi = Math.log10(6);
+  const width = v => Math.max(3, 100 * (Math.log10(v) - lo) / (hi - lo));
+  const techs = [...new Set([...A.rows, ...B.rows].map(r => r.tech))]
+    .map(t => ({t, a: A.rows.find(r => r.tech === t), b: B.rows.find(r => r.tech === t)}))
+    .filter(x => x.a?.cpm != null || x.b?.cpm != null)
+    .sort((x, y) => Math.min(x.a?.cpm ?? 99, x.b?.cpm ?? 99) - Math.min(y.a?.cpm ?? 99, y.b?.cpm ?? 99));
+  const bar = (r, key) => r?.cpm != null ? `<div class="track"><span style="width:${width(r.cpm).toFixed(1)}%;background:${key}"></span></div>` : `<div class="track"></div>`;
+  const val = r => r?.cpm != null ? fmtCpm(r.cpm) : (r ? "not priced" : "not offered");
+  const bars = techs.map(({t, a: ra, b: rb}) => {
+    const c = MINOR_TECH.has(t) ? "var(--ink-mute)" : TECH_COLOR[t];
+    return `<div class="rung"><div class="who" style="color:${c}">${techIcon(t, 16)}<span style="color:var(--ink)">${t}<small>FCC median ${ra ? ra.mbps.toLocaleString() : "n/a"} vs. ${rb ? rb.mbps.toLocaleString() : "n/a"} Mbps</small></span></div>
+      <div class="bars">${bar(ra, CA)}${bar(rb, CB)}</div>
+      <div class="val"><span class="nw"><span style="color:${CA}">&#9632;</span> ${val(ra)}${ra?.cpm != null ? "/Mbps" : ""}</span><span class="nw"><span style="color:${CB}">&#9632;</span> ${val(rb)}${rb?.cpm != null ? "/Mbps" : ""}</span></div></div>`;
+  }).join("");
+
+  box.innerHTML = `<div class="cmp-head">
+      <span class="cmp-key"><i style="background:${CA}"></i>${STATE_NAME[a]}</span> vs.
+      <span class="cmp-key"><i style="background:${CB}"></i>${STATE_NAME[b]}</span>
+      <button type="button" class="filterreset cmp-clear" id="compareClear">Clear compare</button></div>
+    <div class="cmp-grid">${grid}</div>
+    <div class="lbl" style="margin-top:18px">Cost per Mbps by technology, both states <span style="text-transform:none;letter-spacing:0">(log scale; &#10003; marks the better value where one is clearly better)</span></div>
+    <div class="ladder cmp-bars">${bars}</div>`;
+  document.getElementById("compareClear").onclick = () => {
+    const cmp = document.getElementById("compareSelect"); cmp.value = ""; cmp.dispatchEvent(new Event("change"));
+  };
 }
 
 function selectLookupState(st){
@@ -1609,13 +1702,13 @@ function setupSectionNav(){
 }
 
 let LOCATOR_GEO = null;
-function renderLocator(st){
+function renderLocator(st, st2 = null){
   const draw = geo => {
     const svg = d3.select("#lookupLocator");
     const path = d3.geoPath().projection(d3.geoAlbersUsa().translate([480, 300]).scale(1200));
     svg.selectAll("path").data(geo.features).join("path").attr("d", path)
-      .style("fill", d => d.properties.state_usps === st ? "var(--sig-cyan)" : "var(--grid)")
-      .style("stroke", d => d.properties.state_usps === st ? "var(--sig-cyan)" : null);
+      .style("fill", d => d.properties.state_usps === st ? "var(--sig-cyan)" : d.properties.state_usps === st2 ? "var(--sig-amber)" : "var(--grid)")
+      .style("stroke", d => d.properties.state_usps === st ? "var(--sig-cyan)" : d.properties.state_usps === st2 ? "var(--sig-amber)" : null);
   };
   if (LOCATOR_GEO) return draw(LOCATOR_GEO);
   fetch("data/state_map.geojson").then(r => r.json()).then(geo => { LOCATOR_GEO = geo; draw(geo); });
