@@ -1668,7 +1668,7 @@ const NAV_LABELS = [
 function setupSectionNav(){
   const list = document.getElementById("secnavlist");
   const links = [];
-  document.querySelectorAll(".wrap > section").forEach(sec => {
+  document.querySelectorAll(".wrap > main > section").forEach(sec => {
     const h2 = sec.querySelector(":scope > h2");
     if (!h2) return;
     const text = h2.textContent.trim();
