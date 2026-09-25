@@ -181,6 +181,7 @@
   .chapter{display:flex;align-items:baseline;gap:12px;margin:56px 0 -8px;padding-top:18px;border-top:1px solid var(--line);
        font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft)}
   .chapter{flex-wrap:wrap}
+  #secnavlist li.partstart{margin-left:6px;padding-left:10px;border-left:1px solid var(--line)}
   .chapter span{color:var(--sig-cyan);font-weight:700}
   .chapter p{flex-basis:100%;margin:4px 0 0;font-family:var(--sans);font-size:13.5px;letter-spacing:0;text-transform:none;color:var(--ink-mute)}
   main > .chapter:first-child{margin-top:8px}
@@ -1718,7 +1719,9 @@ function setupSectionNav(){
     const icon = h2.querySelector("svg");
     const iconHtml = icon ? icon.outerHTML.replace('class="h2-icon"', "").replace(/width="15" height="15"/, 'width="12" height="12"') : "";
     const li = document.createElement("li");
-    li.innerHTML = `<a href="#${sec.id}">${iconHtml}${label}</a>`;
+    const chapter = sec.previousElementSibling?.classList.contains("chapter") ? sec.previousElementSibling : null;
+    if (chapter && list.children.length) li.className = "partstart";
+    li.innerHTML = `<a href="#${sec.id}"${chapter ? ` title="${chapter.querySelector("span").textContent}: ${chapter.childNodes[1].textContent.trim()}"` : ""}>${iconHtml}${label}</a>`;
     list.appendChild(li);
     links.push([sec, li.firstElementChild]);
   });
