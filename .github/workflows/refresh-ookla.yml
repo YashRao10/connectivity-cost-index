@@ -11,6 +11,9 @@ on:
     - cron: "0 12 15 1,4,7,10 *"  # 15th of Jan/Apr/Jul/Oct, 12:00 UTC
   workflow_dispatch: {}
 
+permissions:
+  contents: write
+
 jobs:
   refresh:
     runs-on: ubuntu-latest
