@@ -1,12 +1,16 @@
 """Multi-quarter Ookla trend. Reuses the already-committed
-data/ookla_regional_summary.csv as the "current quarter" (2026 Q2) rather
-than re-downloading its ~530MB of raw tiles, and computes a fresh summary
-for one prior quarter (2026 Q1) to diff against it. Extend PRIOR_QUARTERS
-to build a longer trend once more history is wanted.
+data/ookla_regional_summary.csv as the "current quarter" (2026 Q3, written by
+the scheduled refresh) rather than re-downloading its raw tiles, and computes
+fresh summaries for the prior quarters (2026 Q1 and Q2) to diff against it.
+Extend PRIOR_QUARTERS to build a longer trend once more history is wanted.
+When the scheduled refresh pulls a newer quarter, bump CURRENT_QUARTER and
+move the old current quarter into PRIOR_QUARTERS (after pulling its raw tiles).
 
 Usage:
     python scripts/pull_ookla.py --year 2026 --quarter 1 --type fixed
     python scripts/pull_ookla.py --year 2026 --quarter 1 --type mobile
+    python scripts/pull_ookla.py --year 2026 --quarter 2 --type fixed
+    python scripts/pull_ookla.py --year 2026 --quarter 2 --type mobile
     python scripts/build_ookla_timeseries.py
 
 Output: data/ookla_timeseries.csv
@@ -19,12 +23,13 @@ from load_ookla_regional import load_and_filter, load_state_boundaries, summariz
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 RAW_DIR = DATA_DIR / "raw" / "ookla"
-CURRENT_QUARTER = (2026, 2)  # matches data/ookla_regional_summary.csv
+CURRENT_QUARTER = (2026, 3)  # matches data/ookla_regional_summary.csv (refreshed 2026-10-19)
 
 # (year, quarter, filename-date-stamp) for quarters to compute fresh and
 # diff against CURRENT_QUARTER.
 PRIOR_QUARTERS = [
     (2026, 1, "2026-01-01"),
+    (2026, 2, "2026-04-01"),
 ]
 
 

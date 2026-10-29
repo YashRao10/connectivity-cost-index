@@ -63,18 +63,28 @@ def build_rows_block() -> str:
 
 
 def build_timeseries_rows_block() -> str:
+    """One row per state/network: Q1-Q3 medians, Q1->Q2 change (pct12) and the
+    latest quarter-over-quarter change (pct, Q2->Q3), sorted by the latest change."""
     df = pd.read_csv(DATA_DIR / "ookla_timeseries.csv")
-    df = df.dropna(subset=["down_mbps_qoq_change_pct"])
-    df = df.sort_values("down_mbps_qoq_change_pct")
+    wide = df.pivot_table(
+        index=["state_usps", "network_type"], columns="quarter", values="median_down_mbps"
+    )
+    wide.columns = [f"q{int(c)}" for c in wide.columns]
+    wide = wide.reset_index()
+    wide["pct12"] = ((wide["q2"] - wide["q1"]) / wide["q1"] * 100).round(1)
+    wide["pct"] = ((wide["q3"] - wide["q2"]) / wide["q2"] * 100).round(1)
+    wide = wide.dropna(subset=["pct", "pct12"]).sort_values("pct")
     lines = ["const TIMESERIES_ROWS = ["]
-    for _, r in df.iterrows():
+    for _, r in wide.iterrows():
         lines.append(
-            "  {{state:{}, net:{}, q1:{}, q2:{}, pct:{}}},".format(
+            "  {{state:{}, net:{}, q1:{}, q2:{}, q3:{}, pct12:{}, pct:{}}},".format(
                 js_str(r["state_usps"]),
                 js_str(r["network_type"].capitalize()),
-                js_num(round(r["prev_median_down_mbps"], 1)),
-                js_num(round(r["median_down_mbps"], 1)),
-                js_num(r["down_mbps_qoq_change_pct"]),
+                js_num(round(r["q1"], 1)),
+                js_num(round(r["q2"], 1)),
+                js_num(round(r["q3"], 1)),
+                js_num(r["pct12"]),
+                js_num(r["pct"]),
             )
         )
     lines.append("];")
